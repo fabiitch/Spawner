@@ -6,13 +6,13 @@
 ## Components
 - What u want
 
-
 ## Behavior
 - Interface or abstract class used by multiples component
 
 ## Systems
 
-
+## Prototype
+- Other way to create an entity with all component already attach
 
 
 

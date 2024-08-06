@@ -7,8 +7,10 @@ import com.github.fabiitch.spawner.listeners.BehaviorListener;
 import com.github.fabiitch.spawner.listeners.ComponentListener;
 import com.github.fabiitch.spawner.mappers.ObjectMapper;
 import com.github.fabiitch.spawner.utils.collections.Tab;
-
+import lombok.Getter;
+@Getter
 public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>> {
+
     private final Bits componentsMatch = new Bits();
     private final Array<ComponentMapper<T>> mappers = new Array<>();
 
@@ -70,10 +72,6 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
     public boolean hasBehavior(int entityId) {
         Tab<T> entityBehaviors = getBehaviors(entityId);
         return entityBehaviors != null && !entityBehaviors.isEmpty();
-    }
-
-    public Bits getComponentsMatch() {
-        return componentsMatch;
     }
 
     public boolean matchComponent(int componentIndex) {

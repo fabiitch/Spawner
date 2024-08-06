@@ -1,6 +1,7 @@
 package com.github.fabiitch.spawner.archetype;
 
 import com.badlogic.gdx.utils.Array;
+import com.github.fabiitch.spawner.WorldConfig;
 import com.github.fabiitch.spawner.archetype.criteria.QueryCriteria;
 import lombok.Getter;
 
@@ -45,6 +46,10 @@ public class ArchetypeBuilder {
                 data.allExclude(componentTypes);
                 break;
         }
+    }
+
+    public Archetype register(WorldConfig config) {
+        return config.registerArchetype(this);
     }
 
     @Getter
