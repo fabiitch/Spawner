@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.group.filters;
+package com.github.fabiitch.spawner.query.group.filters;
 
 public interface ComponentFilter<T> {
 

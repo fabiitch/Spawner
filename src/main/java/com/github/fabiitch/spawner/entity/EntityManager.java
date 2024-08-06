@@ -18,8 +18,6 @@ public class EntityManager {
     private final IntDeque recycledIds = new IntDeque();
     private final BitsPool bitsPool = new BitsPool();
 
-
-
     public int create() {
         int entityId;
         if (recycledIds.isEmpty()) {

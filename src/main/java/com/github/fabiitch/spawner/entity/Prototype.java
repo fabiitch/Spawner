@@ -8,10 +8,14 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Prototype is just a way to create an entity with all components
+ * You must create a new prototype for each entity
+ */
+@Getter
 public class Prototype implements Pool.Poolable {
-    @Getter
+
     private final Map<Class<?>, Object> componentsMap = new HashMap<>();
-    @Getter
     private final Bits flagBits = new Bits();
 
     public Prototype addComponent(Object object, Class<?> targetClass) {

@@ -168,6 +168,8 @@ public class World {
     public FlagMapper getFlagMapper(int mapperIndex) {
         return flagManager.getMapper(mapperIndex);
     }
+
+
     public SafeIntArray getEntities(){
         return entityManager.getEntities();
     }

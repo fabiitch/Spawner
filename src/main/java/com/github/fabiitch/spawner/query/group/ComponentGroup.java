@@ -1,7 +1,7 @@
-package com.github.fabiitch.spawner.group;
+package com.github.fabiitch.spawner.query.group;
 
 import com.badlogic.gdx.utils.Array;
-import com.github.fabiitch.spawner.group.filters.ComponentFilter;
+import com.github.fabiitch.spawner.query.group.filters.ComponentFilter;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 import lombok.Getter;
 
