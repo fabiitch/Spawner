@@ -1,16 +1,15 @@
 package com.github.fabiitch.spawner.listener;
 
-import com.github.fabiitch.spawner.entity.EntityReference;
-import com.github.fabiitch.spawner.listeners.EntityListener;
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.behaviors.AttackBehavior;
 import com.github.fabiitch.spawner.data.components.attack.KnifeComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
+import com.github.fabiitch.spawner.entity.EntityReference;
+import com.github.fabiitch.spawner.listeners.EntityListener;
 import lombok.Getter;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EntityListenerTest extends BaseTest {
 
@@ -78,22 +77,42 @@ public class EntityListenerTest extends BaseTest {
         world.getConfig().addEntityListener(entityId, listener);
 
         knifeMapper.addComponent(entityId, new KnifeComponent());
-        Assertions.assertTrue(listener.getLastBehaviorGet() instanceof AttackBehavior);
+        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorGet());
         assertEquals(KnifeComponent.class, listener.getLastBehaviorGet().getClass());
 
         swordMapper.addComponent(entityId, new SwordComponent(10));
         assertEquals(KnifeComponent.class, listener.getLastBehaviorGet().getClass()); //stay knife
 
         knifeMapper.removeComponent(entityId);
-        Assertions.assertNull(listener.getLastBehaviorLoose());
+        assertNull(listener.getLastBehaviorLoose());
 
         swordMapper.removeComponent(entityId);
-        Assertions.assertTrue(listener.getLastBehaviorLoose() instanceof AttackBehavior);
+        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorLoose());
         assertEquals(SwordComponent.class, listener.getLastBehaviorLoose().getClass());
 
         knifeMapper.removeComponent(entityId);
         assertEquals(SwordComponent.class, listener.getLastBehaviorLoose().getClass());
     }
+
+    @Test
+    public void behaviorAddRemoveTest() {
+        EntityListenerCount listener = new EntityListenerCount();
+        int entityId = world.createEntity();
+        world.getConfig().addEntityListener(entityId, listener);
+
+        knifeMapper.addComponent(entityId, new KnifeComponent());
+        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorAdd());
+        assertEquals(KnifeComponent.class, listener.getLastBehaviorGet().getClass());
+
+        swordMapper.addComponent(entityId, new SwordComponent(22));
+        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorAdd());
+        assertEquals(SwordComponent.class, listener.getLastBehaviorGet().getClass());
+
+        swordMapper.removeComponent(entityId);
+        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorRemove());
+        assertEquals(SwordComponent.class, listener.getLastBehaviorRemove().getClass());
+    }
+
 
     @Test
     public void flagAddRemoveTest() {
@@ -132,6 +151,7 @@ class EntityListenerCount implements EntityListener {
     int countEntityAdd, countEntityRemove, countEntityDestroy;
     Object lastComponentAdd, lastComponentRemove;
     Object lastBehaviorGet, lastBehaviorLoose;
+    Object lastBehaviorAdd, lastBehaviorRemove;
     int lastFlagAdd = -1;
     int lastFlagRemove = -1;
 
@@ -168,6 +188,16 @@ class EntityListenerCount implements EntityListener {
     @Override
     public void onComponentRemove(int componentIndex, Object component) {
         lastComponentRemove = component;
+    }
+
+    @Override
+    public void onBehaviorAdd(int indexBehavior, Object componentBehavior) {
+        lastBehaviorAdd = componentBehavior;
+    }
+
+    @Override
+    public void onBehaviorRemove(int indexBehavior, Object componentBehavior) {
+        lastBehaviorRemove = componentBehavior;
     }
 
     @Override

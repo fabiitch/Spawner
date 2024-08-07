@@ -3,19 +3,23 @@ package com.github.fabiitch.spawner.listeners;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.github.fabiitch.spawner.entity.EntityManager;
+import com.github.fabiitch.spawner.entity.mapper.EntityMapperManager;
 import com.github.fabiitch.spawner.family.FamilyManager;
 
-public class ListenerManager implements ComponentListener, BehaviorListener, FlagListener {
+public class ListenerManager implements ComponentListener<Object>, BehaviorListener<Object>, FlagListener {
     private final EntityManager entityManager;
     private final FamilyManager familyManager;
+    private final EntityMapperManager entityMapperManager;
 
     private final IntMap<Array<EntityListener>> entityListenersMap = new IntMap<>();
     private final Array<WorldListener> engineListeners = new Array<>();
 
     public ListenerManager(EntityManager entityManager,
-                           FamilyManager familyManager) {
+                           FamilyManager familyManager,
+                           EntityMapperManager entityMapperManager) {
         this.entityManager = entityManager;
         this.familyManager = familyManager;
+        this.entityMapperManager=entityMapperManager;
     }
 
     public void onEntityCreate(int entityId) {
@@ -98,6 +102,7 @@ public class ListenerManager implements ComponentListener, BehaviorListener, Fla
     public void onComponentAdd(int entityId, Object component, int componentIndex) {
         entityManager.onComponentAdd(entityId, componentIndex);
         familyManager.onComponentAdd(entityId, componentIndex);
+        entityMapperManager.onComponentAdd(entityId, componentIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -111,6 +116,7 @@ public class ListenerManager implements ComponentListener, BehaviorListener, Fla
     public void onComponentRemove(int entityId, Object component, int componentIndex) {
         entityManager.onComponentRemove(entityId, componentIndex);
         familyManager.onComponentRemove(entityId, componentIndex);
+        entityMapperManager.onComponentRemove(entityId, componentIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -124,6 +130,7 @@ public class ListenerManager implements ComponentListener, BehaviorListener, Fla
     public void onBehaviorGet(int entityId, Object componentBehavior, int behaviorIndex) {
         entityManager.onBehaviorGet(entityId, behaviorIndex);
         familyManager.onBehaviorGet(entityId, behaviorIndex);
+        entityMapperManager.onBehaviorGet(entityId, behaviorIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -137,6 +144,7 @@ public class ListenerManager implements ComponentListener, BehaviorListener, Fla
     public void onBehaviorLoose(int entityId, Object componentBehavior, int behaviorIndex) {
         entityManager.onBehaviorLoose(entityId, behaviorIndex);
         familyManager.onBehaviorLoose(entityId, behaviorIndex);
+        entityMapperManager.onBehaviorGet(entityId, behaviorIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -150,6 +158,7 @@ public class ListenerManager implements ComponentListener, BehaviorListener, Fla
     public void onFlagAdd(int entityId, int flagIndex) {
         entityManager.onFlagAdd(entityId, flagIndex);
         familyManager.onFlagAdd(entityId, flagIndex);
+        entityMapperManager.onFlagAdd(entityId, flagIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -163,6 +172,7 @@ public class ListenerManager implements ComponentListener, BehaviorListener, Fla
     public void onFlagRemove(int entityId, int flagIndex) {
         entityManager.onFlagRemove(entityId, flagIndex);
         familyManager.onFlagRemove(entityId, flagIndex);
+        entityMapperManager.onFlagRemove(entityId, flagIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {

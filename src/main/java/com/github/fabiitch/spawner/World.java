@@ -9,6 +9,8 @@ import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.entity.EntityManager;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
+import com.github.fabiitch.spawner.entity.mapper.EntityMapper;
+import com.github.fabiitch.spawner.entity.mapper.EntityMapperManager;
 import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.flag.FlagManager;
 import com.github.fabiitch.spawner.flag.FlagMapper;
@@ -33,14 +35,16 @@ public class World {
     private final ArchetypeManager archetypeManager;
     private final FamilyManager familyManager;
     private final ListenerManager listenerManager;
+    private final EntityMapperManager entityMapperManager;
 
     @Getter
     private boolean updating;
 
     public World() {
         entityManager = new EntityManager();
+        entityMapperManager = new EntityMapperManager();
         familyManager = new FamilyManager(entityManager);
-        listenerManager = new ListenerManager(entityManager, familyManager);
+        listenerManager = new ListenerManager(entityManager, familyManager, entityMapperManager);
         flagManager = new FlagManager(listenerManager);
         behaviorManager = new BehaviorManager(listenerManager);
         componentManager = new ComponentManager(listenerManager, behaviorManager);
@@ -48,7 +52,8 @@ public class World {
         archetypeManager = new ArchetypeManager(entityManager, componentManager, behaviorManager, flagManager);
         systemManager = new SystemManager(this, componentManager, behaviorManager);
 
-        this.config = new WorldConfig(componentManager, behaviorManager, flagManager, archetypeManager, familyManager, systemManager, listenerManager);
+
+        this.config = new WorldConfig(componentManager, behaviorManager, flagManager, archetypeManager, familyManager, systemManager, listenerManager, entityMapperManager);
     }
 
     public void update(float dt) {
@@ -168,7 +173,6 @@ public class World {
     public FlagMapper getFlagMapper(int mapperIndex) {
         return flagManager.getMapper(mapperIndex);
     }
-
 
     public SafeIntArray getEntities(){
         return entityManager.getEntities();

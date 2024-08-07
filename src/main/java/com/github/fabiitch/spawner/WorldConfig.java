@@ -7,6 +7,8 @@ import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentManager;
 import com.github.fabiitch.spawner.component.ComponentMapper;
+import com.github.fabiitch.spawner.entity.mapper.EntityMapper;
+import com.github.fabiitch.spawner.entity.mapper.EntityMapperManager;
 import com.github.fabiitch.spawner.family.Family;
 import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.flag.FlagManager;
@@ -28,6 +30,7 @@ public class WorldConfig {
     private final FamilyManager familyManager;
     private final SystemManager systemManager;
     private final ListenerManager listenerManager;
+    private final EntityMapperManager entityMapperManager;
 
 
     public ComponentMapper<?> registerComponent(Class<?> componentClass) {
@@ -81,6 +84,15 @@ public class WorldConfig {
         return family;
     }
 
+    public void registerEntityMapper(EntityMapper<?> entityMapper) {
+        entityMapperManager.addMapper(entityMapper);
+    }
+
+    public void registerEntityMappers(EntityMapper<?>... entityMappers) {
+        for (EntityMapper<?> entityMapper : entityMappers) {
+            registerEntityMapper(entityMapper);
+        }
+    }
 
     public WorldConfig addSystem(EcsSystem... systems) {
         for (EcsSystem system : systems)
