@@ -25,13 +25,16 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
 
     void addComponent(int entityId, T component, int componentIndex) {
         Tab<T> components = data.get(entityId);
+        boolean isGetBehavior = false;
         if (components == null) {
             components = new Tab<>(16);
             data.set(entityId, components);
-            notifyBehaviorGet(entityId, component);
+            isGetBehavior = true;
         }
         components.set(componentIndex, component);
 
+        if (isGetBehavior)
+            notifyBehaviorGet(entityId, component);
         notifyComponentAdd(entityId, component, componentIndex);
     }
 

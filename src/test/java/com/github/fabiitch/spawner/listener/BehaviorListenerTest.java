@@ -51,7 +51,7 @@ public class BehaviorListenerTest extends BaseTest {
             //add poison to A
             poisonAuraMapper.addComponent(entityA, new PoisonAuraComponent());
 
-            assertEquals(entityB, listener.getLastEntityIdGet());
+            assertEquals(entityA, listener.getLastEntityIdGet());
             assertEquals(PoisonAuraComponent.class, listener.getClassCauseBehaviorGet());
             assertEquals(4, listener.getComponentAddCount());
         }
@@ -180,7 +180,6 @@ public class BehaviorListenerTest extends BaseTest {
             lastEntityIdLoose = entityId;
             classCauseBehaviorLoose = behavior.getClass();
         }
-
 
         @Override
         public void onComponentAdd(int entityId, Object component, int componentIndex) {

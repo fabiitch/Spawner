@@ -109,3 +109,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }
+
+test {
+    useJUnitPlatform()
+}

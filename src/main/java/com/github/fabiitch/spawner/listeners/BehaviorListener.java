@@ -21,5 +21,4 @@ public interface BehaviorListener<T> extends ComponentListener<T> {
      */
     void onBehaviorLoose(int entityId, T componentBehavior, int behaviorIndex);
 
-
 }

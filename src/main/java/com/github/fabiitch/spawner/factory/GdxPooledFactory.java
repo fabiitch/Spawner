@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Pools;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class PooledFactory<T extends Pool.Poolable> implements Factory<T>{
+public class GdxPooledFactory<T> implements Factory<T>{
     private Class<T> factoryClass;
 
     @Override
