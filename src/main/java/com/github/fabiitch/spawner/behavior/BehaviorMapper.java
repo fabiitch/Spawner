@@ -4,8 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Bits;
 import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.listeners.BehaviorListener;
-import com.github.fabiitch.spawner.listeners.ComponentListener;
 import com.github.fabiitch.spawner.mappers.ObjectMapper;
+import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 import lombok.Getter;
 @Getter
@@ -18,9 +18,11 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
         super(index);
     }
 
-    public Tab<T> getBehaviors(int entityId) {
+    public SafeTab<T> getBehaviors(int entityId) {
         Tab<T> components = data.get(entityId);
-        return components; //TODO immutable
+        if(components == null)
+            return null;
+        return new SafeTab<>(components);//TODO immutable
     }
 
     void addComponent(int entityId, T component, int componentIndex) {
@@ -55,7 +57,7 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
         Tab<T> components = data.remove(entityId);
         if (components != null) {
             T lastRemoved = null;
-            for (int i = 0; i < components.totalLenght(); i++) {
+            for (int i = 0; i < components.totalLength(); i++) {
                 T component = components.get(i);
                 if (component != null) {
                     lastRemoved = component;
@@ -73,7 +75,7 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
     }
 
     public boolean hasBehavior(int entityId) {
-        Tab<T> entityBehaviors = getBehaviors(entityId);
+        SafeTab<T> entityBehaviors = getBehaviors(entityId);
         return entityBehaviors != null && !entityBehaviors.isEmpty();
     }
 
@@ -89,19 +91,19 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
 
 
     private void notifyComponentAdd(int entityId, T component, int componentIndex) {
-        for (ComponentListener internalListener : internalListeners)
-            internalListener.onComponentAdd(entityId, component, componentIndex);
+        for (BehaviorListener internalListener : internalListeners)
+            internalListener.onBehaviorComponentAdd(entityId, component, componentIndex);
 
-        for (ComponentListener<T> listener : listeners)
-            listener.onComponentAdd(entityId, component, componentIndex);
+        for (BehaviorListener<T> listener : listeners)
+            listener.onBehaviorComponentAdd(entityId, component, componentIndex);
     }
 
     private void notifyComponentRemove(int entityId, T component, int componentIndex) {
         for (BehaviorListener<T> internalListener : internalListeners)
-            internalListener.onComponentRemove(entityId, component, componentIndex);
+            internalListener.onBehaviorComponentRemove(entityId, component, componentIndex);
 
-        for (ComponentListener<T> listener : listeners)
-            listener.onComponentRemove(entityId, component, componentIndex);
+        for (BehaviorListener<T> listener : listeners)
+            listener.onBehaviorComponentRemove(entityId, component, componentIndex);
     }
 
     private void notifyBehaviorGet(int entityId, T component) {

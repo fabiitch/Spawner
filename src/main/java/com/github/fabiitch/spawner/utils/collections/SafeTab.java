@@ -6,13 +6,13 @@ public class SafeTab<T> implements Iterable<T> {
     private final Tab<T> tab;
     private final Tab.TabIterator<T> iterator;
 
-    public T get(int index) {
-        return tab.get(index);
-    }
-
     public SafeTab(Tab<T> tab) {
         this.tab = tab;
         iterator = new Tab.TabIterator<>(tab);
+    }
+
+    public T get(int index) {
+        return tab.get(index);
     }
 
     @Override
@@ -20,4 +20,19 @@ public class SafeTab<T> implements Iterable<T> {
         return iterator;
     }
 
+    public int size() {
+        return tab.size();
+    }
+
+    public boolean isEmpty() {
+        return tab == null || tab.isEmpty();
+    }
+
+    public T getFirst() {
+        return tab.getFirst();
+    }
+
+    public T getLast() {
+        return tab.getLast();
+    }
 }

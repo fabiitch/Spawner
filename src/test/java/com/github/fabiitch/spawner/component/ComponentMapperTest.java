@@ -29,7 +29,7 @@ public class ComponentMapperTest extends BaseTest {
         //erase
         swordMapper.addComponent(entityId, new SwordComponent(20));
         swordComponent = swordMapper.getComponent(entityId);
-        assertEquals(20, swordComponent.damage);
+        assertEquals(20, swordComponent.getDamage());
 
         //delete
         swordMapper.removeComponent(entityId);
@@ -76,8 +76,8 @@ public class ComponentMapperTest extends BaseTest {
         swordMapper.removeComponent(entityIdD);
 
         SafeTab<SwordComponent> all = swordMapper.getAll();
-        assertEquals(10, all.get(entityIdA).damage);
-        assertEquals(50, all.get(entityIdC).damage);
+        assertEquals(10, all.get(entityIdA).getDamage());
+        assertEquals(50, all.get(entityIdC).getDamage());
         assertNull(all.get(entityIdB));
         assertNull(all.get(entityIdD));
     }

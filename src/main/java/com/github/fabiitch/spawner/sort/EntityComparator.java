@@ -1,6 +1,7 @@
 package com.github.fabiitch.spawner.sort;
 
-public interface EntityComparator {
+import java.util.Comparator;
 
-    int compare();
+public interface EntityComparator extends Comparator<Integer> {
+
 }

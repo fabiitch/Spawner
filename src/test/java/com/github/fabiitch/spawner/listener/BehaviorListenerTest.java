@@ -1,14 +1,13 @@
 package com.github.fabiitch.spawner.listener;
 
-import com.github.fabiitch.spawner.entity.EntityReference;
-import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.listeners.BehaviorListener;
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.components.attack.KnifeComponent;
 import com.github.fabiitch.spawner.data.components.attack.PoisonAuraComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
+import com.github.fabiitch.spawner.entity.EntityReference;
+import com.github.fabiitch.spawner.entity.Prototype;
+import com.github.fabiitch.spawner.listeners.BehaviorListener;
 import lombok.Getter;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,7 +50,7 @@ public class BehaviorListenerTest extends BaseTest {
             //add poison to A
             poisonAuraMapper.addComponent(entityA, new PoisonAuraComponent());
 
-            assertEquals(entityA, listener.getLastEntityIdGet());
+            assertEquals(entityA, listener.getLastEntityIdComponentAdd());
             assertEquals(PoisonAuraComponent.class, listener.getClassCauseBehaviorGet());
             assertEquals(4, listener.getComponentAddCount());
         }
@@ -164,6 +163,7 @@ public class BehaviorListenerTest extends BaseTest {
     private static class BehaviorListenerCounter implements BehaviorListener {
 
         private int lastEntityIdGet = -1, lastEntityIdLoose = -1;
+        private int lastEntityIdComponentAdd = -1, lastEntityIdComponentRemove = -1;
         private Class<?> classCauseBehaviorGet, classCauseBehaviorLoose;
 
         private int componentAddCount, componentRemoveCount;
@@ -182,14 +182,16 @@ public class BehaviorListenerTest extends BaseTest {
         }
 
         @Override
-        public void onComponentAdd(int entityId, Object component, int componentIndex) {
+        public void onBehaviorComponentAdd(int entityId, Object component, int componentIndex) {
             componentAddCount++;
+            lastEntityIdComponentAdd = entityId;
             indexComponentAdd = componentIndex;
         }
 
         @Override
-        public void onComponentRemove(int entityId, Object component, int componentIndex) {
+        public void onBehaviorComponentRemove(int entityId, Object component, int componentIndex) {
             componentRemoveCount++;
+            lastEntityIdComponentRemove = entityId;
             indexComponentRemove = componentIndex;
         }
     }
