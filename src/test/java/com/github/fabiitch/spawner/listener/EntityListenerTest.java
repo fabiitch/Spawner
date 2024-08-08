@@ -5,7 +5,7 @@ import com.github.fabiitch.spawner.data.behaviors.AttackBehavior;
 import com.github.fabiitch.spawner.data.components.attack.KnifeComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.entity.EntityReference;
-import com.github.fabiitch.spawner.listeners.EntityListener;
+import com.github.fabiitch.spawner.listeners.entity.EntityListener;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
 

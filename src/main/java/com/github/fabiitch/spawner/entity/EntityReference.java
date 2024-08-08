@@ -5,6 +5,10 @@ import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Pool;
 import lombok.Getter;
 
+/**
+ * Permit to get an entity with all component attach
+ * Use it if you want to remove an entity and re add it after
+ */
 public class EntityReference implements EntityWrapper, Pool.Poolable {
     private int id = -1;
     private final IntMap<Object> components = new IntMap<>();

@@ -13,9 +13,9 @@ import com.github.fabiitch.spawner.family.Family;
 import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.flag.FlagManager;
 import com.github.fabiitch.spawner.flag.FlagMapper;
-import com.github.fabiitch.spawner.listeners.EntityListener;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
 import com.github.fabiitch.spawner.listeners.WorldListener;
+import com.github.fabiitch.spawner.listeners.entity.EntityListener;
 import com.github.fabiitch.spawner.systems.EcsSystem;
 import com.github.fabiitch.spawner.systems.EntitySystem;
 import com.github.fabiitch.spawner.systems.SystemManager;
@@ -96,15 +96,11 @@ public class WorldConfig {
 
     public WorldConfig addSystem(EcsSystem... systems) {
         for (EcsSystem system : systems)
-            systemManager.addSystem(system);
-        return this;
-    }
-
-    public WorldConfig addSystem(EntitySystem... systems) {
-        for (EntitySystem system : systems) {
-            familyManager.addFamily(system.getFamily());
-            systemManager.addSystem(system);
-        }
+            if (system instanceof EntitySystem) {
+                EntitySystem entitySystem = (EntitySystem) system;
+                familyManager.addFamily(entitySystem.getFamily());
+                systemManager.addSystem(system);
+            }
         return this;
     }
 
