@@ -9,6 +9,7 @@ import com.github.fabiitch.spawner.data.components.attack.KnifeComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.data.flags.DeathFlag;
 import com.github.fabiitch.spawner.data.flags.OutFlag;
+import com.github.fabiitch.spawner.entity.Prototype;
 import com.github.fabiitch.spawner.sort.EntityComparator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -80,6 +81,25 @@ public class FamilyTest extends BaseTest {
 
         Assertions.assertFalse(family.hasEntity(entityA));
         Assertions.assertFalse(family.hasEntity(entityB));
+    }
+
+    @Test
+    public void prototypeTest() {
+        ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().components(AllOf, SwordComponent.class, KnifeComponent.class);
+        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        Family family = new Family(archetype);
+        config.registerFamily(family);
+
+
+        Prototype prototypeA = new Prototype();
+        prototypeA.addComponent(new SwordComponent(10));
+        int entityA = world.createEntity(prototypeA);
+        Assertions.assertFalse(family.hasEntity(entityA));
+
+        Prototype prototypeB = new Prototype();
+        prototypeB.addComponent(new SwordComponent(10)).addComponent(new KnifeComponent());
+        int entityB = world.createEntity(prototypeB);
+        Assertions.assertTrue(family.hasEntity(entityB));
     }
 
     @Test

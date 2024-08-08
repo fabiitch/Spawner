@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.IntMap;
 import com.github.fabiitch.spawner.entity.EntityManager;
 import com.github.fabiitch.spawner.entity.mapper.EntityMapperManager;
 import com.github.fabiitch.spawner.family.FamilyManager;
+import com.github.fabiitch.spawner.listeners.entity.EntityListener;
 
 public class ListenerManager implements ComponentListener<Object>, BehaviorListener<Object>, FlagListener {
     private final EntityManager entityManager;

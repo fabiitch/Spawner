@@ -44,7 +44,7 @@ public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted,
         for (FlagFiller<W> filler : flagFillers.values()) {
             filler.fill(entityWrapper, entityId);
         }
-
+        entities.put(entityId, entityWrapper);
         return entityWrapper;
     }
 
@@ -104,7 +104,6 @@ public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted,
         for (W entityWrapper : entities.values()) {
             wrapperFactory.free(entityWrapper);
         }
-
     }
 
     public void updateComponent(int entityId, int indexComponent) {
