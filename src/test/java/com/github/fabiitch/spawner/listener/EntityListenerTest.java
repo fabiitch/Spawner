@@ -95,22 +95,26 @@ public class EntityListenerTest extends BaseTest {
     }
 
     @Test
-    public void behaviorAddRemoveTest() {
+    public void behaviorComponentAddRemoveTest() {
         EntityListenerCount listener = new EntityListenerCount();
         int entityId = world.createEntity();
         world.getConfig().addEntityListener(entityId, listener);
 
         knifeMapper.addComponent(entityId, new KnifeComponent());
-        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorAdd());
-        assertEquals(KnifeComponent.class, listener.getLastBehaviorGet().getClass());
+        assertInstanceOf(AttackBehavior.class, listener.getLastComponentAdd());
+        assertEquals(KnifeComponent.class, listener.getLastComponentAdd().getClass());
 
         swordMapper.addComponent(entityId, new SwordComponent(22));
-        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorAdd());
-        assertEquals(SwordComponent.class, listener.getLastBehaviorGet().getClass());
+        assertInstanceOf(AttackBehavior.class, listener.getLastComponentAdd());
+        assertEquals(SwordComponent.class, listener.getLastComponentAdd().getClass());
 
         swordMapper.removeComponent(entityId);
-        assertInstanceOf(AttackBehavior.class, listener.getLastBehaviorRemove());
-        assertEquals(SwordComponent.class, listener.getLastBehaviorRemove().getClass());
+        assertInstanceOf(AttackBehavior.class, listener.getLastComponentRemove());
+        assertEquals(SwordComponent.class, listener.getLastComponentRemove().getClass());
+
+        knifeMapper.removeComponent(entityId);
+        assertInstanceOf(AttackBehavior.class, listener.getLastComponentRemove());
+        assertEquals(KnifeComponent.class, listener.getLastComponentRemove().getClass());
     }
 
 
@@ -191,12 +195,12 @@ class EntityListenerCount implements EntityListener {
     }
 
     @Override
-    public void onBehaviorAdd(int indexBehavior, Object componentBehavior) {
+    public void onBehaviorComponentAdd(int indexBehavior, Object componentBehavior) {
         lastBehaviorAdd = componentBehavior;
     }
 
     @Override
-    public void onBehaviorRemove(int indexBehavior, Object componentBehavior) {
+    public void onBehaviorComponentRemove(int indexBehavior, Object componentBehavior) {
         lastBehaviorRemove = componentBehavior;
     }
 

@@ -127,6 +127,26 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     }
 
     @Override
+    public void onBehaviorComponentAdd(int entityId, Object component, int componentIndex) {
+        Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
+        if (entityListeners != null) {
+            for (EntityListener entityListener : entityListeners) {
+                entityListener.onBehaviorComponentAdd(componentIndex, component);
+            }
+        }
+    }
+
+    @Override
+    public void onBehaviorComponentRemove(int entityId, Object component, int componentIndex) {
+        Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
+        if (entityListeners != null) {
+            for (EntityListener entityListener : entityListeners) {
+                entityListener.onBehaviorComponentRemove(componentIndex, component);
+            }
+        }
+    }
+
+    @Override
     public void onBehaviorGet(int entityId, Object componentBehavior, int behaviorIndex) {
         entityManager.onBehaviorGet(entityId, behaviorIndex);
         familyManager.onBehaviorGet(entityId, behaviorIndex);

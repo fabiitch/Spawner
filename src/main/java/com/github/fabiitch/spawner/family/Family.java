@@ -6,6 +6,8 @@ import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.Archetype;
 import com.github.fabiitch.spawner.archetype.criteria.*;
 import com.github.fabiitch.spawner.listeners.FamilyListener;
+import com.github.fabiitch.spawner.sort.EntityComparator;
+import com.github.fabiitch.spawner.utils.collections.IntList;
 import lombok.Getter;
 
 public class Family implements EntityMatcher,
@@ -18,6 +20,7 @@ public class Family implements EntityMatcher,
 
     @Getter
     private final IntArray entities = new IntArray();
+
 
     public Family(Archetype archetype) {
         this.archetype = archetype;
@@ -101,5 +104,16 @@ public class Family implements EntityMatcher,
     @Override
     public boolean flagsMatch(Bits flagBits) {
         return archetype.flagsMatch(flagBits);
+    }
+
+    public void sort(EntityComparator comparator) {
+        final IntList internalList4Sort = new IntList();
+        internalList4Sort.setValues(entities.toArray());
+        internalList4Sort.sort(comparator);
+        System.arraycopy(internalList4Sort.getValues(), 0, entities.items, 0, entities.size);
+    }
+
+    public void sortByEntityId() {
+        entities.sort();
     }
 }

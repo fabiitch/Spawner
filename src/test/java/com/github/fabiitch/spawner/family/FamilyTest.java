@@ -1,13 +1,15 @@
 package com.github.fabiitch.spawner.family;
 
 import com.badlogic.gdx.utils.IntArray;
+import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.archetype.Archetype;
 import com.github.fabiitch.spawner.archetype.ArchetypeBuilder;
-import com.github.fabiitch.spawner.BaseTest;
+import com.github.fabiitch.spawner.data.behaviors.AttackBehavior;
 import com.github.fabiitch.spawner.data.components.attack.KnifeComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.data.flags.DeathFlag;
 import com.github.fabiitch.spawner.data.flags.OutFlag;
+import com.github.fabiitch.spawner.sort.EntityComparator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -78,5 +80,49 @@ public class FamilyTest extends BaseTest {
 
         Assertions.assertFalse(family.hasEntity(entityA));
         Assertions.assertFalse(family.hasEntity(entityB));
+    }
+
+    @Test
+    public void orderedTest() {
+        ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().behaviors(OneOf, AttackBehavior.class);
+        Archetype archetype = config.registerArchetype(archetypeBuilder);
+
+        Family family = new Family(archetype);
+        config.registerFamily(family);
+
+        int entityA = world.createEntity();
+        int entityB = world.createEntity();
+        int entityC = world.createEntity();
+        int entityD = world.createEntity();
+
+        EntityComparator comparator = (o1, o2) -> {
+            AttackBehavior attackEntity1 = attackBehaviorMapper.getBehaviors(o1).getFirst();
+            AttackBehavior attackEntity2 = attackBehaviorMapper.getBehaviors(o2).getFirst();
+            return Integer.compare(attackEntity1.attack(), attackEntity2.attack());
+        };
+
+        swordMapper.addComponent(entityA, new SwordComponent(10));
+        knifeMapper.addComponent(entityB, new KnifeComponent(1));
+        knifeMapper.addComponent(entityC, new KnifeComponent(2));
+        swordMapper.addComponent(entityD, new SwordComponent(30));
+
+        family.sort(comparator);
+        IntArray entities = family.getEntities();
+        Assertions.assertEquals(entityB, entities.get(0));  //  1
+        Assertions.assertEquals(entityC, entities.get(1));  //  2
+        Assertions.assertEquals(entityA, entities.get(2));  //  10
+        Assertions.assertEquals(entityD, entities.get(3));  //  30
+
+
+        swordMapper.getComponent(entityD).setDamage(0);
+        swordMapper.getComponent(entityA).setDamage(1000);
+
+
+        family.sort(comparator);
+        Assertions.assertEquals(entityD, entities.get(0));
+        Assertions.assertEquals(entityB, entities.get(1));
+        Assertions.assertEquals(entityC, entities.get(2));
+        Assertions.assertEquals(entityA, entities.get(3));
+
     }
 }

@@ -25,6 +25,7 @@ import com.github.fabiitch.spawner.entity.mapper.fillers.FlagFiller;
 import com.github.fabiitch.spawner.factory.Factory;
 import com.github.fabiitch.spawner.factory.GdxPooledFactory;
 import com.github.fabiitch.spawner.flag.FlagMapper;
+import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -128,7 +129,7 @@ public abstract class BaseTest {
 
         BehaviorFiller<Knight, AttackBehavior> attackFiller = new BehaviorFiller<Knight, AttackBehavior>(attackBehaviorMapper) {
             @Override
-            public void fill(Knight knight, Tab<AttackBehavior> behaviorTab) {
+            public void fill(Knight knight, SafeTab<AttackBehavior> behaviorTab) {
                 if (behaviorTab == null || behaviorTab.isEmpty())
                     knight.setAttackBehavior(null);
                 else

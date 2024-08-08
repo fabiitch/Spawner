@@ -21,7 +21,7 @@ public class BehaviorMapperTest extends BaseTest {
         int entityId = world.createEntity();
 
         //get
-        Tab<AttackBehavior> behaviors = attackBehaviorMapper.getBehaviors(entityId);
+        SafeTab<AttackBehavior> behaviors = attackBehaviorMapper.getBehaviors(entityId);
         assertNull(behaviors);
         assertFalse(attackBehaviorMapper.hasBehavior(entityId));
 

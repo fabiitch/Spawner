@@ -1,12 +1,20 @@
 package com.github.fabiitch.spawner.utils.collections;
 
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.reflect.ArrayReflection;
 
 import java.util.Iterator;
 
+/**
+ * Array who keep always value at index inserted
+ * Used by tab who place at index of entityId
+ * NON Thread safe object
+ *
+ * @param <T>
+ */
 public class Tab<T> implements Iterable<T> {
-    public T[] items;
-    public int notNullSize;
+    private T[] items;
+    private int notNullSize;
     private final TabIterator<T> iterator;
 
     public Tab() {
@@ -78,6 +86,32 @@ public class Tab<T> implements Iterable<T> {
         return newItems;
     }
 
+    public T getFirst() {
+        for (T item : items) {
+            if (item != null)
+                return item;
+        }
+        return null;
+    }
+
+    public T getLast() {
+        for (int i = items.length; i > 0; i--) {
+            if (items[i] != null)
+                return items[i];
+        }
+        return null;
+    }
+
+    public Array<T> toArray() {
+        Array<T> res = new Array<T>(this.size());
+        for (int i = 0; i < items.length; i++) {
+            T item = items[i];
+            if (item != null)
+                res.add(item);
+        }
+        return res;
+    }
+
     public boolean isEmpty() {
         return notNullSize == 0;
     }
@@ -86,7 +120,7 @@ public class Tab<T> implements Iterable<T> {
         return notNullSize;
     }
 
-    public int totalLenght() {
+    public int totalLength() {
         return items.length;
     }
 
@@ -106,7 +140,7 @@ public class Tab<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            boolean hasNext = index < tab.totalLenght() && notNullCount <= tab.notNullSize;
+            boolean hasNext = index < tab.totalLength() && notNullCount <= tab.notNullSize;
             if (!hasNext)
                 index = 0;
             return hasNext;
