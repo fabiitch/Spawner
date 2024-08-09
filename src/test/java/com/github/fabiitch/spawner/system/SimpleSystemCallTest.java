@@ -49,6 +49,10 @@ class BaseSystem extends BaseEcsSystem {
 
     public int callCount;
 
+    public BaseSystem() {
+        super(50);
+    }
+
     @Override
     public void update(float dt) {
         callCount++;

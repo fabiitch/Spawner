@@ -95,12 +95,13 @@ public class WorldConfig {
     }
 
     public WorldConfig addSystem(EcsSystem... systems) {
-        for (EcsSystem system : systems)
+        for (EcsSystem system : systems) {
             if (system instanceof EntitySystem) {
                 EntitySystem entitySystem = (EntitySystem) system;
                 familyManager.addFamily(entitySystem.getFamily());
-                systemManager.addSystem(system);
             }
+            systemManager.addSystem(system);
+        }
         return this;
     }
 
