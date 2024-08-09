@@ -1,5 +1,5 @@
 package com.github.fabiitch.spawner.query;
 
-public class WorldQueryTest
-{
+public enum Condition {
+    AND, OR, NOR, XOR
 }

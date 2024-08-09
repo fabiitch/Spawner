@@ -1,7 +1,9 @@
 package com.github.fabiitch.spawner;
 
 import com.badlogic.gdx.utils.Bits;
+import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.ArchetypeManager;
+import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
 import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentManager;
@@ -178,13 +180,15 @@ public class World {
         return entityManager.getEntities();
     }
 
-//    public void query(EntityMatcher criteria, IntArray res) {
-//        entityManager.queryByEntityMatcher(criteria, res);
-//    }
-//
-//    public Archetype query(ArchetypeBuilder archetypeBuilder, IntArray res) {
-//        Archetype archetype = archetypeManager.build(archetypeBuilder);
-//        entityManager.queryByComponentMatcher(archetype, res);
-//        return archetype;
-//    }
+    public IntArray getEntities(EntityMatcher entityMatcher, IntArray res) {
+        SafeIntArray worldEntities = getEntities();
+
+        for (int i = 0; i < worldEntities.size(); i++) {
+            int entityIds = worldEntities.get(i);
+            if (entityMatcher.accept(entityIds)) {
+                res.add(entityIds);
+            }
+        }
+        return res;
+    }
 }

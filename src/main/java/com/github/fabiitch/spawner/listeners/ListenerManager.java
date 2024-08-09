@@ -14,6 +14,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
 
     private final IntMap<Array<EntityListener>> entityListenersMap = new IntMap<>();
     private final Array<WorldListener> engineListeners = new Array<>();
+    private final Array<ComponentListener<?>> componentListeners = new Array<>();
 
     public ListenerManager(EntityManager entityManager,
                            FamilyManager familyManager,

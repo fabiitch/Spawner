@@ -84,7 +84,7 @@ public class SystemOrderLoopTest {
             Assertions.assertEquals(expected, systemMock.callCount);
     }
 
-    private class SystemMock implements EcsSystem {
+    private static class SystemMock implements EcsSystem {
         public String name;
         public int priority;
         public int callCount;

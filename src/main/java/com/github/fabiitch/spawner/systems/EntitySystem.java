@@ -47,7 +47,6 @@ public abstract class EntitySystem extends EngineSystem
         return family.getEntities();
     }
 
-
     @Override
     public boolean impactedByComponent(int indexComponent) {
         return family.impactedByComponent(indexComponent);
