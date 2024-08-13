@@ -11,6 +11,7 @@
 
 ## Flags
 - Component attach, but only boolean
+- U can create by class, String or enum (It register as String)
 
 ## Systems
  - EngineSystem
@@ -26,9 +27,13 @@
 - Composition of components, behavior, flag 
 
 ## EntityMapper - Entity Wrapper
-- Encapsulate your entity with your a class
+- Encapsulate your entity with your own class
 - You must define fillers to describe own fill your object class with components
 - see EntityMapperTest
+
+## Query 
+- Query world using EntityMatcher 
+- Archetype is an EntityMatcher, you can use ur own matcher
 
 ## World Initialization
 1)  config.registerBehavior()

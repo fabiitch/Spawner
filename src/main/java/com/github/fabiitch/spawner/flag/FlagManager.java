@@ -9,7 +9,7 @@ import com.github.fabiitch.spawner.listeners.ListenerManager;
 public class FlagManager {
     private final ListenerManager listenerManager;
     private int increment4Flags = -1;
-    private final ObjectIntMap<Class<?>> flagIndexMap = new ObjectIntMap<>();
+    private final ObjectIntMap<String> flagIndexMap = new ObjectIntMap<>();
     private final Array<FlagMapper> mappers = new Array<>(); //component index
 
     public FlagManager(ListenerManager listenerManager) {
@@ -17,21 +17,36 @@ public class FlagManager {
     }
 
     public FlagMapper getMapper(Class<?> flagClass) {
-        int flagIndex = flagIndexMap.get(flagClass, -1);
+        int flagIndex = flagIndexMap.get(flagClass.getSimpleName(), -1);
         return mappers.get(flagIndex);
     }
+
+    public FlagMapper getMapper(String flagName) {
+        int flagIndex = flagIndexMap.get(flagName, -1);
+        return mappers.get(flagIndex);
+    }
+
 
     public FlagMapper getMapper(int flagIndex) {
         return mappers.get(flagIndex);
     }
 
-    public boolean existMapper(Class<?> componentClass) {
-        int mapperIndex = flagIndexMap.get(componentClass, -1);
+    public boolean existMapper(Class<?> flagClass) {
+        int mapperIndex = flagIndexMap.get(flagClass.getSimpleName(), -1);
+        return mapperIndex != -1;
+    }
+
+    public boolean existMapper(String flagName) {
+        int mapperIndex = flagIndexMap.get(flagName, -1);
         return mapperIndex != -1;
     }
 
     public FlagMapper registerFlag(Class<?> flagClass) {
-        int present = flagIndexMap.get(flagClass, -1);
+        return registerFlag(flagClass.getSimpleName());
+    }
+
+    public FlagMapper registerFlag(String flagName) {
+        int present = flagIndexMap.get(flagName, -1);
         if (present >= 0)
             return mappers.get(present);
 
@@ -39,7 +54,7 @@ public class FlagManager {
 
         FlagMapper mapper = new FlagMapper(increment4Flags);
         mapper.addInternalListener(listenerManager);
-        flagIndexMap.put(flagClass, increment4Flags);
+        flagIndexMap.put(flagName, increment4Flags);
         mappers.add(mapper);
 
         return mapper;

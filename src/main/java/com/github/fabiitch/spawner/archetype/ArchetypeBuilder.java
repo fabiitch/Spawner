@@ -16,6 +16,11 @@ public class ArchetypeBuilder {
         return new ArchetypeBuilder();
     }
 
+    public ArchetypeBuilder hasComponent(Class<?> component){
+        add(components, QueryCriteria.AllOf, component);
+        return this;
+    }
+
     public ArchetypeBuilder components(QueryCriteria criteria, Class<?>... componentTypes) {
         add(components, criteria, componentTypes);
         return this;

@@ -52,7 +52,7 @@ public class World {
         componentManager = new ComponentManager(listenerManager, behaviorManager);
 
         archetypeManager = new ArchetypeManager(entityManager, componentManager, behaviorManager, flagManager);
-        systemManager = new SystemManager(this, componentManager, behaviorManager);
+        systemManager = new SystemManager(this);
 
 
         this.config = new WorldConfig(componentManager, behaviorManager, flagManager, archetypeManager, familyManager, systemManager, listenerManager, entityMapperManager);
@@ -172,6 +172,16 @@ public class World {
         return flagManager.getMapper(flagClass);
     }
 
+    public FlagMapper getFlagMapper(String flagName) {
+        return flagManager.getMapper(flagName);
+    }
+
+
+    public <E extends Enum> FlagMapper getFlagMapper(E enumValue) {
+        return flagManager.getMapper(enumValue.name());
+    }
+
+
     public FlagMapper getFlagMapper(int mapperIndex) {
         return flagManager.getMapper(mapperIndex);
     }
@@ -191,4 +201,5 @@ public class World {
         }
         return res;
     }
+
 }

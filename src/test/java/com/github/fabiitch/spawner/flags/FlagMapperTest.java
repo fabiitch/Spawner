@@ -1,8 +1,9 @@
 package com.github.fabiitch.spawner.flags;
 
 import com.badlogic.gdx.utils.IntArray;
-import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.BaseTest;
+import com.github.fabiitch.spawner.entity.EntityReference;
+import com.github.fabiitch.spawner.flag.FlagMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -74,5 +75,21 @@ public class FlagMapperTest extends BaseTest {
         Assertions.assertEquals(2, all.size);
         Assertions.assertEquals(entityIdB, all.get(0));
         Assertions.assertEquals(entityIdC, all.get(1));
+    }
+
+    public enum Flags {invincible, invisible,}
+
+    @Test
+    public void testFlagWithEnum() {
+        config.registerFlags(Flags.values());
+
+        int entityA = world.createEntity();
+
+        FlagMapper flagMapper = world.getFlagMapper(Flags.invincible);
+
+        Assertions.assertFalse(flagMapper.hasFlag(entityA));
+
+        flagMapper.setFlag(entityA);
+        Assertions.assertTrue(flagMapper.hasFlag(entityA));
     }
 }
