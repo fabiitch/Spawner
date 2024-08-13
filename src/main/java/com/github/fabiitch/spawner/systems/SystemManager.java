@@ -9,16 +9,12 @@ import java.util.Comparator;
 
 public class SystemManager {
     private final World world;
-    private final ComponentManager componentManager;
-    private final BehaviorManager behaviorManager;
 
     private final Array<EcsSystem> systems = new Array<>();
     private final SystemComparator systemComparator = new SystemComparator();
 
-    public SystemManager(World world, ComponentManager componentManager, BehaviorManager behaviorManager) {
+    public SystemManager(World world) {
         this.world = world;
-        this.componentManager = componentManager;
-        this.behaviorManager = behaviorManager;
     }
 
     public void addSystem(EcsSystem system) {

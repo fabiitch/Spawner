@@ -62,9 +62,26 @@ public class WorldConfig {
         return mapper;
     }
 
-    public void registerFlags(Class<?>... flagsClass) {
-        for (Class<?> flagClass : flagsClass) {
+    public void registerFlags(Class<?>... flagClasses) {
+        for (Class<?> flagClass : flagClasses) {
             registerFlag(flagClass);
+        }
+    }
+
+    public FlagMapper registerFlag(String flagName) {
+        FlagMapper mapper = flagManager.registerFlag(flagName);
+        return mapper;
+    }
+
+    public void registerFlags(String... flagsName) {
+        for (String flagName : flagsName) {
+            registerFlag(flagName);
+        }
+    }
+
+    public void registerFlags(Enum<?>... enumValues) {
+        for (Enum enumValue : enumValues) {
+            registerFlag(enumValue.name());
         }
     }
 

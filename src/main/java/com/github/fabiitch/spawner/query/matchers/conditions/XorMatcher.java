@@ -6,6 +6,14 @@ import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
  * Only One condition should be true
  */
 public class XorMatcher extends BaseMatcher {
+
+    public XorMatcher() {
+    }
+
+    public XorMatcher(EntityMatcher... matchers) {
+        super(matchers);
+    }
+
     @Override
     public boolean accept(int entityId) {
         int matcherTrue = 0;
