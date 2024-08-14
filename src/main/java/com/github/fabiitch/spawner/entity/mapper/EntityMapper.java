@@ -32,6 +32,17 @@ public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted,
         }
     }
 
+    public W reset(int entityId) {
+        free(entityId);
+        return newWrapper(entityId);
+    }
+
+    public void clear() {
+        for (W entityWrapper : entities.values()) {
+            wrapperFactory.free(entityWrapper);
+        }
+    }
+
     public W newWrapper(int entityId) {
         W entityWrapper = wrapperFactory.getNew();
         entityWrapper.setId(entityId);
@@ -70,17 +81,17 @@ public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted,
         return this;
     }
 
-    public EntityMapper remove(ComponentFiller<W, ?> filler) {
+    public EntityMapper removeFiller(ComponentFiller<W, ?> filler) {
         componentFillers.remove(filler.getMapper().getIndex());
         return this;
     }
 
-    public EntityMapper remove(BehaviorFiller<W, ?> filler) {
+    public EntityMapper removeFiller(BehaviorFiller<W, ?> filler) {
         behaviorFillers.remove(filler.getMapper().getIndex());
         return this;
     }
 
-    public EntityMapper remove(FlagFiller<W> filler) {
+    public EntityMapper removeFiller(FlagFiller<W> filler) {
         flagFillers.remove(filler.getMapper().getIndex());
         return this;
     }
@@ -100,11 +111,6 @@ public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted,
         return flagFillers.containsKey(flagIndex);
     }
 
-    protected void clear() {
-        for (W entityWrapper : entities.values()) {
-            wrapperFactory.free(entityWrapper);
-        }
-    }
 
     public void updateComponent(int entityId, int indexComponent) {
         W entityWrapper = entities.get(entityId);

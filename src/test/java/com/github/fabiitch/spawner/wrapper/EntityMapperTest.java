@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class EntityMapperTest extends BaseTest {
 
     @Test
-    public void simpleAddRemove() {
+    public void simpleAddRemoveFiller() {
         int entityId = world.createEntity();
 
         Knight knight = knightMapper.get(entityId);
