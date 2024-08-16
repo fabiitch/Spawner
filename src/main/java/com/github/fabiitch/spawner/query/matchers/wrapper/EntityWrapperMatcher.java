@@ -1,8 +1,8 @@
 package com.github.fabiitch.spawner.query.matchers.wrapper;
 
 import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
-import com.github.fabiitch.spawner.entity.EntityWrapper;
-import com.github.fabiitch.spawner.entity.mapper.EntityMapper;
+import com.github.fabiitch.spawner.wrapper.EntityWrapper;
+import com.github.fabiitch.spawner.wrapper.EntityMapper;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

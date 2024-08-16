@@ -12,8 +12,8 @@ import lombok.Getter;
 
 public class Family implements EntityMatcher,
         ComponentsMatcher, ComponentImpacted,
-        BehaviorMatcher, BehaviorImpacted,
-        FlagMatcher, FlagImpacted {
+        BehaviorsMatcher, BehaviorImpacted,
+        FlagsMatcher, FlagImpacted {
 
     private final Archetype archetype;
     private final Array<FamilyListener> listeners = new Array<>();

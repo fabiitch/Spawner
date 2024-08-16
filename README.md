@@ -8,6 +8,7 @@
 
 ## Behavior
 - Interface or abstract class extends by multiples component
+- Behavior listener is always called after component
 
 ## Flags
 - Component attach, but only boolean

@@ -7,8 +7,6 @@ import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentManager;
 import com.github.fabiitch.spawner.component.ComponentMapper;
-import com.github.fabiitch.spawner.entity.mapper.EntityMapper;
-import com.github.fabiitch.spawner.entity.mapper.EntityMapperManager;
 import com.github.fabiitch.spawner.family.Family;
 import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.flag.FlagManager;
@@ -16,9 +14,14 @@ import com.github.fabiitch.spawner.flag.FlagMapper;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
 import com.github.fabiitch.spawner.listeners.WorldListener;
 import com.github.fabiitch.spawner.listeners.entity.EntityListener;
+import com.github.fabiitch.spawner.signals.SignalData;
+import com.github.fabiitch.spawner.signals.SignalDataManager;
+import com.github.fabiitch.spawner.signals.SignalListener;
 import com.github.fabiitch.spawner.systems.EcsSystem;
 import com.github.fabiitch.spawner.systems.EntitySystem;
 import com.github.fabiitch.spawner.systems.SystemManager;
+import com.github.fabiitch.spawner.wrapper.EntityMapper;
+import com.github.fabiitch.spawner.wrapper.EntityWrapperManager;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -30,8 +33,8 @@ public class WorldConfig {
     private final FamilyManager familyManager;
     private final SystemManager systemManager;
     private final ListenerManager listenerManager;
-    private final EntityMapperManager entityMapperManager;
-
+    private final EntityWrapperManager entityWrapperManager;
+    private final SignalDataManager signalDataManager;
 
     public ComponentMapper<?> registerComponent(Class<?> componentClass) {
         ComponentMapper<?> componentMapper = componentManager.registerComponent(componentClass);
@@ -102,7 +105,7 @@ public class WorldConfig {
     }
 
     public void registerEntityMapper(EntityMapper<?> entityMapper) {
-        entityMapperManager.addMapper(entityMapper);
+        entityWrapperManager.addMapper(entityMapper);
     }
 
     public void registerEntityMappers(EntityMapper<?>... entityMappers) {
@@ -147,4 +150,11 @@ public class WorldConfig {
         listenerManager.removeEntityListener(entityId, entityListener);
     }
 
+    public <C extends SignalData> void addSignalListener(SignalListener<C> listener, ComponentMapper<C> mapper) {
+        signalDataManager.addListener(listener, mapper);
+    }
+
+    public <C extends SignalData> void addSignalListener(SignalListener<C> listener, BehaviorMapper<C> mapper) {
+        signalDataManager.addListener(listener, mapper);
+    }
 }

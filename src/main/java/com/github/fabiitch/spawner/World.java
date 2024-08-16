@@ -11,15 +11,17 @@ import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.entity.EntityManager;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.entity.mapper.EntityMapper;
-import com.github.fabiitch.spawner.entity.mapper.EntityMapperManager;
 import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.flag.FlagManager;
 import com.github.fabiitch.spawner.flag.FlagMapper;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
+import com.github.fabiitch.spawner.pools.SpawnerGdxPools;
+import com.github.fabiitch.spawner.pools.SpawnerPools;
+import com.github.fabiitch.spawner.signals.SignalDataManager;
 import com.github.fabiitch.spawner.systems.EcsSystem;
 import com.github.fabiitch.spawner.systems.SystemManager;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
+import com.github.fabiitch.spawner.wrapper.EntityWrapperManager;
 import lombok.Getter;
 
 import java.util.Map;
@@ -28,6 +30,8 @@ public class World {
 
     @Getter
     private final WorldConfig config;
+    @Getter
+    private final SpawnerPools pools;
 
     private final SystemManager systemManager;
     private final ComponentManager componentManager;
@@ -37,25 +41,33 @@ public class World {
     private final ArchetypeManager archetypeManager;
     private final FamilyManager familyManager;
     private final ListenerManager listenerManager;
-    private final EntityMapperManager entityMapperManager;
+    private final EntityWrapperManager entityWrapperManager;
+    private final SignalDataManager signalDataManager;
 
     @Getter
     private boolean updating;
 
     public World() {
+        this(new SpawnerGdxPools());
+    }
+
+    public World(SpawnerPools pools) {
+        this.pools = pools;
         entityManager = new EntityManager();
-        entityMapperManager = new EntityMapperManager();
+        entityWrapperManager = new EntityWrapperManager();
         familyManager = new FamilyManager(entityManager);
-        listenerManager = new ListenerManager(entityManager, familyManager, entityMapperManager);
+        listenerManager = new ListenerManager(entityManager, familyManager, entityWrapperManager);
         flagManager = new FlagManager(listenerManager);
         behaviorManager = new BehaviorManager(listenerManager);
         componentManager = new ComponentManager(listenerManager, behaviorManager);
+        signalDataManager = new SignalDataManager(componentManager, behaviorManager);
 
         archetypeManager = new ArchetypeManager(entityManager, componentManager, behaviorManager, flagManager);
         systemManager = new SystemManager(this);
 
-
-        this.config = new WorldConfig(componentManager, behaviorManager, flagManager, archetypeManager, familyManager, systemManager, listenerManager, entityMapperManager);
+        this.config = new WorldConfig(componentManager, behaviorManager, flagManager,
+                archetypeManager, familyManager, systemManager, listenerManager,
+                entityWrapperManager, signalDataManager);
     }
 
     public void update(float dt) {
@@ -124,7 +136,7 @@ public class World {
         Bits flagBits = entityManager.getFlagBits(entityId);
 
         EntityReference entityReference = new EntityReference(); // TODO pool
-        entityReference.setId(entityId);
+        entityReference.setEntityId(entityId);
         entityReference.setComponentBits(componentsBits);
         entityReference.setFlagBits(flagBits);
         entityReference.setBehaviorBits(behaviorBits);
@@ -140,7 +152,7 @@ public class World {
     }
 
     public boolean addEntity(EntityReference entityReference) {
-        int entityId = entityReference.getId();
+        int entityId = entityReference.getEntityId();
         boolean add = entityManager.add(entityReference);
         if (add) {
             componentManager.addEntity(entityReference);
@@ -186,7 +198,7 @@ public class World {
         return flagManager.getMapper(mapperIndex);
     }
 
-    public SafeIntArray getEntities(){
+    public SafeIntArray getEntities() {
         return entityManager.getEntities();
     }
 

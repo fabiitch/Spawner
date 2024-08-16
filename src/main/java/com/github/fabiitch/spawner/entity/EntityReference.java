@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.flag.FlagMapper;
-import com.github.fabiitch.spawner.utils.collections.SafeTab;
+import com.github.fabiitch.spawner.wrapper.EntityWrapper;
 import lombok.Getter;
 
 /**
@@ -27,12 +27,12 @@ public class EntityReference implements EntityWrapper, Pool.Poolable {
     private final Bits behaviorBits = new Bits();
 
     @Override
-    public int getId() {
+    public int getEntityId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setEntityId(int id) {
         this.id = id;
     }
 

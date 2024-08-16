@@ -65,7 +65,7 @@ public class ComponentManager {
     }
 
     public void removeEntity(EntityReference entityReference) {
-        int entityId = entityReference.getId();
+        int entityId = entityReference.getEntityId();
         Bits componentsBits = entityReference.getComponentBits();
 
         int nextSetBit = componentsBits.nextSetBit(0);
@@ -77,8 +77,8 @@ public class ComponentManager {
         }
     }
 
-    public void addEntity(EntityReference entityReference){
-        int entityId = entityReference.getId();
+    public void addEntity(EntityReference entityReference) {
+        int entityId = entityReference.getEntityId();
         for (IntMap.Entry<Object> componentEnty : entityReference.getComponents()) {
             ComponentMapper mapper = getMapper(componentEnty.key);
             mapper.addComponentSilent(entityId, componentEnty.value);

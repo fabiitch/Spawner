@@ -1,7 +1,7 @@
-package com.github.fabiitch.spawner.entity.mapper.fillers;
+package com.github.fabiitch.spawner.wrapper.fillers;
 
 import com.github.fabiitch.spawner.component.ComponentMapper;
-import com.github.fabiitch.spawner.entity.EntityWrapper;
+import com.github.fabiitch.spawner.wrapper.EntityWrapper;
 import com.github.fabiitch.spawner.listeners.ComponentListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
-public abstract class ComponentFiller<W extends EntityWrapper, C> implements ComponentListener<C>{
-
+public abstract class ComponentFiller<W extends EntityWrapper, C>{
 
      private ComponentMapper<C> mapper;
 
@@ -27,13 +26,4 @@ public abstract class ComponentFiller<W extends EntityWrapper, C> implements Com
 
      public abstract void fill(W entityWrappper, C component);
 
-     @Override
-     public void onComponentAdd(int entityId, C component, int componentIndex) {
-
-     }
-
-     @Override
-     public void onComponentRemove(int entityId, C component, int componentIndex) {
-
-     }
 }

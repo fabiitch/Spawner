@@ -15,6 +15,7 @@ public abstract class EntitySystem extends EngineSystem
         implements ComponentImpacted, BehaviorImpacted, FlagImpacted {
 
     private final Family family;
+
     @Getter
     @Setter
     private EntityComparator comparator;

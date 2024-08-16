@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.system;
+package com.github.fabiitch.spawner.system.entity;
 
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.BaseTest;

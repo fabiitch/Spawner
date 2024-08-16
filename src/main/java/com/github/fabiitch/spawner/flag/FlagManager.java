@@ -70,7 +70,7 @@ public class FlagManager {
     }
 
     public void addEntity(EntityReference entityReference) {
-        int entityId = entityReference.getId();
+        int entityId = entityReference.getEntityId();
         Bits flagBits = entityReference.getFlagBits();
 
         int nextSetBit = flagBits.nextSetBit(0);

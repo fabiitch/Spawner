@@ -3,25 +3,24 @@ package com.github.fabiitch.spawner.listeners;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.github.fabiitch.spawner.entity.EntityManager;
-import com.github.fabiitch.spawner.entity.mapper.EntityMapperManager;
+import com.github.fabiitch.spawner.wrapper.EntityWrapperManager;
 import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.listeners.entity.EntityListener;
 
 public class ListenerManager implements ComponentListener<Object>, BehaviorListener<Object>, FlagListener {
     private final EntityManager entityManager;
     private final FamilyManager familyManager;
-    private final EntityMapperManager entityMapperManager;
+    private final EntityWrapperManager entityWrapperManager;
 
     private final IntMap<Array<EntityListener>> entityListenersMap = new IntMap<>();
     private final Array<WorldListener> engineListeners = new Array<>();
-    private final Array<ComponentListener<?>> componentListeners = new Array<>();
 
     public ListenerManager(EntityManager entityManager,
                            FamilyManager familyManager,
-                           EntityMapperManager entityMapperManager) {
+                           EntityWrapperManager entityWrapperManager) {
         this.entityManager = entityManager;
         this.familyManager = familyManager;
-        this.entityMapperManager=entityMapperManager;
+        this.entityWrapperManager = entityWrapperManager;
     }
 
     public void onEntityCreate(int entityId) {
@@ -104,7 +103,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     public void onComponentAdd(int entityId, Object component, int componentIndex) {
         entityManager.onComponentAdd(entityId, componentIndex);
         familyManager.onComponentAdd(entityId, componentIndex);
-        entityMapperManager.onComponentAdd(entityId, componentIndex);
+        entityWrapperManager.onComponentAdd(entityId, componentIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -118,7 +117,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     public void onComponentRemove(int entityId, Object component, int componentIndex) {
         entityManager.onComponentRemove(entityId, componentIndex);
         familyManager.onComponentRemove(entityId, componentIndex);
-        entityMapperManager.onComponentRemove(entityId, componentIndex);
+        entityWrapperManager.onComponentRemove(entityId, componentIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -152,7 +151,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     public void onBehaviorGet(int entityId, Object componentBehavior, int behaviorIndex) {
         entityManager.onBehaviorGet(entityId, behaviorIndex);
         familyManager.onBehaviorGet(entityId, behaviorIndex);
-        entityMapperManager.onBehaviorGet(entityId, behaviorIndex);
+        entityWrapperManager.onBehaviorGet(entityId, behaviorIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -166,7 +165,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     public void onBehaviorLoose(int entityId, Object componentBehavior, int behaviorIndex) {
         entityManager.onBehaviorLoose(entityId, behaviorIndex);
         familyManager.onBehaviorLoose(entityId, behaviorIndex);
-        entityMapperManager.onBehaviorGet(entityId, behaviorIndex);
+        entityWrapperManager.onBehaviorLoose(entityId, behaviorIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -180,7 +179,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     public void onFlagAdd(int entityId, int flagIndex) {
         entityManager.onFlagAdd(entityId, flagIndex);
         familyManager.onFlagAdd(entityId, flagIndex);
-        entityMapperManager.onFlagAdd(entityId, flagIndex);
+        entityWrapperManager.onFlagAdd(entityId, flagIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -194,7 +193,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     public void onFlagRemove(int entityId, int flagIndex) {
         entityManager.onFlagRemove(entityId, flagIndex);
         familyManager.onFlagRemove(entityId, flagIndex);
-        entityMapperManager.onFlagRemove(entityId, flagIndex);
+        entityWrapperManager.onFlagRemove(entityId, flagIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
