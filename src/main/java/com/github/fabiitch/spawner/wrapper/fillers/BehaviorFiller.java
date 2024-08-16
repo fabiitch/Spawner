@@ -1,7 +1,7 @@
-package com.github.fabiitch.spawner.entity.mapper.fillers;
+package com.github.fabiitch.spawner.wrapper.fillers;
 
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
-import com.github.fabiitch.spawner.entity.EntityWrapper;
+import com.github.fabiitch.spawner.wrapper.EntityWrapper;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

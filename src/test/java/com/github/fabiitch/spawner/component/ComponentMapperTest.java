@@ -6,6 +6,7 @@ import com.github.fabiitch.spawner.data.components.move.FlyMoveComponent;
 import com.github.fabiitch.spawner.data.components.move.MoveComponent;
 import com.github.fabiitch.spawner.data.components.move.WalkMoveComponent;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -82,5 +83,8 @@ public class ComponentMapperTest extends BaseTest {
         assertNull(all.get(entityIdD));
     }
 
-
+    @Test
+    public void addOnNonExistingEntity() {
+        Assertions.assertThrows(Exception.class, () -> swordMapper.addComponent(999999, new SwordComponent(10)));
+    }
 }

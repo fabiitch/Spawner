@@ -9,21 +9,21 @@ import org.junit.jupiter.api.Test;
 public class EntityMapperTest extends BaseTest {
 
     @Test
-    public void simpleAddRemoveFiller() {
+    public void addRemoveComponent() {
         int entityId = world.createEntity();
 
         Knight knight = knightMapper.get(entityId);
-        Assertions.assertEquals(entityId, knight.getId());
+        Assertions.assertEquals(entityId, knight.getEntityId());
         Assertions.assertNull(knight.getAttackBehavior());
         Assertions.assertNull(knight.getSwordComponent());
         Assertions.assertNull(knight.getPosition());
 
 
-        swordMapper.addComponent(knight.getId(), new SwordComponent(10));
+        swordMapper.addComponent(knight.getEntityId(), new SwordComponent(10));
         Assertions.assertEquals(10, knight.getSwordComponent().attack());
         Assertions.assertEquals(10, knight.getAttackBehavior().attack());
 
-        swordMapper.removeComponent(knight.getId());
+        swordMapper.removeComponent(knight.getEntityId());
         Assertions.assertNull(knight.getAttackBehavior());
         Assertions.assertNull(knight.getSwordComponent());
 
@@ -31,10 +31,10 @@ public class EntityMapperTest extends BaseTest {
         //flag
         Assertions.assertFalse(knight.isDead());
 
-        deathFlagMapper.setFlag(knight.getId());
+        deathFlagMapper.setFlag(knight.getEntityId());
         Assertions.assertTrue(knight.isDead());
 
-        deathFlagMapper.removeFlag(knight.getId());
+        deathFlagMapper.removeFlag(knight.getEntityId());
         Assertions.assertFalse(knight.isDead());
     }
 }

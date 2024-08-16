@@ -1,8 +1,8 @@
-package com.github.fabiitch.spawner.entity.mapper;
+package com.github.fabiitch.spawner.wrapper;
 
 import com.badlogic.gdx.utils.Array;
 
-public class EntityMapperManager {
+public class EntityWrapperManager {
 
     private final Array<EntityMapper<?>> mappers = new Array<>();
 

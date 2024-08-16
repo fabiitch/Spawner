@@ -1,6 +1,5 @@
 package com.github.fabiitch.spawner.factory;
 
-import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import lombok.AllArgsConstructor;
 
@@ -16,5 +15,10 @@ public class GdxPooledFactory<T> implements Factory<T>{
     @Override
     public void free(T object) {
         Pools.free(object);
+    }
+
+    @Override
+    public Class<T> getFactoryClass() {
+        return factoryClass;
     }
 }

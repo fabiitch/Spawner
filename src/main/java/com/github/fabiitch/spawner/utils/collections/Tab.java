@@ -41,6 +41,11 @@ public class Tab<T> implements Iterable<T> {
         return items[index];
     }
 
+    public boolean has(int index) {
+        return get(index) != null;
+    }
+
+
     public void set(int index, T data) {
         if (data != null) {
             if (index >= items.length) {

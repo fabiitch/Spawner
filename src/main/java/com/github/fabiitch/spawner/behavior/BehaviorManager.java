@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.github.fabiitch.spawner.component.ComponentManager;
 import com.github.fabiitch.spawner.component.ComponentMapper;
+import com.github.fabiitch.spawner.listeners.BehaviorListener;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
 
 public class BehaviorManager {
@@ -62,6 +63,16 @@ public class BehaviorManager {
                 componentManager.addInternalListener(componentMapper.getIndex(), new BehaviorComponentListener(behaviorMapper));
             }
         }
+    }
+
+    public void addInternalListener(int indexBehavior, BehaviorListener listener) {
+        BehaviorMapper mapper = getMapper(indexBehavior);
+        mapper.addInternalListener(listener);
+    }
+
+    public void removeInternalListener(int indexBehavior, BehaviorListener listener) {
+        BehaviorMapper mapper = getMapper(indexBehavior);
+        mapper.removeInternalListener(listener);
     }
 
     public void destroyEntity(int entityId, Bits behaviorBits) {

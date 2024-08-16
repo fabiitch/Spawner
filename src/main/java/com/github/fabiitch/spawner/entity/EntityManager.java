@@ -62,7 +62,7 @@ public class EntityManager {
     }
 
     public boolean add(EntityReference entityReference) {
-        int entityId = entityReference.getId();
+        int entityId = entityReference.getEntityId();
         if (exist(entityId))
             return false;
 

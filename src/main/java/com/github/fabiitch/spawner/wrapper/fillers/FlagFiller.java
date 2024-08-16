@@ -1,6 +1,6 @@
-package com.github.fabiitch.spawner.entity.mapper.fillers;
+package com.github.fabiitch.spawner.wrapper.fillers;
 
-import com.github.fabiitch.spawner.entity.EntityWrapper;
+import com.github.fabiitch.spawner.wrapper.EntityWrapper;
 import com.github.fabiitch.spawner.flag.FlagMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

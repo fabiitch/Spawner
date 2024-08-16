@@ -1,20 +1,15 @@
-package com.github.fabiitch.spawner.entity.mapper;
+package com.github.fabiitch.spawner.wrapper;
 
 import com.badlogic.gdx.utils.IntMap;
 import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
 import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
 import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
-import com.github.fabiitch.spawner.entity.EntityWrapper;
-import com.github.fabiitch.spawner.entity.mapper.fillers.BehaviorFiller;
-import com.github.fabiitch.spawner.entity.mapper.fillers.ComponentFiller;
-import com.github.fabiitch.spawner.entity.mapper.fillers.FlagFiller;
+import com.github.fabiitch.spawner.wrapper.fillers.BehaviorFiller;
+import com.github.fabiitch.spawner.wrapper.fillers.ComponentFiller;
+import com.github.fabiitch.spawner.wrapper.fillers.FlagFiller;
 import com.github.fabiitch.spawner.factory.Factory;
 
-public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted, FlagImpacted, BehaviorImpacted {
-
-    private final IntMap<ComponentFiller<W, ?>> componentFillers = new IntMap<>();
-    private final IntMap<BehaviorFiller<W, ?>> behaviorFillers = new IntMap<>();
-    private final IntMap<FlagFiller<W>> flagFillers = new IntMap<>();
+public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W> implements ComponentImpacted, FlagImpacted, BehaviorImpacted {
 
     private final IntMap<W> entities = new IntMap<>();
     private final Factory<W> wrapperFactory;
@@ -45,14 +40,14 @@ public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted,
 
     public W newWrapper(int entityId) {
         W entityWrapper = wrapperFactory.getNew();
-        entityWrapper.setId(entityId);
-        for (ComponentFiller<W, ?> filler : componentFillers.values()) {
+        entityWrapper.setEntityId(entityId);
+        for (ComponentFiller<? super W, ?> filler : componentFillers.values()) {
             filler.fill(entityWrapper, entityId);
         }
-        for (BehaviorFiller<W, ?> filler : behaviorFillers.values()) {
+        for (BehaviorFiller<? super W, ?> filler : behaviorFillers.values()) {
             filler.fill(entityWrapper, entityId);
         }
-        for (FlagFiller<W> filler : flagFillers.values()) {
+        for (FlagFiller<? super W> filler : flagFillers.values()) {
             filler.fill(entityWrapper, entityId);
         }
         entities.put(entityId, entityWrapper);
@@ -65,36 +60,6 @@ public class EntityMapper<W extends EntityWrapper> implements ComponentImpacted,
             wrapperFactory.free(entityWrapper);
     }
 
-
-    public EntityMapper addFiller(ComponentFiller<W, ?> filler) {
-        componentFillers.put(filler.getMapper().getIndex(), filler);
-        return this;
-    }
-
-    public EntityMapper addFiller(BehaviorFiller<W, ?> filler) {
-        behaviorFillers.put(filler.getMapper().getIndex(), filler);
-        return this;
-    }
-
-    public EntityMapper addFiller(FlagFiller<W> filler) {
-        flagFillers.put(filler.getMapper().getIndex(), filler);
-        return this;
-    }
-
-    public EntityMapper removeFiller(ComponentFiller<W, ?> filler) {
-        componentFillers.remove(filler.getMapper().getIndex());
-        return this;
-    }
-
-    public EntityMapper removeFiller(BehaviorFiller<W, ?> filler) {
-        behaviorFillers.remove(filler.getMapper().getIndex());
-        return this;
-    }
-
-    public EntityMapper removeFiller(FlagFiller<W> filler) {
-        flagFillers.remove(filler.getMapper().getIndex());
-        return this;
-    }
 
     @Override
     public boolean impactedByBehavior(int behaviorIndex) {

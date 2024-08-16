@@ -10,9 +10,9 @@ public class Archetype implements EntityMatcher,
         ComponentImpacted,
         ComponentsMatcher,
         BehaviorImpacted,
-        BehaviorMatcher,
+        BehaviorsMatcher,
         FlagImpacted,
-        FlagMatcher {
+        FlagsMatcher {
 
     private final EntityManager entityManager;
 

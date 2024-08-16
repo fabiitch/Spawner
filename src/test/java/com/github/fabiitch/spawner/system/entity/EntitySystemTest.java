@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.system;
+package com.github.fabiitch.spawner.system.entity;
 
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.BaseTest;
@@ -6,7 +6,6 @@ import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.data.components.defense.ShieldComponent;
 import com.github.fabiitch.spawner.data.systems.SwordSystem;
 import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.sort.EntityComparator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,6 +1,7 @@
 package com.github.fabiitch.spawner.pools;
 
 import com.github.fabiitch.spawner.entity.EntityReference;
+import com.github.fabiitch.spawner.groups.components.EntityData;
 
 public interface SpawnerPools {
 
@@ -9,6 +10,9 @@ public interface SpawnerPools {
      void free(EntityReference entityReference);
 
 
+    <T> EntityData<T> getEntityComponent();
+
+    void free(EntityData entityData);
 //
 //    public <T> Tab<EntityComponent<T>> getEntityComponent(Tab<T> tab){
 //        EntityComponent obtain = Pools.obtain(EntityComponent.class);
