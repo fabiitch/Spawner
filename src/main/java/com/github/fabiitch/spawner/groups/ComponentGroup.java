@@ -1,5 +1,6 @@
 package com.github.fabiitch.spawner.groups;
 
+import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.groups.components.EntityData;
 import com.github.fabiitch.spawner.listeners.ComponentListener;
 import com.github.fabiitch.spawner.pools.SpawnerPools;
@@ -10,7 +11,7 @@ import com.github.fabiitch.spawner.utils.collections.Tab;
 import lombok.Setter;
 
 
-public class ComponentGroups<C extends SignalData> implements ComponentListener<C>, SignalListener<C> {
+public class ComponentGroup<C extends SignalData> implements ComponentListener<C>, SignalListener<C> {
 
     private final Tab<EntityData<C>> tab = new Tab<>();
 
@@ -18,9 +19,24 @@ public class ComponentGroups<C extends SignalData> implements ComponentListener<
     private SpawnerPools pools;
 
     private final ComponentMatcher<C> matcher;
+    private final ComponentMapper<C> mapper;
 
-    public ComponentGroups(ComponentMatcher<C> matcher) {
+    public ComponentGroup(ComponentMatcher<C> matcher, ComponentMapper<C> mapper) {
         this.matcher = matcher;
+        this.mapper = mapper;
+        mapper.addListener(this);
+    }
+
+    public void remove() {
+        mapper.removeListener(this);
+    }
+    public void init(){
+        for (C component : mapper.getAll()) {
+            if (matcher.accept(entityId, component)) {
+                add(entityId, component);
+            }
+        }
+
     }
 
     private void add(int entityId, C component) {

@@ -147,70 +147,72 @@ public class EntityListenerTest extends BaseTest {
         deathFlagMapper.removeFlag(entityId);
         assertEquals(outFlagMapper.getIndex(), listener.lastFlagRemove);
     }
+
+    @Getter
+    private static class EntityListenerCount implements EntityListener {
+
+        int countEntityAdd, countEntityRemove, countEntityDestroy;
+        Object lastComponentAdd, lastComponentRemove;
+        Object lastBehaviorGet, lastBehaviorLoose;
+        Object lastBehaviorAdd, lastBehaviorRemove;
+        int lastFlagAdd = -1;
+        int lastFlagRemove = -1;
+
+        @Override
+        public void onAdd() {
+            countEntityAdd++;
+        }
+
+        @Override
+        public void onRemove() {
+            countEntityRemove++;
+        }
+
+        @Override
+        public void onDestroy() {
+            countEntityDestroy++;
+        }
+
+        @Override
+        public void onFlagAdd(int flagIndex) {
+            lastFlagAdd = flagIndex;
+        }
+
+        @Override
+        public void onFlagRemove(int flagIndex) {
+            lastFlagRemove = flagIndex;
+        }
+
+        @Override
+        public void onComponentAdd(int componentIndex, Object component) {
+            lastComponentAdd = component;
+        }
+
+        @Override
+        public void onComponentRemove(int componentIndex, Object component) {
+            lastComponentRemove = component;
+        }
+
+        @Override
+        public void onBehaviorComponentAdd(int indexBehavior, Object componentBehavior) {
+            lastBehaviorAdd = componentBehavior;
+        }
+
+        @Override
+        public void onBehaviorComponentRemove(int indexBehavior, Object componentBehavior) {
+            lastBehaviorRemove = componentBehavior;
+        }
+
+        @Override
+        public void onBehaviorGet(int componentIndex, Object behavior) {
+            lastBehaviorGet = behavior;
+        }
+
+        @Override
+        public void onBehaviorLoose(int componentIndex, Object behavior) {
+            lastBehaviorLoose = behavior;
+        }
+    }
 }
 
-@Getter
-class EntityListenerCount implements EntityListener {
 
-    int countEntityAdd, countEntityRemove, countEntityDestroy;
-    Object lastComponentAdd, lastComponentRemove;
-    Object lastBehaviorGet, lastBehaviorLoose;
-    Object lastBehaviorAdd, lastBehaviorRemove;
-    int lastFlagAdd = -1;
-    int lastFlagRemove = -1;
-
-    @Override
-    public void onAdd() {
-        countEntityAdd++;
-    }
-
-    @Override
-    public void onRemove() {
-        countEntityRemove++;
-    }
-
-    @Override
-    public void onDestroy() {
-        countEntityDestroy++;
-    }
-
-    @Override
-    public void onFlagAdd(int flagIndex) {
-        lastFlagAdd = flagIndex;
-    }
-
-    @Override
-    public void onFlagRemove(int flagIndex) {
-        lastFlagRemove = flagIndex;
-    }
-
-    @Override
-    public void onComponentAdd(int componentIndex, Object component) {
-        lastComponentAdd = component;
-    }
-
-    @Override
-    public void onComponentRemove(int componentIndex, Object component) {
-        lastComponentRemove = component;
-    }
-
-    @Override
-    public void onBehaviorComponentAdd(int indexBehavior, Object componentBehavior) {
-        lastBehaviorAdd = componentBehavior;
-    }
-
-    @Override
-    public void onBehaviorComponentRemove(int indexBehavior, Object componentBehavior) {
-        lastBehaviorRemove = componentBehavior;
-    }
-
-    @Override
-    public void onBehaviorGet(int componentIndex, Object behavior) {
-        lastBehaviorGet = behavior;
-    }
-
-    @Override
-    public void onBehaviorLoose(int componentIndex, Object behavior) {
-        lastBehaviorLoose = behavior;
-    }
-}
