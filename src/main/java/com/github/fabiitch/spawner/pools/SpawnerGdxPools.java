@@ -3,6 +3,7 @@ package com.github.fabiitch.spawner.pools;
 import com.badlogic.gdx.utils.Pools;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.groups.components.EntityData;
+import com.github.fabiitch.spawner.utils.collections.SafeTab;
 
 public class SpawnerGdxPools implements SpawnerPools {
     @Override

@@ -10,7 +10,7 @@ import com.github.fabiitch.spawner.systems.EntitySystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class EntitySystemModificationDuringIterationTest extends BaseTest {
+public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
 
 
     @Test

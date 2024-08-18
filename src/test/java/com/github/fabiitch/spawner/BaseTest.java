@@ -21,6 +21,7 @@ import com.github.fabiitch.spawner.data.signals.AiPathFinderBehavior;
 import com.github.fabiitch.spawner.data.signals.FollowPathFinder;
 import com.github.fabiitch.spawner.data.signals.SimplePathFinder;
 import com.github.fabiitch.spawner.data.signals.StateMachineSignal;
+import com.github.fabiitch.spawner.data.transmuters.PositionTransmuter;
 import com.github.fabiitch.spawner.data.wrappers.Character;
 import com.github.fabiitch.spawner.data.wrappers.Knight;
 import com.github.fabiitch.spawner.factory.Factory;
@@ -59,6 +60,7 @@ public abstract class BaseTest {
     public static ComponentMapper<SimplePathFinder> simplePathFinderMapper;
     public static ComponentMapper<StateMachineSignal> stateMachineSignalMapper;
 
+    public static PositionTransmuter positionTransmuter;
     public static Archetype swordArchetype;
     public static Archetype attackArchetype;
     public static Archetype moveAttackArchetype;
@@ -178,5 +180,9 @@ public abstract class BaseTest {
 
         knightMapper.addFiller(swordFiller).addFiller(attackFiller);
         config.registerEntityMapper(knightMapper);
+
+
+
+        positionTransmuter = new PositionTransmuter();
     }
 }
