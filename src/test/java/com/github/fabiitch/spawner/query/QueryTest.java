@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class QueryTest extends BaseTest {
+
     @Test
     public void simpleCondition() {
-
 
         int entityA = world.createEntity();
         int entityB = world.createEntity();
@@ -20,7 +20,6 @@ public class QueryTest extends BaseTest {
         swordMapper.addComponent(entityB, new SwordComponent(30));
         swordMapper.addComponent(entityC, new SwordComponent(10));
         swordMapper.addComponent(entityD, new SwordComponent(25));
-
 
         ComponentMatcher<SwordComponent> swordMatcher = new ComponentMatcher<SwordComponent>(swordMapper) {
             @Override
@@ -34,6 +33,11 @@ public class QueryTest extends BaseTest {
         Assertions.assertTrue(entities.contains(entityB));
         Assertions.assertFalse(entities.contains(entityC));
         Assertions.assertTrue(entities.contains(entityD));
+
+        swordMapper.getComponent(entityA).setDamage(200);
+
+        entities = world.getEntities(swordMatcher, new IntArray());
+        Assertions.assertTrue(entities.contains(entityA));
     }
 
 }

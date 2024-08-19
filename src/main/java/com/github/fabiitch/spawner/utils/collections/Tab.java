@@ -1,6 +1,7 @@
 package com.github.fabiitch.spawner.utils.collections;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.reflect.ArrayReflection;
 
 import java.util.Iterator;
@@ -44,7 +45,6 @@ public class Tab<T> implements Iterable<T> {
     public boolean has(int index) {
         return get(index) != null;
     }
-
 
     public void set(int index, T data) {
         if (data != null) {
@@ -107,12 +107,21 @@ public class Tab<T> implements Iterable<T> {
         return null;
     }
 
-    public Array<T> toArray() {
-        Array<T> res = new Array<T>(this.size());
+    public Array<T> toArray(Array<T> res) {
+        res.setSize(this.size());
         for (int i = 0; i < items.length; i++) {
             T item = items[i];
             if (item != null)
                 res.add(item);
+        }
+        return res;
+    }
+
+    public IntArray getIndexes(IntArray res){
+        for (int i = 0; i < items.length; i++) {
+            T item = items[i];
+            if (item != null)
+                res.add(i);
         }
         return res;
     }
