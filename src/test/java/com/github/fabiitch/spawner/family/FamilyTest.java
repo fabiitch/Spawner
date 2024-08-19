@@ -41,7 +41,7 @@ public class FamilyTest extends BaseTest {
         swordMapper.removeComponent(entityC);
         Assertions.assertFalse(family.hasEntity(entityC));
 
-        IntArray entities = family.getEntities();
+        IntArray entities = family.getEntities(new IntArray());
         Assertions.assertTrue(entities.contains(entityA));
         Assertions.assertFalse(entities.contains(entityB));
         Assertions.assertFalse(entities.contains(entityC));
@@ -90,7 +90,6 @@ public class FamilyTest extends BaseTest {
         Family family = new Family(archetype);
         config.registerFamily(family);
 
-
         Prototype prototypeA = new Prototype();
         prototypeA.addComponent(new SwordComponent(10));
         int entityA = world.createEntity(prototypeA);
@@ -127,7 +126,7 @@ public class FamilyTest extends BaseTest {
         swordMapper.addComponent(entityD, new SwordComponent(30));
 
         family.sort(comparator);
-        IntArray entities = family.getEntities();
+        IntArray entities = family.getEntities(new IntArray());
         Assertions.assertEquals(entityB, entities.get(0));  //  1
         Assertions.assertEquals(entityC, entities.get(1));  //  2
         Assertions.assertEquals(entityA, entities.get(2));  //  10
@@ -139,6 +138,7 @@ public class FamilyTest extends BaseTest {
 
 
         family.sort(comparator);
+        entities = family.getEntities(new IntArray());
         Assertions.assertEquals(entityD, entities.get(0));
         Assertions.assertEquals(entityB, entities.get(1));
         Assertions.assertEquals(entityC, entities.get(2));

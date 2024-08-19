@@ -25,10 +25,10 @@ public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
         entity2 = world.createEntity(new Prototype().addComponent(new PositionComponent(0, 0)));
         entity3 = world.createEntity(new Prototype().addComponent(new PositionComponent(0, 0)));
 
-        Assertions.assertEquals(3, removePositionSystem.getEntities().size);
+        Assertions.assertEquals(3, removePositionSystem.getEntities().size());
 
         world.update(1);
-        Assertions.assertEquals(0, removePositionSystem.getEntities().size);
+        Assertions.assertEquals(0, removePositionSystem.getEntities().size());
     }
 
     @Test
@@ -41,13 +41,13 @@ public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
         for (int i = 0; i < 10; i++) {
             world.createEntity(new Prototype().addComponent(new PositionComponent()));
         }
-        Assertions.assertEquals(10, createPositionSystem.getEntities().size);
+        Assertions.assertEquals(10, createPositionSystem.getEntities().size());
 
         world.update(1);
-        Assertions.assertEquals(20, createPositionSystem.getEntities().size);
+        Assertions.assertEquals(20, createPositionSystem.getEntities().size());
 
         world.update(1);
-        Assertions.assertEquals(40, createPositionSystem.getEntities().size);
+        Assertions.assertEquals(40, createPositionSystem.getEntities().size());
     }
 
 

@@ -7,6 +7,7 @@ import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
 import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
 import com.github.fabiitch.spawner.family.Family;
 import com.github.fabiitch.spawner.sort.EntityComparator;
+import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,8 @@ public abstract class EntitySystem extends EngineSystem
     @Setter
     private EntityComparator comparator;
 
+    private final IntArray loopArray = new IntArray();
+
     public EntitySystem(Family family, int priority) {
         super(priority);
         this.family = family;
@@ -32,11 +35,11 @@ public abstract class EntitySystem extends EngineSystem
 
     @Override
     public void update(float dt) {
-        IntArray array = family.getEntities();
+        SafeIntArray array = family.getEntities();
         if (comparator != null)
             family.sort(comparator);
 
-        for (int i = 0; i < array.size; ++i) {
+        for (int i = 0, n = array.size(); i < n; ++i) {
             int entityId = array.get(i);
             processEntity(entityId, dt);
         }
@@ -44,7 +47,7 @@ public abstract class EntitySystem extends EngineSystem
 
     protected abstract void processEntity(int entityId, float dt);
 
-    public IntArray getEntities() {
+    public SafeIntArray getEntities() {
         return family.getEntities();
     }
 

@@ -9,7 +9,7 @@ import com.github.fabiitch.spawner.utils.collections.Tab;
 public abstract class ObjectMapper<T, L> extends BaseMapper<L> {
     protected final Tab<T> data = new Tab<>(16);
 
-    public ObjectMapper(int index, SpawnerPools pools) {
+    public ObjectMapper(int index) {
         super(index);
     }
 
@@ -21,7 +21,7 @@ public abstract class ObjectMapper<T, L> extends BaseMapper<L> {
         for (int i = 0; i < data.totalLength(); i++) {
             T unsafe = data.getUnsafe(i);
             if (unsafe != null)
-                res.add(new EntityData<>(i, unsafe));
+                res.add(new EntityData<>(i, unsafe)); //TODO pools
         }
         return res;
     }

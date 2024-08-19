@@ -60,7 +60,7 @@ public class BehaviorManager {
                 BehaviorMapper<T> behaviorMapper = getMapper(mapperIndex);
                 componentBehaviorMap.put(componentIndex, behaviorMapper.getIndex());
                 behaviorMapper.registerComponentMapper(componentMapper);
-                componentManager.addInternalListener(componentMapper.getIndex(), new BehaviorComponentListener(behaviorMapper));
+                componentManager.addInternalListener(componentMapper.getIndex(), new BehaviorComponentListener(componentMapper,behaviorMapper));
             }
         }
     }
