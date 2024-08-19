@@ -23,4 +23,8 @@ class BehaviorComponentListener<T> implements ComponentListener<T> {
     public void onComponentRemove(int entityId, T component, int componentIndex) {
         behaviorMapper.removeComponent(entityId, componentMapper.getIndex());
     }
+
+    @Override
+    public void onComponentUpdate(int entityId, T component, int componentIndex) {
+    }
 }

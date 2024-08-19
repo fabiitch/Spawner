@@ -159,6 +159,20 @@ public class BehaviorListenerTest extends BaseTest {
         assertEquals(knifeMapper.getIndex(), listener.getIndexComponentRemove());
     }
 
+
+    @Test
+    public void callOnUpdated() {
+        BehaviorListenerCounter listener = new BehaviorListenerCounter();
+        attackBehaviorMapper.addListener(listener);
+
+        int entityId = world.createEntity();
+        swordMapper.addComponent(entityId, new SwordComponent(1));
+
+        attackBehaviorMapper.updated(entityId, swordMapper.getComponent(entityId));
+        assertEquals(1, listener.getBehaviorUpdateCount());
+    }
+
+
     @Getter
     private static class BehaviorListenerCounter implements BehaviorListener {
 
@@ -168,6 +182,7 @@ public class BehaviorListenerTest extends BaseTest {
 
         private int componentAddCount, componentRemoveCount;
         private int indexComponentAdd, indexComponentRemove;
+        private int behaviorUpdateCount;
 
         @Override
         public void onBehaviorGet(int entityId, Object behavior, int behaviorIndex) {
@@ -193,6 +208,11 @@ public class BehaviorListenerTest extends BaseTest {
             componentRemoveCount++;
             lastEntityIdComponentRemove = entityId;
             indexComponentRemove = componentIndex;
+        }
+
+        @Override
+        public void onBehaviorUpdate(int entityId, Object component) {
+            behaviorUpdateCount++;
         }
     }
 }

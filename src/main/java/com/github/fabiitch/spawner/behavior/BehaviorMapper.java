@@ -70,6 +70,10 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
         }
     }
 
+    public void updated(int entityId, T behavior){
+        notifyBehaviorUpdate(entityId, behavior);
+    }
+
     void clearEntity(int entityId) {
         data.remove(entityId);
     }
@@ -96,6 +100,14 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
 
         for (BehaviorListener<T> listener : listeners)
             listener.onBehaviorComponentAdd(entityId, component, componentIndex);
+    }
+
+    private void notifyBehaviorUpdate(int entityId, T component) {
+        for (BehaviorListener<T> internalListener : internalListeners)
+            internalListener.onBehaviorUpdate(entityId, component);
+
+        for (BehaviorListener<T> listener : listeners)
+            listener.onBehaviorUpdate(entityId, component);
     }
 
     private void notifyComponentRemove(int entityId, T component, int componentIndex) {

@@ -1,10 +1,10 @@
 package com.github.fabiitch.spawner.listener;
 
+import com.github.fabiitch.spawner.BaseTest;
+import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
 import com.github.fabiitch.spawner.listeners.ComponentListener;
-import com.github.fabiitch.spawner.BaseTest;
-import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
 
@@ -22,18 +22,23 @@ public class ComponentListenerTest extends BaseTest {
 
         swordMapper.addComponent(entity1, new SwordComponent(10));
         assertEquals(1, swordListener.callAdd);
+        assertEquals(entity1, swordListener.entityId);
 
         swordMapper.addComponent(entity2, new SwordComponent(10));
         assertEquals(2, swordListener.callAdd);
+        assertEquals(entity2, swordListener.entityId);
 
         swordMapper.addComponent(entity1, new SwordComponent(10)); //add count even entity has already component
         assertEquals(3, swordListener.callAdd);
+        assertEquals(entity1, swordListener.entityId);
 
         swordMapper.removeComponent(entity1);
         assertEquals(1, swordListener.callRemove);
+        assertEquals(entity1, swordListener.entityId);
 
         swordMapper.removeComponent(entity2);
         assertEquals(2, swordListener.callRemove);
+        assertEquals(entity2, swordListener.entityId);
     }
 
     @Test
@@ -74,19 +79,47 @@ public class ComponentListenerTest extends BaseTest {
         assertEquals(1, listener.getCallAdd());
     }
 
+    @Test
+    public void callUpdatedTest() {
+        ComponentListenerCounter<SwordComponent> swordListener = new ComponentListenerCounter<>();
+        swordMapper.addListener(swordListener);
+
+        int entityA = world.createEntity();
+        swordMapper.addComponent(entityA, new SwordComponent(50));
+
+        swordMapper.updated(entityA);
+        assertEquals(1, swordListener.callUpdate);
+        assertEquals(entityA, swordListener.entityId);
+
+        //no component , so no updated
+        int entityB = world.createEntity();
+        swordMapper.updated(entityB);
+
+        assertEquals(1, swordListener.callUpdate);
+        assertEquals(entityA, swordListener.entityId);
+    }
 
     @Getter
     private static class ComponentListenerCounter<T> implements ComponentListener<T> {
-        private int callAdd, callRemove;
+        private int callAdd, callRemove, callUpdate;
+        private int entityId;
 
         @Override
         public void onComponentAdd(int entityId, T component, int componentIndex) {
+            this.entityId = entityId;
             callAdd++;
         }
 
         @Override
         public void onComponentRemove(int entityId, T component, int componentIndex) {
+            this.entityId = entityId;
             callRemove++;
+        }
+
+        @Override
+        public void onComponentUpdate(int entityId, T component, int componentIndex) {
+            this.entityId = entityId;
+            callUpdate++;
         }
     }
 }
