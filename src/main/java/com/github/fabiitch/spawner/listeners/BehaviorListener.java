@@ -17,6 +17,10 @@ public interface BehaviorListener<T> {
      */
     void onBehaviorComponentRemove(int entityId, T component, int componentIndex);
 
+
+
+    void onBehaviorUpdate(int entityId, T component);
+
     /**
      * Called when entity get the behavior (not for each component with behavior)
      * Not called when EntityReference is added in world

@@ -22,6 +22,12 @@ public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> {
         notifyAdd(entityId, component);
     }
 
+    public void updated(int entityId) {
+        T component = data.get(entityId);
+        if (component != null)
+            notifyUpdate(entityId, component);
+    }
+
     /**
      * dont call your listeners
      */
@@ -58,6 +64,14 @@ public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> {
 
         for (ComponentListener<T> listener : listeners)
             listener.onComponentRemove(entityId, component, index);
+    }
+
+    private void notifyUpdate(int entityId, T component) {
+        for (ComponentListener internalListener : internalListeners)
+            internalListener.onComponentUpdate(entityId, component, index);
+
+        for (ComponentListener<T> listener : listeners)
+            listener.onComponentUpdate(entityId, component, index);
     }
 
     void addInternalListener(ComponentListener listener) {

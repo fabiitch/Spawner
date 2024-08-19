@@ -14,9 +14,6 @@ import com.github.fabiitch.spawner.flag.FlagMapper;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
 import com.github.fabiitch.spawner.listeners.WorldListener;
 import com.github.fabiitch.spawner.listeners.entity.EntityListener;
-import com.github.fabiitch.spawner.signals.SignalData;
-import com.github.fabiitch.spawner.signals.SignalDataManager;
-import com.github.fabiitch.spawner.signals.SignalListener;
 import com.github.fabiitch.spawner.systems.EcsSystem;
 import com.github.fabiitch.spawner.systems.EntitySystem;
 import com.github.fabiitch.spawner.systems.SystemManager;
@@ -34,7 +31,6 @@ public class WorldConfig {
     private final SystemManager systemManager;
     private final ListenerManager listenerManager;
     private final EntityWrapperManager entityWrapperManager;
-    private final SignalDataManager signalDataManager;
 
     public ComponentMapper<?> registerComponent(Class<?> componentClass) {
         ComponentMapper<?> componentMapper = componentManager.registerComponent(componentClass);
@@ -150,11 +146,4 @@ public class WorldConfig {
         listenerManager.removeEntityListener(entityId, entityListener);
     }
 
-    public <C extends SignalData> void addSignalListener(SignalListener<C> listener, ComponentMapper<C> mapper) {
-        signalDataManager.addListener(listener, mapper);
-    }
-
-    public <C extends SignalData> void addSignalListener(SignalListener<C> listener, BehaviorMapper<C> mapper) {
-        signalDataManager.addListener(listener, mapper);
-    }
 }

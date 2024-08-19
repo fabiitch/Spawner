@@ -16,4 +16,7 @@ public interface ComponentListener<T> {
      * @param component
      */
     void onComponentRemove(int entityId, T component, int componentIndex);
+
+
+    void onComponentUpdate(int entityId, T component, int componentIndex);
 }

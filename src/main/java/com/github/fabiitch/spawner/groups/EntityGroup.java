@@ -3,7 +3,7 @@ package com.github.fabiitch.spawner.groups;
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
 
-public class EntityGroups implements EntityMatcher {
+public class EntityGroup implements EntityMatcher {
 
     private IntArray entities;
 

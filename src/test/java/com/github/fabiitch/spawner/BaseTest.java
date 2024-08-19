@@ -17,11 +17,6 @@ import com.github.fabiitch.spawner.data.components.defense.ShieldComponent;
 import com.github.fabiitch.spawner.data.components.move.MoveComponent;
 import com.github.fabiitch.spawner.data.flags.DeathFlag;
 import com.github.fabiitch.spawner.data.flags.OutFlag;
-import com.github.fabiitch.spawner.data.signals.AiPathFinderBehavior;
-import com.github.fabiitch.spawner.data.signals.FollowPathFinder;
-import com.github.fabiitch.spawner.data.signals.SimplePathFinder;
-import com.github.fabiitch.spawner.data.signals.StateMachineSignal;
-import com.github.fabiitch.spawner.data.transmuters.PositionTransmuter;
 import com.github.fabiitch.spawner.data.wrappers.Character;
 import com.github.fabiitch.spawner.data.wrappers.Knight;
 import com.github.fabiitch.spawner.factory.Factory;
@@ -40,7 +35,6 @@ public abstract class BaseTest {
     public World world;
     public WorldConfig config;
 
-    public static BehaviorMapper<AiPathFinderBehavior> pathFinderMapper;
     public static BehaviorMapper<AttackBehavior> attackBehaviorMapper;
     public static BehaviorMapper<DefenseBehavior> defenseBehaviorMapper;
 
@@ -56,11 +50,6 @@ public abstract class BaseTest {
     public static ComponentMapper<PositionComponent> positionMapper;
     public static ComponentMapper<VelocityComponent> velocityMapper;
 
-    public static ComponentMapper<FollowPathFinder> followPathFinderMapper;
-    public static ComponentMapper<SimplePathFinder> simplePathFinderMapper;
-    public static ComponentMapper<StateMachineSignal> stateMachineSignalMapper;
-
-    public static PositionTransmuter positionTransmuter;
     public static Archetype swordArchetype;
     public static Archetype attackArchetype;
     public static Archetype moveAttackArchetype;
@@ -88,14 +77,10 @@ public abstract class BaseTest {
 
         config.registerFlags(DeathFlag.class, OutFlag.class);
 
-        config.registerBehavior(AiPathFinderBehavior.class);
-        config.registerComponents(SimplePathFinder.class, FollowPathFinder.class);
-        config.registerComponents(StateMachineSignal.class);
 
         //mappers
         attackBehaviorMapper = world.getBehaviorMapper(AttackBehavior.class);
         defenseBehaviorMapper = world.getBehaviorMapper(DefenseBehavior.class);
-        pathFinderMapper = world.getBehaviorMapper(AiPathFinderBehavior.class);
 
         swordMapper = world.getComponentMapper(SwordComponent.class);
         knifeMapper = world.getComponentMapper(KnifeComponent.class);
@@ -108,9 +93,6 @@ public abstract class BaseTest {
         positionMapper = world.getComponentMapper(PositionComponent.class);
         velocityMapper = world.getComponentMapper(VelocityComponent.class);
 
-        simplePathFinderMapper = world.getComponentMapper(SimplePathFinder.class);
-        followPathFinderMapper = world.getComponentMapper(FollowPathFinder.class);
-        stateMachineSignalMapper = world.getComponentMapper(StateMachineSignal.class);
 
         deathFlagMapper = world.getFlagMapper(DeathFlag.class);
         outFlagMapper = world.getFlagMapper(OutFlag.class);
@@ -182,7 +164,5 @@ public abstract class BaseTest {
         config.registerEntityMapper(knightMapper);
 
 
-
-        positionTransmuter = new PositionTransmuter();
     }
 }

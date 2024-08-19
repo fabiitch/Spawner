@@ -128,6 +128,11 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     }
 
     @Override
+    public void onComponentUpdate(int entityId, Object component, int componentIndex) {
+
+    }
+
+    @Override
     public void onBehaviorComponentAdd(int entityId, Object component, int componentIndex) {
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -145,6 +150,11 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
                 entityListener.onBehaviorComponentRemove(componentIndex, component);
             }
         }
+    }
+
+    @Override
+    public void onBehaviorUpdate(int entityId, Object component) {
+
     }
 
     @Override

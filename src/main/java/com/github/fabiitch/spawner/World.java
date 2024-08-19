@@ -17,7 +17,6 @@ import com.github.fabiitch.spawner.flag.FlagMapper;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
 import com.github.fabiitch.spawner.pools.SpawnerGdxPools;
 import com.github.fabiitch.spawner.pools.SpawnerPools;
-import com.github.fabiitch.spawner.signals.SignalDataManager;
 import com.github.fabiitch.spawner.systems.EcsSystem;
 import com.github.fabiitch.spawner.systems.SystemManager;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
@@ -42,7 +41,6 @@ public class World {
     private final FamilyManager familyManager;
     private final ListenerManager listenerManager;
     private final EntityWrapperManager entityWrapperManager;
-    private final SignalDataManager signalDataManager;
 
     @Getter
     private boolean updating;
@@ -60,14 +58,13 @@ public class World {
         flagManager = new FlagManager(listenerManager);
         behaviorManager = new BehaviorManager(listenerManager);
         componentManager = new ComponentManager(listenerManager, behaviorManager);
-        signalDataManager = new SignalDataManager(componentManager, behaviorManager);
 
         archetypeManager = new ArchetypeManager(entityManager, componentManager, behaviorManager, flagManager);
         systemManager = new SystemManager(this);
 
         this.config = new WorldConfig(componentManager, behaviorManager, flagManager,
                 archetypeManager, familyManager, systemManager, listenerManager,
-                entityWrapperManager, signalDataManager);
+                entityWrapperManager);
     }
 
     public void update(float dt) {
