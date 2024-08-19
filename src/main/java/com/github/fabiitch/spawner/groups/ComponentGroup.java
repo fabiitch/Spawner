@@ -1,5 +1,6 @@
 package com.github.fabiitch.spawner.groups;
 
+import com.badlogic.gdx.utils.Array;
 import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.groups.components.EntityData;
 import com.github.fabiitch.spawner.listeners.ComponentListener;
@@ -12,7 +13,6 @@ import lombok.Setter;
 
 
 public class ComponentGroup<C extends SignalData> implements ComponentListener<C>, SignalListener<C> {
-
     private final Tab<EntityData<C>> tab = new Tab<>();
 
     @Setter
@@ -30,17 +30,18 @@ public class ComponentGroup<C extends SignalData> implements ComponentListener<C
     public void remove() {
         mapper.removeListener(this);
     }
-    public void init(){
-        for (C component : mapper.getAll()) {
-            if (matcher.accept(entityId, component)) {
-                add(entityId, component);
+
+    public void init() {
+        Array<EntityData<C>> array = mapper.getAll(pools.getArray());//TODO pools
+        for (EntityData<C> entityData : array) {
+            if (matcher.accept(entityData.getEntityId(), entityData.getComponent())) {
+                add(entityData.getEntityId(), entityData.getComponent());
             }
         }
-
     }
 
     private void add(int entityId, C component) {
-        EntityData<C> entityData = pools.getEntityComponent();
+        EntityData<C> entityData = pools.getEntityComponent(); //TODO pools
         entityData.set(entityId, component);
         tab.set(entityId, entityData);
     }

@@ -1,12 +1,12 @@
 package com.github.fabiitch.spawner.behavior;
 
-import com.github.fabiitch.spawner.entity.Prototype;
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.behaviors.AttackBehavior;
 import com.github.fabiitch.spawner.data.components.PositionComponent;
 import com.github.fabiitch.spawner.data.components.attack.KnifeComponent;
 import com.github.fabiitch.spawner.data.components.attack.PoisonAuraComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
+import com.github.fabiitch.spawner.entity.Prototype;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 import org.junit.jupiter.api.Assertions;
@@ -98,4 +98,19 @@ public class BehaviorMapperTest extends BaseTest {
         Assertions.assertNull(all.get(entityIdB));
         assertEquals(0, all.get(entityIdD).size());
     }
+
+    @Test
+    public void removeTest() {
+        int entityIdA = world.createEntity();
+        swordMapper.addComponent(entityIdA, new SwordComponent(10));
+        knifeMapper.addComponent(entityIdA, new KnifeComponent());
+
+        Assertions.assertTrue(attackBehaviorMapper.hasBehavior(entityIdA));
+
+        attackBehaviorMapper.removeBehavior(entityIdA);
+        Assertions.assertFalse(attackBehaviorMapper.hasBehavior(entityIdA));
+        Assertions.assertFalse(swordMapper.hasComponent(entityIdA));
+        Assertions.assertFalse(knifeMapper.hasComponent(entityIdA));
+    }
+
 }

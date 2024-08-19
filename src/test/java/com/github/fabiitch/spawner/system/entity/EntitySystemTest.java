@@ -6,6 +6,7 @@ import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.data.components.defense.ShieldComponent;
 import com.github.fabiitch.spawner.data.systems.SwordSystem;
 import com.github.fabiitch.spawner.entity.Prototype;
+import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +23,7 @@ public class EntitySystemTest extends BaseTest {
             world.update(2);
             assertEquals(1, swordSystem.callCount);
             assertEquals(0, swordSystem.entityCallCount);
-            assertEquals(0, swordSystem.getEntities().size);
+            assertEquals(0, swordSystem.getEntities().size());
         }
 
         {
@@ -34,7 +35,7 @@ public class EntitySystemTest extends BaseTest {
             world.update(2);
             assertEquals(2, swordSystem.callCount);
             assertEquals(1, swordSystem.entityCallCount);
-            assertEquals(1, swordSystem.getEntities().size);
+            assertEquals(1, swordSystem.getEntities().size());
             arrayContains(swordSystem.getEntities(), entity1);
         }
         {
@@ -47,7 +48,7 @@ public class EntitySystemTest extends BaseTest {
 
             assertEquals(3, swordSystem.callCount);
             assertEquals(3, swordSystem.entityCallCount);
-            assertEquals(2, swordSystem.getEntities().size);
+            assertEquals(2, swordSystem.getEntities().size());
             arrayContains(swordSystem.getEntities(), entity1, entity2);
         }
         {
@@ -59,7 +60,7 @@ public class EntitySystemTest extends BaseTest {
 
             assertEquals(4, swordSystem.callCount);
             assertEquals(5, swordSystem.entityCallCount);
-            assertEquals(2, swordSystem.getEntities().size);
+            assertEquals(2, swordSystem.getEntities().size());
             arrayContains(swordSystem.getEntities(), entity1, entity2);
             arrayNotContains(swordSystem.getEntities(), entity3);
         }
@@ -69,7 +70,7 @@ public class EntitySystemTest extends BaseTest {
             world.update(2);
             assertEquals(5, swordSystem.callCount);
             assertEquals(6, swordSystem.entityCallCount);
-            assertEquals(1, swordSystem.getEntities().size);
+            assertEquals(1, swordSystem.getEntities().size());
             arrayContains(swordSystem.getEntities(), entity1);
             arrayNotContains(swordSystem.getEntities(), entity2, entity3);
         }
@@ -80,19 +81,19 @@ public class EntitySystemTest extends BaseTest {
             world.update(2);
             assertEquals(6, swordSystem.callCount);
             assertEquals(6, swordSystem.entityCallCount);
-            assertEquals(0, swordSystem.getEntities().size);
+            assertEquals(0, swordSystem.getEntities().size());
             arrayNotContains(swordSystem.getEntities(), entity1, entity2, entity3);
         }
     }
 
 
-    private void arrayContains(IntArray intArray, int... values) {
+    private void arrayContains(SafeIntArray intArray, int... values) {
         for (int value : values) {
             assertTrue(intArray.contains(value));
         }
     }
 
-    private void arrayNotContains(IntArray intArray, int... values) {
+    private void arrayNotContains(SafeIntArray intArray, int... values) {
         for (int value : values) {
             assertFalse(intArray.contains(value));
         }

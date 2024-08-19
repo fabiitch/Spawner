@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.transumter;
+package com.github.fabiitch.spawner.transmuter;
 
 public enum Transmutation {
 

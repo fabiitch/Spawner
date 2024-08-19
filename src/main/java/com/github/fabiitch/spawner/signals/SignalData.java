@@ -2,8 +2,8 @@ package com.github.fabiitch.spawner.signals;
 
 public abstract class SignalData {
 
-    int entityId;
-    SignalListener<SignalData> listener;
+    private int entityId;
+    private SignalListener<SignalData> listener;
 
     public void updated() {
         listener.onUpdate(entityId, this);

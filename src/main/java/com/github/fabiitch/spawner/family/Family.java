@@ -8,7 +8,7 @@ import com.github.fabiitch.spawner.archetype.criteria.*;
 import com.github.fabiitch.spawner.listeners.FamilyListener;
 import com.github.fabiitch.spawner.sort.EntityComparator;
 import com.github.fabiitch.spawner.utils.collections.IntList;
-import lombok.Getter;
+import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 
 public class Family implements EntityMatcher,
         ComponentsMatcher, ComponentImpacted,
@@ -18,12 +18,21 @@ public class Family implements EntityMatcher,
     private final Archetype archetype;
     private final Array<FamilyListener> listeners = new Array<>();
 
-    @Getter
     private final IntArray entities = new IntArray();
+    private SafeIntArray safeIntArray = new SafeIntArray(entities);
 
 
     public Family(Archetype archetype) {
         this.archetype = archetype;
+    }
+
+    public SafeIntArray getEntities() {
+        return safeIntArray;
+    }
+
+    public IntArray getEntities(IntArray result) {
+        result.addAll(entities);
+        return result;
     }
 
     @Override
@@ -111,6 +120,7 @@ public class Family implements EntityMatcher,
         internalList4Sort.setValues(entities.toArray());
         internalList4Sort.sort(comparator);
         System.arraycopy(internalList4Sort.getValues(), 0, entities.items, 0, entities.size);
+        this.safeIntArray = new SafeIntArray(entities);
     }
 
     public void sortByEntityId() {
