@@ -1,17 +1,17 @@
 package com.github.fabiitch.spawner.groups;
 
-import com.badlogic.gdx.utils.Array;
 import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.groups.components.EntityData;
 import com.github.fabiitch.spawner.listeners.ComponentListener;
 import com.github.fabiitch.spawner.pools.SpawnerPools;
 import com.github.fabiitch.spawner.query.ComponentMatcher;
+import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 import lombok.Setter;
 
 
 public class ComponentGroup<C> implements ComponentListener<C>{
-    private final Tab<EntityData<C>> tab = new Tab<>();
+    private final Tab<C> components = new Tab<>();
 
     @Setter
     private SpawnerPools pools;
@@ -30,7 +30,12 @@ public class ComponentGroup<C> implements ComponentListener<C>{
     }
 
     public void init() {
-        Array<EntityData<C>> array = mapper.getAll(pools.getArray());//TODO pools
+        SafeTab<C> safeTab = mapper.getAll();
+        for (int i = 0; i < safeTab.size(); i++) {
+            if(matcher.accept(i)){
+                add(i, );
+            }
+        }
         for (EntityData<C> entityData : array) {
             if (matcher.accept(entityData.getEntityId(), entityData.getComponent())) {
                 add(entityData.getEntityId(), entityData.getComponent());
@@ -39,13 +44,12 @@ public class ComponentGroup<C> implements ComponentListener<C>{
     }
 
     private void add(int entityId, C component) {
-        EntityData<C> entityData = pools.getEntityComponent(); //TODO pools
-        entityData.set(entityId, component);
-        tab.set(entityId, entityData);
+        components.set(entityId, component);
+        components.set(entityId, entityData);
     }
 
     private void remove(int entityId, EntityData<C> entityData) {
-        tab.remove(entityId);
+        components.remove(entityId);
         pools.free(entityData);
     }
 
@@ -58,16 +62,15 @@ public class ComponentGroup<C> implements ComponentListener<C>{
 
     @Override
     public void onComponentRemove(int entityId, C component, int componentIndex) {
-        EntityData<C> entityData = tab.get(entityId);
-        if (entityData != null) {
-            remove(entityId, entityData);
+        if (components.has(entityId)) {
+            components.remove(entityId);
         }
     }
 
     @Override
     public void onComponentUpdate(int entityId, C component, int componentIndex) {
         boolean accept = matcher.accept(entityId, component);
-        EntityData<C> entityData = tab.get(entityId);
+        boolean present = components.has(entityId);
         if (accept && entityData == null) {
             add(entityId, component);
         } else if (!accept && entityData != null) {

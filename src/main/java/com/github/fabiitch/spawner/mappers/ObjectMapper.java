@@ -1,8 +1,6 @@
 package com.github.fabiitch.spawner.mappers;
 
-import com.badlogic.gdx.utils.Array;
-import com.github.fabiitch.spawner.groups.components.EntityData;
-import com.github.fabiitch.spawner.pools.SpawnerPools;
+import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 
@@ -17,12 +15,7 @@ public abstract class ObjectMapper<T, L> extends BaseMapper<L> {
         return new SafeTab<>(data);
     }
 
-    public Array<EntityData<T>> getAll(Array<EntityData<T>> res) {
-        for (int i = 0; i < data.totalLength(); i++) {
-            T unsafe = data.getUnsafe(i);
-            if (unsafe != null)
-                res.add(new EntityData<>(i, unsafe)); //TODO pools
-        }
-        return res;
+    public IntArray getEntities(IntArray res) {
+        return data.getIndexes(res);
     }
 }
