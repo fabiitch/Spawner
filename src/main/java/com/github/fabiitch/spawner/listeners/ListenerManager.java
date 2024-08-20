@@ -3,9 +3,9 @@ package com.github.fabiitch.spawner.listeners;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.github.fabiitch.spawner.entity.EntityManager;
-import com.github.fabiitch.spawner.wrapper.EntityWrapperManager;
 import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.listeners.entity.EntityListener;
+import com.github.fabiitch.spawner.wrapper.EntityWrapperManager;
 
 public class ListenerManager implements ComponentListener<Object>, BehaviorListener<Object>, FlagListener {
     private final EntityManager entityManager;
@@ -138,46 +138,51 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     }
 
     @Override
-    public void onBehaviorComponentAdd(int entityId, Object component, int componentIndex) {
+    public void onBehaviorComponentAdd(int entityId, Object component, int behaviorIndex, int componentIndex) {
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
             for (EntityListener entityListener : entityListeners) {
-                entityListener.onBehaviorComponentAdd(componentIndex, component, componentIndex);
+                entityListener.onBehaviorComponentAdd(behaviorIndex, component, componentIndex);
             }
         }
     }
 
     @Override
-    public void onBehaviorComponentRemove(int entityId, Object component, int componentIndex) {
+    public void onBehaviorComponentRemove(int entityId, Object component, int behaviorIndex, int componentIndex) {
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
             for (EntityListener entityListener : entityListeners) {
-                entityListener.onBehaviorComponentRemove(componentIndex, component, componentIndex);
+                entityListener.onBehaviorComponentRemove(behaviorIndex, component, componentIndex);
             }
         }
     }
 
     @Override
-    public void onBehaviorUpdate(int entityId, Object component, int componentIndex) {
-
-    }
-
-    @Override
-    public void onBehaviorGet(int entityId, Object componentBehavior, int componentIndex) {
-        entityManager.onBehaviorGet(entityId, componentIndex);
-        familyManager.onBehaviorGet(entityId, componentIndex);
-        entityWrapperManager.onBehaviorGet(entityId, componentIndex);
-
+    public void onBehaviorUpdate(int entityId, Object component, int behaviorIndex, int componentIndex) {
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
             for (EntityListener entityListener : entityListeners) {
-                entityListener.onBehaviorGet(behaviorIndex, componentBehavior);
+                entityListener.onBehaviorComponentUpdate(behaviorIndex, component, componentIndex);
             }
         }
     }
 
     @Override
-    public void onBehaviorLoose(int entityId, Object componentBehavior, int componentIndex) {
+    public void onBehaviorGet(int entityId, Object componentBehavior, int behaviorIndex, int componentIndex) {
+        entityManager.onBehaviorGet(entityId, behaviorIndex);
+        familyManager.onBehaviorGet(entityId, behaviorIndex);
+        entityWrapperManager.onBehaviorGet(entityId, behaviorIndex);
+
+        Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
+        if (entityListeners != null) {
+            for (EntityListener entityListener : entityListeners) {
+                entityListener.onBehaviorGet(behaviorIndex, componentBehavior, componentIndex);
+            }
+        }
+    }
+
+    @Override
+    public void onBehaviorLoose(int entityId, Object componentBehavior,int behaviorIndex, int componentIndex) {
         entityManager.onBehaviorLoose(entityId, componentIndex);
         familyManager.onBehaviorLoose(entityId, componentIndex);
         entityWrapperManager.onBehaviorLoose(entityId, componentIndex);

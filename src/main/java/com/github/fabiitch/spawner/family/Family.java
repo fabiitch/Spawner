@@ -6,11 +6,12 @@ import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.Archetype;
 import com.github.fabiitch.spawner.archetype.criteria.*;
 import com.github.fabiitch.spawner.listeners.FamilyListener;
+import com.github.fabiitch.spawner.query.EntityFilter;
 import com.github.fabiitch.spawner.sort.EntityComparator;
 import com.github.fabiitch.spawner.utils.collections.IntList;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 
-public class Family implements EntityMatcher,
+public class Family implements EntityFilter,
         ComponentsMatcher, ComponentImpacted,
         BehaviorsMatcher, BehaviorImpacted,
         FlagsMatcher, FlagImpacted {

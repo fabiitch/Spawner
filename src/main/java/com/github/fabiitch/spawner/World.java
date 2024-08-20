@@ -3,7 +3,7 @@ package com.github.fabiitch.spawner;
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.ArchetypeManager;
-import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
+import com.github.fabiitch.spawner.query.EntityFilter;
 import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentManager;
@@ -199,12 +199,12 @@ public class World {
         return entityManager.getEntities();
     }
 
-    public IntArray getEntities(EntityMatcher entityMatcher, IntArray res) {
+    public IntArray getEntities(EntityFilter entityFilter, IntArray res) {
         SafeIntArray worldEntities = getEntities();
 
         for (int i = 0; i < worldEntities.size(); i++) {
             int entityIds = worldEntities.get(i);
-            if (entityMatcher.accept(entityIds)) {
+            if (entityFilter.accept(entityIds)) {
                 res.add(entityIds);
             }
         }

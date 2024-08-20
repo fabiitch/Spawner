@@ -1,19 +1,19 @@
 package com.github.fabiitch.spawner.query.matchers.conditions;
 
-import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
+import com.github.fabiitch.spawner.query.EntityFilter;
 
 public class AndMatcher extends BaseMatcher {
 
     public AndMatcher() {
     }
 
-    public AndMatcher(EntityMatcher... matchers) {
+    public AndMatcher(EntityFilter... matchers) {
         super(matchers);
     }
 
     @Override
     public boolean accept(int entityId) {
-        for (EntityMatcher matcher : matchers) {
+        for (EntityFilter matcher : matchers) {
             if (!matcher.accept(entityId))
                 return false;
         }

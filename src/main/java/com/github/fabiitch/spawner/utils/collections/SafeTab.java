@@ -18,6 +18,10 @@ public class SafeTab<T> implements Iterable<T> {
         return array;
     }
 
+    public boolean has(int index) {
+        return get(index) != null;
+    }
+
     public T get(int index) {
         return tab.get(index);
     }

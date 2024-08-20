@@ -3,28 +3,27 @@ package com.github.fabiitch.spawner.utils.collections;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.reflect.ArrayReflection;
+import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
  * Array who keep always value at index inserted
  * Many times the index is the entityId
- * NON Thread safe object
+ * NON Thread safe object on iteration
  *
  * @param <T>
  */
 public class Tab<T> implements Iterable<T> {
+    @Getter
     private T[] items;
     private int notNullSize;
+    @Getter
     private final TabIterator<T> iterator;
 
     public Tab() {
         this(16);
-    }
-
-    public Tab(T[] items) {
-        this.items = items;
-        iterator = new TabIterator<>(this);
     }
 
     public Tab(int size) {
@@ -42,19 +41,21 @@ public class Tab<T> implements Iterable<T> {
         return items[index];
     }
 
-    public boolean has(int index) {
-        return get(index) != null;
-    }
-
     public void set(int index, T data) {
         if (data != null) {
             if (index >= items.length) {
                 grow();
             }
+            if (items[index] == null)
+                notNullSize++;
             items[index] = data;
-            notNullSize++;
         }
     }
+
+    public boolean has(int index) {
+        return get(index) != null;
+    }
+
 
     public void setUnsafe(int index, T data) {
         items[index] = data;
@@ -117,7 +118,19 @@ public class Tab<T> implements Iterable<T> {
         return res;
     }
 
-    public IntArray getIndexes(IntArray res){
+    public void clear() {
+        Arrays.fill(items, null);
+    }
+
+    public int indexOf(T t) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == t)
+                return i;
+        }
+        return -1;
+    }
+
+    public IntArray getIndexes(IntArray res) {
         for (int i = 0; i < items.length; i++) {
             T item = items[i];
             if (item != null)
@@ -145,8 +158,8 @@ public class Tab<T> implements Iterable<T> {
 
     static public class TabIterator<T> implements Iterator<T> {
         private final Tab<T> tab;
-        int index;
-        int notNullCount;
+        private int index;
+        private int notNullCount;
 
         public TabIterator(Tab<T> tab) {
             this.tab = tab;
@@ -154,7 +167,7 @@ public class Tab<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            boolean hasNext = index < tab.totalLength() && notNullCount <= tab.notNullSize;
+            boolean hasNext = index < tab.totalLength() && notNullCount < tab.size();
             if (!hasNext)
                 index = 0;
             return hasNext;
@@ -162,11 +175,14 @@ public class Tab<T> implements Iterable<T> {
 
         @Override
         public T next() {
-            T item = tab.items[index];
-            while (item == null)
+            T item = null;
+            int maxLenght = tab.totalLength();
+            while (item == null && index < maxLenght) {
                 index++;
-            return tab.items[index++];
+                item = tab.items[index];
+            }
+            notNullCount++;
+            return item;
         }
-
     }
 }

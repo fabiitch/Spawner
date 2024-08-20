@@ -1,13 +1,12 @@
 package com.github.fabiitch.spawner.query;
 
 import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class BehaviorMatcher<T> implements EntityMatcher, BehaviorImpacted {
+public abstract class BehaviorFilter<T> implements EntityFilter, BehaviorImpacted {
 
     private BehaviorMapper<T> mapper;
 

@@ -3,10 +3,11 @@ package com.github.fabiitch.spawner.archetype;
 import com.badlogic.gdx.utils.Bits;
 import com.github.fabiitch.spawner.archetype.criteria.*;
 import com.github.fabiitch.spawner.entity.EntityManager;
+import com.github.fabiitch.spawner.query.EntityFilter;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Archetype implements EntityMatcher,
+public class Archetype implements EntityFilter,
         ComponentImpacted,
         ComponentsMatcher,
         BehaviorImpacted,

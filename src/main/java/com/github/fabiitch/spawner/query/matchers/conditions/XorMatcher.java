@@ -1,6 +1,6 @@
 package com.github.fabiitch.spawner.query.matchers.conditions;
 
-import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
+import com.github.fabiitch.spawner.query.EntityFilter;
 
 /**
  * Only One condition should be true
@@ -10,14 +10,14 @@ public class XorMatcher extends BaseMatcher {
     public XorMatcher() {
     }
 
-    public XorMatcher(EntityMatcher... matchers) {
+    public XorMatcher(EntityFilter... matchers) {
         super(matchers);
     }
 
     @Override
     public boolean accept(int entityId) {
         int matcherTrue = 0;
-        for (EntityMatcher matcher : matchers) {
+        for (EntityFilter matcher : matchers) {
             if (matcher.accept(entityId))
                 matcherTrue++;
             if (matcherTrue > 1)

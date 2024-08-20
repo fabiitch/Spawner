@@ -21,7 +21,7 @@ public class QueryTest extends BaseTest {
         swordMapper.addComponent(entityC, new SwordComponent(10));
         swordMapper.addComponent(entityD, new SwordComponent(25));
 
-        ComponentMatcher<SwordComponent> swordMatcher = new ComponentMatcher<SwordComponent>(swordMapper) {
+        ComponentFilter<SwordComponent> swordMatcher = new ComponentFilter<SwordComponent>(swordMapper) {
             @Override
             public boolean accept(int entityId, SwordComponent component) {
                 return component.attack() > 20;

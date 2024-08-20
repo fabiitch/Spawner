@@ -14,9 +14,7 @@ public class BehaviorManager {
     private final ListenerManager listenerManager;
     private int increment4Behavior = -1;
 
-
     private final IntIntMap componentBehaviorMap = new IntIntMap();
-
     private final ObjectIntMap<Class<?>> behaviorIndexMap = new ObjectIntMap<>();
     private final Array<BehaviorMapper<?>> mappers = new Array<>(); //component index
 
