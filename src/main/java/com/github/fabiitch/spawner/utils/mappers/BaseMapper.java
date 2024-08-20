@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.mappers;
+package com.github.fabiitch.spawner.utils.mappers;
 
 import com.badlogic.gdx.utils.Array;
 import lombok.Getter;

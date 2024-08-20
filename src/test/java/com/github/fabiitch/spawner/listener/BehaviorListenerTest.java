@@ -185,33 +185,33 @@ public class BehaviorListenerTest extends BaseTest {
         private int behaviorUpdateCount;
 
         @Override
-        public void onBehaviorGet(int entityId, Object behavior, int behaviorIndex) {
+        public void onBehaviorGet(int entityId, Object behavior, int behaviorIndex, int componentIndex) {
             lastEntityIdGet = entityId;
             classCauseBehaviorGet = behavior.getClass();
         }
 
         @Override
-        public void onBehaviorLoose(int entityId, Object behavior, int behaviorIndex) {
+        public void onBehaviorLoose(int entityId, Object behavior, int behaviorIndex, int componentIndex) {
             lastEntityIdLoose = entityId;
             classCauseBehaviorLoose = behavior.getClass();
         }
 
         @Override
-        public void onBehaviorComponentAdd(int entityId, Object component, int componentIndex) {
+        public void onBehaviorComponentAdd(int entityId, Object component, int behaviorIndex, int componentIndex) {
             componentAddCount++;
             lastEntityIdComponentAdd = entityId;
             indexComponentAdd = componentIndex;
         }
 
         @Override
-        public void onBehaviorComponentRemove(int entityId, Object component, int componentIndex) {
+        public void onBehaviorComponentRemove(int entityId, Object component, int behaviorIndex, int componentIndex) {
             componentRemoveCount++;
             lastEntityIdComponentRemove = entityId;
             indexComponentRemove = componentIndex;
         }
 
         @Override
-        public void onBehaviorUpdate(int entityId, Object component, int componentIndex) {
+        public void onBehaviorUpdate(int entityId, Object component, int behaviorIndex, int componentIndex) {
             behaviorUpdateCount++;
         }
     }

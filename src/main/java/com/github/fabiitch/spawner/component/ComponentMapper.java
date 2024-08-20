@@ -1,9 +1,10 @@
 package com.github.fabiitch.spawner.component;
 
+import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
 import com.github.fabiitch.spawner.listeners.ComponentListener;
-import com.github.fabiitch.spawner.mappers.ObjectMapper;
+import com.github.fabiitch.spawner.utils.mappers.ObjectMapper;
 
-public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> {
+public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> implements ComponentImpacted {
 
     public ComponentMapper(int index) {
         super(index);
@@ -80,5 +81,10 @@ public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> {
 
     void removeInternalListener(ComponentListener listener) {
         internalListeners.removeValue(listener, true);
+    }
+
+    @Override
+    public boolean impactedByComponent(int indexComponent) {
+        return indexComponent == this.index;
     }
 }

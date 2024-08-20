@@ -1,13 +1,15 @@
 package com.github.fabiitch.spawner.groups;
 
 import com.badlogic.gdx.utils.IntArray;
-import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
+import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
+import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
+import com.github.fabiitch.spawner.query.EntityFilter;
 
-public class EntityGroup implements EntityMatcher {
+public class EntityGroup implements EntityFilter, ComponentImpacted, BehaviorImpacted {
 
     private IntArray entities;
 
-    private EntityMatcher matcher;
+    private EntityFilter matcher;
 
 
     @Override

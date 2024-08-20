@@ -1,12 +1,11 @@
 package com.github.fabiitch.spawner.query;
 
-import com.github.fabiitch.spawner.archetype.criteria.EntityMatcher;
 import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
 import com.github.fabiitch.spawner.flag.FlagMapper;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class FlagMatcher<T> implements EntityMatcher, FlagImpacted {
+public abstract class FlagFilter<T> implements EntityFilter, FlagImpacted {
 
     private final FlagMapper mapper;
 
