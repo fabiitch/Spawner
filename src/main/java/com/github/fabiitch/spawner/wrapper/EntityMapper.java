@@ -4,12 +4,13 @@ import com.badlogic.gdx.utils.IntMap;
 import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
 import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
 import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
+import com.github.fabiitch.spawner.factory.Factory;
 import com.github.fabiitch.spawner.wrapper.fillers.BehaviorFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.ComponentFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.FlagFiller;
-import com.github.fabiitch.spawner.factory.Factory;
 
-public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W> implements ComponentImpacted, FlagImpacted, BehaviorImpacted {
+public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W>
+        implements ComponentImpacted, FlagImpacted, BehaviorImpacted {
 
     private final IntMap<W> entities = new IntMap<>();
     private final Factory<W> wrapperFactory;

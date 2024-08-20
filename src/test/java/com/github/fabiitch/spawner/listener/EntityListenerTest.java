@@ -194,22 +194,27 @@ public class EntityListenerTest extends BaseTest {
         }
 
         @Override
-        public void onBehaviorComponentAdd(int indexBehavior, Object componentBehavior) {
+        public void onBehaviorComponentAdd(int indexBehavior, Object componentBehavior, int componentIndex) {
             lastBehaviorAdd = componentBehavior;
         }
 
         @Override
-        public void onBehaviorComponentRemove(int indexBehavior, Object componentBehavior) {
+        public void onBehaviorComponentRemove(int indexBehavior, Object componentBehavior, int componentIndex) {
             lastBehaviorRemove = componentBehavior;
         }
 
         @Override
-        public void onBehaviorGet(int componentIndex, Object behavior) {
+        public void onBehaviorComponentUpdate(int indexBehavior, Object componentBehavior, int componentIndex) {
+
+        }
+
+        @Override
+        public void onBehaviorGet(int indexBehavior, Object behavior, int componentIndex) {
             lastBehaviorGet = behavior;
         }
 
         @Override
-        public void onBehaviorLoose(int componentIndex, Object behavior) {
+        public void onBehaviorLoose(int indexBehavior, Object behavior, int componentIndex) {
             lastBehaviorLoose = behavior;
         }
     }

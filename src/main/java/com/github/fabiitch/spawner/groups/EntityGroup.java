@@ -10,7 +10,6 @@ public class EntityGroup implements EntityMatcher {
     private EntityMatcher matcher;
 
 
-
     @Override
     public boolean accept(int entityId) {
         return matcher.accept(entityId);

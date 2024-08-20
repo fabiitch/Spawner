@@ -5,4 +5,6 @@ public interface EntityComponentListener<C> {
     void onComponentAdd(int componentIndex, C component);
 
     void onComponentRemove(int componentIndex, C component);
+
+    void onComponentUpdate(int componentIndex, C component);
 }

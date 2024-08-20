@@ -129,7 +129,12 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
 
     @Override
     public void onComponentUpdate(int entityId, Object component, int componentIndex) {
-
+        Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
+        if (entityListeners != null) {
+            for (EntityListener entityListener : entityListeners) {
+                entityListener.onComponentUpdate(componentIndex, component);
+            }
+        }
     }
 
     @Override
@@ -137,7 +142,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
             for (EntityListener entityListener : entityListeners) {
-                entityListener.onBehaviorComponentAdd(componentIndex, component);
+                entityListener.onBehaviorComponentAdd(componentIndex, component, componentIndex);
             }
         }
     }
@@ -147,21 +152,21 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
             for (EntityListener entityListener : entityListeners) {
-                entityListener.onBehaviorComponentRemove(componentIndex, component);
+                entityListener.onBehaviorComponentRemove(componentIndex, component, componentIndex);
             }
         }
     }
 
     @Override
-    public void onBehaviorUpdate(int entityId, Object component) {
+    public void onBehaviorUpdate(int entityId, Object component, int componentIndex) {
 
     }
 
     @Override
-    public void onBehaviorGet(int entityId, Object componentBehavior, int behaviorIndex) {
-        entityManager.onBehaviorGet(entityId, behaviorIndex);
-        familyManager.onBehaviorGet(entityId, behaviorIndex);
-        entityWrapperManager.onBehaviorGet(entityId, behaviorIndex);
+    public void onBehaviorGet(int entityId, Object componentBehavior, int componentIndex) {
+        entityManager.onBehaviorGet(entityId, componentIndex);
+        familyManager.onBehaviorGet(entityId, componentIndex);
+        entityWrapperManager.onBehaviorGet(entityId, componentIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
@@ -172,15 +177,15 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     }
 
     @Override
-    public void onBehaviorLoose(int entityId, Object componentBehavior, int behaviorIndex) {
-        entityManager.onBehaviorLoose(entityId, behaviorIndex);
-        familyManager.onBehaviorLoose(entityId, behaviorIndex);
-        entityWrapperManager.onBehaviorLoose(entityId, behaviorIndex);
+    public void onBehaviorLoose(int entityId, Object componentBehavior, int componentIndex) {
+        entityManager.onBehaviorLoose(entityId, componentIndex);
+        familyManager.onBehaviorLoose(entityId, componentIndex);
+        entityWrapperManager.onBehaviorLoose(entityId, componentIndex);
 
         Array<EntityListener> entityListeners = entityListenersMap.get(entityId);
         if (entityListeners != null) {
             for (EntityListener entityListener : entityListeners) {
-                entityListener.onBehaviorLoose(behaviorIndex, componentBehavior);
+                entityListener.onBehaviorLoose(behaviorIndex, componentBehavior, componentIndex);
             }
         }
     }
