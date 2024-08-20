@@ -211,7 +211,7 @@ public class BehaviorListenerTest extends BaseTest {
         }
 
         @Override
-        public void onBehaviorUpdate(int entityId, Object component) {
+        public void onBehaviorUpdate(int entityId, Object component, int componentIndex) {
             behaviorUpdateCount++;
         }
     }

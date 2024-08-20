@@ -25,6 +25,20 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
         return new SafeTab<>(components);//TODO immutable
     }
 
+    public T getBehavior(int entityId, ComponentMapper<T> componentMapper) {
+        Tab<T> components = data.get(entityId);
+        if (components == null)
+            return null;
+        return components.get(componentMapper.getIndex());
+    }
+
+    public <C> C getComponent(int entityId, ComponentMapper<C> componentMapper) {
+        Tab<T> components = data.get(entityId);
+        if (components == null)
+            return null;
+        return componentMapper.getComponent(entityId);
+    }
+
     void addComponent(int entityId, T component, int componentIndex) {
         Tab<T> components = data.get(entityId);
         boolean isGetBehavior = false;
@@ -36,7 +50,7 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
         components.set(componentIndex, component);
 
         if (isGetBehavior)
-            notifyBehaviorGet(entityId, component);
+            notifyBehaviorGet(entityId, component, componentIndex);
         notifyComponentAdd(entityId, component, componentIndex);
     }
 
@@ -102,12 +116,12 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
             listener.onBehaviorComponentAdd(entityId, component, componentIndex);
     }
 
-    private void notifyBehaviorUpdate(int entityId, T component) {
+    private void notifyBehaviorUpdate(int entityId, T component, int componentIndex) {
         for (BehaviorListener<T> internalListener : internalListeners)
-            internalListener.onBehaviorUpdate(entityId, component);
+            internalListener.onBehaviorUpdate(entityId, component, componentIndex);
 
         for (BehaviorListener<T> listener : listeners)
-            listener.onBehaviorUpdate(entityId, component);
+            listener.onBehaviorUpdate(entityId, component, componentIndex);
     }
 
     private void notifyComponentRemove(int entityId, T component, int componentIndex) {
@@ -118,20 +132,20 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
             listener.onBehaviorComponentRemove(entityId, component, componentIndex);
     }
 
-    private void notifyBehaviorGet(int entityId, T component) {
+    private void notifyBehaviorGet(int entityId, T component, int componentIndex) {
         for (BehaviorListener<T> internalListener : internalListeners)
-            internalListener.onBehaviorGet(entityId, component, index);
+            internalListener.onBehaviorGet(entityId, component, componentIndex);
 
         for (BehaviorListener<T> listener : listeners)
-            listener.onBehaviorGet(entityId, component, index);
+            listener.onBehaviorGet(entityId, component, componentIndex);
     }
 
-    private void notifyBehaviorLoose(int entityId, T component) {
+    private void notifyBehaviorLoose(int entityId, T component, int componentIndex) {
         for (BehaviorListener<T> internalListener : internalListeners)
-            internalListener.onBehaviorLoose(entityId, component, index);
+            internalListener.onBehaviorLoose(entityId, component, componentIndex);
 
         for (BehaviorListener<T> listener : listeners)
-            listener.onBehaviorLoose(entityId, component, index);
+            listener.onBehaviorLoose(entityId, component, componentIndex);
     }
 
     void addInternalListener(BehaviorListener listener) {

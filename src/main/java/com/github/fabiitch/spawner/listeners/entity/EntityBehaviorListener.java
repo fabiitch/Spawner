@@ -2,12 +2,14 @@ package com.github.fabiitch.spawner.listeners.entity;
 
 public interface EntityBehaviorListener<B> {
 
-    void onBehaviorComponentAdd(int indexBehavior, B componentBehavior);
+    void onBehaviorComponentAdd(int indexBehavior, B componentBehavior, int componentIndex);
 
-    void onBehaviorComponentRemove(int indexBehavior, B componentBehavior);
+    void onBehaviorComponentRemove(int indexBehavior, B componentBehavior, int componentIndex);
 
-    void onBehaviorGet(int indexBehavior, B componentBehavior);
+    void onBehaviorComponentUpdate(int indexBehavior, B componentBehavior, int componentIndex);
 
-    void onBehaviorLoose(int indexBehavior, B componentBehavior);
+    void onBehaviorGet(int indexBehavior, B componentBehavior, int componentIndex);
+
+    void onBehaviorLoose(int indexBehavior, B componentBehavior, int componentIndex);
 
 }

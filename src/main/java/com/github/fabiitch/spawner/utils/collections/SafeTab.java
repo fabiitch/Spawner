@@ -1,5 +1,7 @@
 package com.github.fabiitch.spawner.utils.collections;
 
+import com.badlogic.gdx.utils.Array;
+
 import java.util.Iterator;
 
 public class SafeTab<T> implements Iterable<T> {
@@ -9,6 +11,11 @@ public class SafeTab<T> implements Iterable<T> {
     public SafeTab(Tab<T> tab) {
         this.tab = tab;
         iterator = new Tab.TabIterator<>(tab);
+    }
+
+    public Array<T> getArray(Array<T> array) {
+        tab.toArray(array);
+        return array;
     }
 
     public T get(int index) {

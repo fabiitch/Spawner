@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 /**
  * Array who keep always value at index inserted
- * Used by tab who place at index of entityId
+ * Many times the index is the entityId
  * NON Thread safe object
  *
  * @param <T>
