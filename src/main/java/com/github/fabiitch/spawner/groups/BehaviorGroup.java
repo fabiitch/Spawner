@@ -2,13 +2,12 @@ package com.github.fabiitch.spawner.groups;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
-import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
+import com.github.fabiitch.spawner.impact.BehaviorImpacted;
+import com.github.fabiitch.spawner.impact.ComponentImpacted;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentMapper;
-import com.github.fabiitch.spawner.listeners.BehaviorListener;
+import com.github.fabiitch.spawner.listeners.behavior.BehaviorListener;
 import com.github.fabiitch.spawner.query.BehaviorFilter;
-import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 
@@ -49,7 +48,7 @@ public class BehaviorGroup<B> implements BehaviorListener<B>, BehaviorImpacted, 
         return null;
     }
 
-    public <C> C getComponent(int entityId, ComponentMapper<C> componentMapper) {
+    public <C extends B> C getComponent(int entityId, ComponentMapper<C> componentMapper) {
         IntArray array = data.get(entityId);
         if (array != null && array.contains(componentMapper.getIndex())) {
             return componentMapper.getComponent(entityId);

@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.behaviors.AttackBehavior;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
-import com.github.fabiitch.spawner.sort.EntityComparator;
+import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 import com.github.fabiitch.spawner.systems.EntitySystem;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;

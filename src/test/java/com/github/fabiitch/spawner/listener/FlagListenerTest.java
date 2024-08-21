@@ -2,7 +2,7 @@ package com.github.fabiitch.spawner.listener;
 
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.listeners.FlagListener;
+import com.github.fabiitch.spawner.listeners.flag.FlagListener;
 import com.github.fabiitch.spawner.BaseTest;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;

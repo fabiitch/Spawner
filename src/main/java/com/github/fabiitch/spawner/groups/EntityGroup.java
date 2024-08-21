@@ -1,18 +1,21 @@
 package com.github.fabiitch.spawner.groups;
 
 import com.badlogic.gdx.utils.Bits;
-import com.badlogic.gdx.utils.IntArray;
+import com.github.fabiitch.spawner.World;
 import com.github.fabiitch.spawner.archetype.criteria.EntityFilterTracker;
-import com.github.fabiitch.spawner.listeners.BehaviorListener;
-import com.github.fabiitch.spawner.listeners.ComponentListener;
-import com.github.fabiitch.spawner.listeners.FlagListener;
+import com.github.fabiitch.spawner.listeners.behavior.BehaviorListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
+import com.github.fabiitch.spawner.listeners.flag.FlagListener;
 import com.github.fabiitch.spawner.listeners.WorldListener;
-import com.github.fabiitch.spawner.listeners.entity.EntityListener;
 
 public class EntityGroup implements EntityFilterTracker, WorldListener, ComponentListener, BehaviorListener, FlagListener {
 
     private Bits entities = new Bits();
     private EntityFilterTracker filterTracker;
+
+
+    public EntityGroup(World world){
+    }
 
     public void checkEntity(int entityId) {
         boolean has = entities.get(entityId);
@@ -39,8 +42,8 @@ public class EntityGroup implements EntityFilterTracker, WorldListener, Componen
     }
 
     @Override
-    public boolean impactedByFlag(int flagIndex) {
-        return filterTracker.impactedByFlag(flagIndex);
+    public boolean impactedByFlag(int indexFlag) {
+        return filterTracker.impactedByFlag(indexFlag);
     }
 
     @Override
@@ -50,37 +53,37 @@ public class EntityGroup implements EntityFilterTracker, WorldListener, Componen
     }
 
     @Override
-    public void onBehaviorComponentRemove(int entityId, Object component, int indexBehavior, int componentIndex) {
+    public void onBehaviorComponentRemove(int entityId, Object component, int indexBehavior, int indexComponent) {
 
     }
 
     @Override
-    public void onBehaviorUpdate(int entityId, Object component, int indexBehavior, int componentIndex) {
+    public void onBehaviorUpdate(int entityId, Object component, int indexBehavior, int indexComponent) {
 
     }
 
     @Override
-    public void onBehaviorGet(int entityId, Object componentBehavior, int indexBehavior, int componentIndex) {
+    public void onBehaviorGet(int entityId, Object componentBehavior, int indexBehavior, int indexComponent) {
 
     }
 
     @Override
-    public void onBehaviorLoose(int entityId, Object componentBehavior, int indexBehavior, int componentIndex) {
+    public void onBehaviorLoose(int entityId, Object componentBehavior, int indexBehavior, int indexComponent) {
 
     }
 
     @Override
-    public void onComponentAdd(int entityId, Object component, int componentIndex) {
+    public void onComponentAdd(int entityId, Object component, int indexComponent) {
 
     }
 
     @Override
-    public void onComponentRemove(int entityId, Object component, int componentIndex) {
+    public void onComponentRemove(int entityId, Object component, int indexComponent) {
 
     }
 
     @Override
-    public void onComponentUpdate(int entityId, Object component, int componentIndex) {
+    public void onComponentUpdate(int entityId, Object component, int indexComponent) {
 
     }
 

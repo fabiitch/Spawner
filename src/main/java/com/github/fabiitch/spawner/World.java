@@ -3,7 +3,7 @@ package com.github.fabiitch.spawner;
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.ArchetypeManager;
-import com.github.fabiitch.spawner.query.EntityFilter;
+import com.github.fabiitch.spawner.aspect.AspectManager;
 import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentManager;
@@ -17,6 +17,7 @@ import com.github.fabiitch.spawner.flag.FlagMapper;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
 import com.github.fabiitch.spawner.pools.SpawnerGdxPools;
 import com.github.fabiitch.spawner.pools.SpawnerPools;
+import com.github.fabiitch.spawner.query.EntityFilter;
 import com.github.fabiitch.spawner.systems.EcsSystem;
 import com.github.fabiitch.spawner.systems.SystemManager;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
@@ -34,9 +35,10 @@ public class World {
 
     private final SystemManager systemManager;
     private final ComponentManager componentManager;
+    private final BehaviorManager behaviorManager;
+    private final AspectManager aspectManager;
     private final FlagManager flagManager;
     private final EntityManager entityManager;
-    private final BehaviorManager behaviorManager;
     private final ArchetypeManager archetypeManager;
     private final FamilyManager familyManager;
     private final ListenerManager listenerManager;
@@ -53,16 +55,18 @@ public class World {
         this.pools = pools;
         entityManager = new EntityManager();
         entityWrapperManager = new EntityWrapperManager();
+
         familyManager = new FamilyManager(entityManager);
         listenerManager = new ListenerManager(entityManager, familyManager, entityWrapperManager);
         flagManager = new FlagManager(listenerManager);
         behaviorManager = new BehaviorManager(listenerManager);
+        aspectManager = new AspectManager(listenerManager);
         componentManager = new ComponentManager(listenerManager, behaviorManager);
 
-        archetypeManager = new ArchetypeManager(entityManager, componentManager, behaviorManager, flagManager);
+        archetypeManager = new ArchetypeManager(entityManager, componentManager, behaviorManager, aspectManager, flagManager);
         systemManager = new SystemManager(this);
 
-        this.config = new WorldConfig(componentManager, behaviorManager, flagManager,
+        this.config = new WorldConfig(componentManager, behaviorManager, aspectManager, flagManager,
                 archetypeManager, familyManager, systemManager, listenerManager,
                 entityWrapperManager);
     }

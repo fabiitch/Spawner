@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.archetype.criteria;
+package com.github.fabiitch.spawner.impact;
 
 public interface ComponentImpacted {
 

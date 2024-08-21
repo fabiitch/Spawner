@@ -1,12 +1,13 @@
 package com.github.fabiitch.spawner.groups;
 
 import com.badlogic.gdx.utils.IntArray;
-import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
+import com.github.fabiitch.spawner.impact.ComponentImpacted;
 import com.github.fabiitch.spawner.component.ComponentMapper;
-import com.github.fabiitch.spawner.listeners.ComponentListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import com.github.fabiitch.spawner.query.ComponentFilter;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
+import lombok.Getter;
 
 import java.util.Iterator;
 
@@ -16,15 +17,20 @@ public class ComponentGroup<C> implements ComponentListener<C>, ComponentImpacte
     private final SafeIntArray result = new SafeIntArray(entities);
 
     private final ComponentFilter<C> matcher;
+    @Getter
     private final ComponentMapper<C> mapper;
     private final Iterator<C> iterator;
 
     public ComponentGroup(ComponentFilter<C> matcher, ComponentMapper<C> mapper) {
         this.matcher = matcher;
         this.mapper = mapper;
+
+        iterator = new ComponentGroupIterator(mapper, entities);
+    }
+
+    public void active(){
         mapper.addListener(this);
         init();
-        iterator = new ComponentGroupIterator(mapper, entities);
     }
 
     public void remove() {

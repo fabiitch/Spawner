@@ -4,7 +4,7 @@ import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.listeners.ComponentListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
 

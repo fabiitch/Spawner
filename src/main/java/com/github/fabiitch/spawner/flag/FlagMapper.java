@@ -2,8 +2,8 @@ package com.github.fabiitch.spawner.flag;
 
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.IntArray;
-import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
-import com.github.fabiitch.spawner.listeners.FlagListener;
+import com.github.fabiitch.spawner.impact.FlagImpacted;
+import com.github.fabiitch.spawner.listeners.flag.FlagListener;
 import com.github.fabiitch.spawner.utils.mappers.BaseMapper;
 
 public class FlagMapper extends BaseMapper<FlagListener> implements FlagImpacted {
@@ -73,7 +73,7 @@ public class FlagMapper extends BaseMapper<FlagListener> implements FlagImpacted
     }
 
     @Override
-    public boolean impactedByFlag(int flagIndex) {
-        return flagIndex == this.index;
+    public boolean impactedByFlag(int indexFlag) {
+        return indexFlag == this.index;
     }
 }

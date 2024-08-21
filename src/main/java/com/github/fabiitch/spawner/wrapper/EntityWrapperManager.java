@@ -1,8 +1,14 @@
 package com.github.fabiitch.spawner.wrapper;
 
 import com.badlogic.gdx.utils.Array;
+import com.github.fabiitch.spawner.listeners.aspect.AspectListener;
+import com.github.fabiitch.spawner.listeners.behavior.BehaviorListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
+import com.github.fabiitch.spawner.listeners.flag.FlagListener;
 
-public class EntityWrapperManager {
+public class EntityWrapperManager
+        //implements ComponentListener, BehaviorListener, AspectListener, FlagListener //TODO mayber
+{
 
     private final Array<EntityMapper<?>> mappers = new Array<>();
 
@@ -49,4 +55,5 @@ public class EntityWrapperManager {
             if (entityMapper.impactedByFlag(flagIndex))
                 entityMapper.updateFlag(entityId,  flagIndex);
     }
+
 }

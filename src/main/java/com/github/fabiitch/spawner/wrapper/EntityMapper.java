@@ -1,16 +1,17 @@
 package com.github.fabiitch.spawner.wrapper;
 
 import com.badlogic.gdx.utils.IntMap;
-import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
 import com.github.fabiitch.spawner.factory.Factory;
+import com.github.fabiitch.spawner.impact.AspectImpacted;
+import com.github.fabiitch.spawner.impact.BehaviorImpacted;
+import com.github.fabiitch.spawner.impact.ComponentImpacted;
+import com.github.fabiitch.spawner.impact.FlagImpacted;
 import com.github.fabiitch.spawner.wrapper.fillers.BehaviorFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.ComponentFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.FlagFiller;
 
 public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W>
-        implements ComponentImpacted, FlagImpacted, BehaviorImpacted {
+        implements ComponentImpacted, BehaviorImpacted, AspectImpacted, FlagImpacted {
 
     private final IntMap<W> entities = new IntMap<>();
     private final Factory<W> wrapperFactory;
@@ -61,23 +62,6 @@ public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W>
             wrapperFactory.free(entityWrapper);
     }
 
-
-    @Override
-    public boolean impactedByBehavior(int behaviorIndex) {
-        return behaviorFillers.containsKey(behaviorIndex);
-    }
-
-    @Override
-    public boolean impactedByComponent(int indexComponent) {
-        return componentFillers.containsKey(indexComponent);
-    }
-
-    @Override
-    public boolean impactedByFlag(int flagIndex) {
-        return flagFillers.containsKey(flagIndex);
-    }
-
-
     public void updateComponent(int entityId, int indexComponent) {
         W entityWrapper = entities.get(entityId);
         if (entityWrapper != null)
@@ -94,5 +78,25 @@ public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W>
         W entityWrapper = entities.get(entityId);
         if (entityWrapper != null)
             flagFillers.get(indexFlag).fill(entityWrapper, entityId);
+    }
+
+    @Override
+    public boolean impactedByBehavior(int behaviorIndex) {
+        return behaviorFillers.containsKey(behaviorIndex);
+    }
+
+    @Override
+    public boolean impactedByComponent(int indexComponent) {
+        return componentFillers.containsKey(indexComponent);
+    }
+
+    @Override
+    public boolean impactedByFlag(int indexFlag) {
+        return flagFillers.containsKey(indexFlag);
+    }
+
+    @Override
+    public boolean impactedByAspect(int indexAspect) {
+        return aspectFillers.containsKey(indexAspect);
     }
 }

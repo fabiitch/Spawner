@@ -3,6 +3,8 @@ package com.github.fabiitch.spawner;
 import com.github.fabiitch.spawner.archetype.Archetype;
 import com.github.fabiitch.spawner.archetype.ArchetypeBuilder;
 import com.github.fabiitch.spawner.archetype.ArchetypeManager;
+import com.github.fabiitch.spawner.aspect.AspectManager;
+import com.github.fabiitch.spawner.aspect.AspectMapper;
 import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentManager;
@@ -25,6 +27,7 @@ import lombok.AllArgsConstructor;
 public class WorldConfig {
     private final ComponentManager componentManager;
     private final BehaviorManager behaviorManager;
+    private final AspectManager aspectManager;
     private final FlagManager flagManager;
     private final ArchetypeManager archetypeManager;
     private final FamilyManager familyManager;
@@ -55,6 +58,19 @@ public class WorldConfig {
         }
         return this;
     }
+
+    public AspectMapper registerAspect(Class<?> aspectClass) {
+        AspectMapper aspectMapper = aspectManager.registerAspect(aspectClass);
+        return aspectMapper;
+    }
+
+    public WorldConfig registerAspects(Class<?>... aspectsClass) {
+        for (Class<?> aspectClass : aspectsClass) {
+            registerAspect(aspectClass);
+        }
+        return this;
+    }
+
 
     public FlagMapper registerFlag(Class<?> flagClass) {
         FlagMapper mapper = flagManager.registerFlag(flagClass);
@@ -103,6 +119,7 @@ public class WorldConfig {
     public void registerEntityMapper(EntityMapper<?> entityMapper) {
         entityWrapperManager.addMapper(entityMapper);
     }
+
 
     public void registerEntityMappers(EntityMapper<?>... entityMappers) {
         for (EntityMapper<?> entityMapper : entityMappers) {

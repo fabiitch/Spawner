@@ -10,7 +10,7 @@ import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.data.flags.DeathFlag;
 import com.github.fabiitch.spawner.data.flags.OutFlag;
 import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.sort.EntityComparator;
+import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
