@@ -16,7 +16,6 @@ public class ArrayLoop<T> {
         array.add(t);
     }
 
-
     public boolean remove(T t, boolean identity) {
         if (isLoop) {
             int index = array.lastIndexOf(t, true);

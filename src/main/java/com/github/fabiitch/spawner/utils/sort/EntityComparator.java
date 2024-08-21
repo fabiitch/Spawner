@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.sort;
+package com.github.fabiitch.spawner.utils.sort;
 
 import java.util.Comparator;
 

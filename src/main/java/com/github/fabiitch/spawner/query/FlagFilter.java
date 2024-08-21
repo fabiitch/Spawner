@@ -1,6 +1,6 @@
 package com.github.fabiitch.spawner.query;
 
-import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
+import com.github.fabiitch.spawner.impact.FlagImpacted;
 import com.github.fabiitch.spawner.flag.FlagMapper;
 import lombok.AllArgsConstructor;
 
@@ -17,7 +17,7 @@ public abstract class FlagFilter<T> implements EntityFilter, FlagImpacted {
     }
 
     @Override
-    public boolean impactedByFlag(int flagIndex) {
-        return flagIndex == mapper.getIndex();
+    public boolean impactedByFlag(int indexFlag) {
+        return indexFlag == mapper.getIndex();
     }
 }

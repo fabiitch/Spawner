@@ -4,10 +4,17 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.github.fabiitch.spawner.entity.EntityManager;
 import com.github.fabiitch.spawner.family.FamilyManager;
+import com.github.fabiitch.spawner.listeners.aspect.AspectListener;
+import com.github.fabiitch.spawner.listeners.behavior.BehaviorListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import com.github.fabiitch.spawner.listeners.entity.EntityListener;
+import com.github.fabiitch.spawner.listeners.flag.FlagListener;
 import com.github.fabiitch.spawner.wrapper.EntityWrapperManager;
 
-public class ListenerManager implements ComponentListener<Object>, BehaviorListener<Object>, FlagListener {
+public class ListenerManager implements ComponentListener<Object>,
+        BehaviorListener<Object>,
+        AspectListener<Object>,
+        FlagListener {
     private final EntityManager entityManager;
     private final FamilyManager familyManager;
     private final EntityWrapperManager entityWrapperManager;
@@ -182,7 +189,7 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
     }
 
     @Override
-    public void onBehaviorLoose(int entityId, Object componentBehavior,int behaviorIndex, int componentIndex) {
+    public void onBehaviorLoose(int entityId, Object componentBehavior, int behaviorIndex, int componentIndex) {
         entityManager.onBehaviorLoose(entityId, componentIndex);
         familyManager.onBehaviorLoose(entityId, componentIndex);
         entityWrapperManager.onBehaviorLoose(entityId, componentIndex);
@@ -221,5 +228,25 @@ public class ListenerManager implements ComponentListener<Object>, BehaviorListe
                 entityListener.onFlagRemove(flagIndex);
             }
         }
+    }
+
+    @Override
+    public void onAspectGet(int entityId, Object component, int indexAspect, int indexComponent) {
+
+    }
+
+    @Override
+    public void onAspectLoose(int entityId, Object component, int indexAspect, int indexComponent) {
+
+    }
+
+    @Override
+    public void onAspectReplace(int entityId, Object oldComponent, Object newComponent, int indexAspect, int indexOldComponent, int indexOldBehavior) {
+
+    }
+
+    @Override
+    public void onAspectUpdated(int entityId, Object component, int indexAspect, int indexComponent) {
+
     }
 }

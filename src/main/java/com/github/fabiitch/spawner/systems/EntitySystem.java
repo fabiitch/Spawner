@@ -2,11 +2,11 @@ package com.github.fabiitch.spawner.systems;
 
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.Archetype;
-import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
+import com.github.fabiitch.spawner.impact.BehaviorImpacted;
+import com.github.fabiitch.spawner.impact.ComponentImpacted;
+import com.github.fabiitch.spawner.impact.FlagImpacted;
 import com.github.fabiitch.spawner.family.Family;
-import com.github.fabiitch.spawner.sort.EntityComparator;
+import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 import lombok.Getter;
 import lombok.Setter;
@@ -62,7 +62,7 @@ public abstract class EntitySystem extends EngineSystem
     }
 
     @Override
-    public boolean impactedByFlag(int flagIndex) {
-        return family.impactedByFlag(flagIndex);
+    public boolean impactedByFlag(int indexFlag) {
+        return family.impactedByFlag(indexFlag);
     }
 }

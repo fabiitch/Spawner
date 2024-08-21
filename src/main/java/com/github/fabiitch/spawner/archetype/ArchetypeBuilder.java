@@ -10,6 +10,7 @@ public class ArchetypeBuilder {
 
     private final CriteriaData components = new CriteriaData();
     private final CriteriaData behaviors = new CriteriaData();
+    private final CriteriaData aspect = new CriteriaData();
     private final CriteriaData flags = new CriteriaData();
 
     public static ArchetypeBuilder get() {
@@ -28,6 +29,10 @@ public class ArchetypeBuilder {
 
     public ArchetypeBuilder behaviors(QueryCriteria criteria, Class<?>... componentTypes) {
         add(behaviors, criteria, componentTypes);
+        return this;
+    }
+    public ArchetypeBuilder aspect(QueryCriteria criteria, Class<?>... aspectType) {
+        add(aspect, criteria, aspectType);
         return this;
     }
 

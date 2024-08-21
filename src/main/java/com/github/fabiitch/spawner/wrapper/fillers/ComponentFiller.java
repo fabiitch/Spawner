@@ -2,7 +2,7 @@ package com.github.fabiitch.spawner.wrapper.fillers;
 
 import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.wrapper.EntityWrapper;
-import com.github.fabiitch.spawner.listeners.ComponentListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

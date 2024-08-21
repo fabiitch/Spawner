@@ -1,10 +1,12 @@
 package com.github.fabiitch.spawner.component;
 
-import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
-import com.github.fabiitch.spawner.listeners.ComponentListener;
+import com.github.fabiitch.spawner.impact.ComponentImpacted;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import com.github.fabiitch.spawner.utils.mappers.ObjectMapper;
 
 public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> implements ComponentImpacted {
+
+    ComponentListenerMultiplexer<T> listenerMultiplexer = new ComponentListenerMultiplexer();
 
     public ComponentMapper(int index) {
         super(index);

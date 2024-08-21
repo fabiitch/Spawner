@@ -1,7 +1,7 @@
 package com.github.fabiitch.spawner.behavior;
 
 import com.github.fabiitch.spawner.component.ComponentMapper;
-import com.github.fabiitch.spawner.listeners.ComponentListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import lombok.AllArgsConstructor;
 
 /**

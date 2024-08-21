@@ -1,17 +1,21 @@
 package com.github.fabiitch.spawner.wrapper;
 
 import com.badlogic.gdx.utils.IntMap;
-import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.FlagImpacted;
+import com.github.fabiitch.spawner.impact.AspectImpacted;
+import com.github.fabiitch.spawner.impact.BehaviorImpacted;
+import com.github.fabiitch.spawner.impact.ComponentImpacted;
+import com.github.fabiitch.spawner.impact.FlagImpacted;
+import com.github.fabiitch.spawner.wrapper.fillers.AspectFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.BehaviorFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.ComponentFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.FlagFiller;
 
-public class BaseEntityMapper<W extends EntityWrapper> implements ComponentImpacted, FlagImpacted, BehaviorImpacted {
+public class BaseEntityMapper<W extends EntityWrapper>
+        implements ComponentImpacted, BehaviorImpacted, AspectImpacted, FlagImpacted {
 
     protected final IntMap<ComponentFiller<? super W, ?>> componentFillers = new IntMap<>();
     protected final IntMap<BehaviorFiller<? super W, ?>> behaviorFillers = new IntMap<>();
+    protected final IntMap<AspectFiller<? super W, ?>> aspectFillers = new IntMap<>();
     protected final IntMap<FlagFiller<? super W>> flagFillers = new IntMap<>();
 
     public void useFillerOf(BaseEntityMapper<? super W> entityMapper) {
@@ -31,8 +35,13 @@ public class BaseEntityMapper<W extends EntityWrapper> implements ComponentImpac
     }
 
     @Override
-    public boolean impactedByFlag(int flagIndex) {
-        return flagFillers.containsKey(flagIndex);
+    public boolean impactedByAspect(int indexAspect) {
+        return aspectFillers.containsKey(indexAspect);
+    }
+
+    @Override
+    public boolean impactedByFlag(int indexFlag) {
+        return flagFillers.containsKey(indexFlag);
     }
 
 
@@ -65,4 +74,6 @@ public class BaseEntityMapper<W extends EntityWrapper> implements ComponentImpac
         flagFillers.remove(filler.getMapper().getIndex());
         return this;
     }
+
+
 }

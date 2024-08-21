@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Pool;
+import com.github.fabiitch.spawner.aspect.AspectMapper;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.flag.FlagMapper;
@@ -25,6 +26,8 @@ public class EntityReference implements EntityWrapper, Pool.Poolable {
     private final Bits flagBits = new Bits();
     @Getter
     private final Bits behaviorBits = new Bits();
+    @Getter
+    private final Bits aspectBits = new Bits();
 
     @Override
     public int getEntityId() {
@@ -43,7 +46,6 @@ public class EntityReference implements EntityWrapper, Pool.Poolable {
     public void removeComponent(int componentIndex) {
         components.remove(componentIndex);
     }
-
 
     public void setComponentBits(Bits bits) {
         this.componentBits.or(bits);
@@ -69,21 +71,13 @@ public class EntityReference implements EntityWrapper, Pool.Poolable {
         return flagBits.get(mapper.getIndex());
     }
 
-    public <B> Array<B> getBehavior(BehaviorMapper<B> behaviorMapper) {
-        Array<B> array = new Array<>();
-        for (ComponentMapper<B> componentMapper : behaviorMapper.getMappers()) {
-            if (hasComponent(componentMapper))
-                array.add(getComponent(componentMapper));
-        }
-        return array;
-    }
-
     @Override
     public void reset() {
         id = -1;
         components.clear();
         componentBits.clear();
         behaviorBits.clear();
+        aspectBits.clear();
         flagBits.clear();
     }
 

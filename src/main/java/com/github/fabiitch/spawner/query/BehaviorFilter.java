@@ -1,6 +1,6 @@
 package com.github.fabiitch.spawner.query;
 
-import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
+import com.github.fabiitch.spawner.impact.BehaviorImpacted;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
 package com.github.fabiitch.spawner.utils;
 
-import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.github.fabiitch.spawner.component.ComponentMapper;
 

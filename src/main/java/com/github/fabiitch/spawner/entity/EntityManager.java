@@ -14,6 +14,7 @@ public class EntityManager {
     private final SafeIntArray res = new SafeIntArray(entities);
     private final Tab<Bits> componentBits = new Tab<>();
     private final Tab<Bits> behaviorBits = new Tab<>();
+    private final Tab<Bits> aspectBits = new Tab<>();
     private final Tab<Bits> flagBits = new Tab<>();
     private final IntDeque recycledIds = new IntDeque();
     private final BitsPool bitsPool = new BitsPool();
@@ -35,11 +36,12 @@ public class EntityManager {
         componentBits.set(entityId, bitsPool.obtain());
         behaviorBits.set(entityId, bitsPool.obtain());
         flagBits.set(entityId, bitsPool.obtain());
+        aspectBits.set(entityId, bitsPool.obtain());
     }
 
     public boolean destroy(int entityId) {
         boolean remove = remove(entityId);
-        if(remove)
+        if (remove)
             recycledIds.add(entityId);
         return remove;
     }
@@ -51,10 +53,12 @@ public class EntityManager {
 
         bitsPool.free(componentBits.getUnsafe(entityId));
         bitsPool.free(behaviorBits.getUnsafe(entityId));
+        bitsPool.free(aspectBits.getUnsafe(entityId));
         bitsPool.free(flagBits.getUnsafe(entityId));
 
         componentBits.setUnsafe(entityId, null);
         behaviorBits.setUnsafe(entityId, null);
+        aspectBits.setUnsafe(entityId, null);
         flagBits.setUnsafe(entityId, null);
 
         entities.removeValue(entityId);
@@ -74,6 +78,10 @@ public class EntityManager {
         entityBehaviorBits.or(entityReference.getBehaviorBits());
         behaviorBits.set(entityId, entityBehaviorBits);
 
+        Bits entityAspectBits = bitsPool.obtain();
+        entityAspectBits.or(entityReference.getAspectBits());
+        aspectBits.set(entityId, entityAspectBits);
+
         Bits entityFlagBits = bitsPool.obtain();
         entityFlagBits.or(entityReference.getFlagBits());
         flagBits.set(entityId, entityFlagBits);
@@ -88,6 +96,10 @@ public class EntityManager {
 
     public Bits getBehaviorBits(int entityId) {
         return behaviorBits.get(entityId);
+    }
+
+    public Bits getAspectBits(int entityId) {
+        return aspectBits.get(entityId);
     }
 
     public Bits getFlagBits(int entityId) {
@@ -123,7 +135,7 @@ public class EntityManager {
     }
 
 
-    public SafeIntArray getEntities(){
+    public SafeIntArray getEntities() {
         return res;
     }
 }

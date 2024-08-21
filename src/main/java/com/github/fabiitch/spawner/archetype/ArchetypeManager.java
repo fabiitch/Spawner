@@ -3,6 +3,7 @@ package com.github.fabiitch.spawner.archetype;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.github.fabiitch.spawner.aspect.AspectManager;
 import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.component.ComponentManager;
 import com.github.fabiitch.spawner.entity.EntityManager;
@@ -14,13 +15,15 @@ public class ArchetypeManager {
     private final EntityManager entityManager;
     private final ComponentManager componentManager;
     private final BehaviorManager behaviorManager;
+    private final AspectManager aspectManager;
     private final FlagManager flagManager;
 
     public Archetype build(ArchetypeBuilder archetypeBuilder) {
 
-        BitsCriteria componentFilterData = null;
-        BitsCriteria behaviorFilterData = null;
-        BitsCriteria flagFilterData = null;
+        BitsCriteria componentCriteria = null;
+        BitsCriteria behaviorCriteria = null;
+        BitsCriteria aspectCriteria = null;
+        BitsCriteria flagCriteria = null;
 
         if (!archetypeBuilder.getComponents().isEmpty()) {
             ArchetypeBuilder.CriteriaData componentsData = archetypeBuilder.getComponents();
@@ -30,7 +33,7 @@ public class ArchetypeManager {
             Bits bitsAllAccept = componentsData.getAllAccept().isEmpty() ? null : transformComponents(componentsData.getAllAccept());
             Bits bitsAllExclude = componentsData.getAllExclude().isEmpty() ? null : transformComponents(componentsData.getAllExclude());
 
-            componentFilterData = new BitsCriteria(bitsOneAccept, bitsOneExclude, bitsAllAccept, bitsAllExclude);
+            componentCriteria = new BitsCriteria(bitsOneAccept, bitsOneExclude, bitsAllAccept, bitsAllExclude);
         }
 
         if (!archetypeBuilder.getBehaviors().isEmpty()) {
@@ -41,7 +44,17 @@ public class ArchetypeManager {
             Bits bitsAllAccept = behaviorsData.getAllAccept().isEmpty() ? null : transformBehaviors(behaviorsData.getAllAccept());
             Bits bitsAllExclude = behaviorsData.getAllExclude().isEmpty() ? null : transformBehaviors(behaviorsData.getAllExclude());
 
-            behaviorFilterData = new BitsCriteria(bitsOneAccept, bitsOneExclude, bitsAllAccept, bitsAllExclude);
+            behaviorCriteria = new BitsCriteria(bitsOneAccept, bitsOneExclude, bitsAllAccept, bitsAllExclude);
+        }
+        if (!archetypeBuilder.getAspect().isEmpty()) {
+            ArchetypeBuilder.CriteriaData aspectData = archetypeBuilder.getAspect();
+
+            Bits bitsOneAccept = aspectData.getOneAccept().isEmpty() ? null : transformAspects(aspectData.getOneAccept());
+            Bits bitsOneExclude = aspectData.getOneExclude().isEmpty() ? null : transformAspects(aspectData.getOneExclude());
+            Bits bitsAllAccept = aspectData.getAllAccept().isEmpty() ? null : transformAspects(aspectData.getAllAccept());
+            Bits bitsAllExclude = aspectData.getAllExclude().isEmpty() ? null : transformAspects(aspectData.getAllExclude());
+
+            aspectCriteria = new BitsCriteria(bitsOneAccept, bitsOneExclude, bitsAllAccept, bitsAllExclude);
         }
 
         if (!archetypeBuilder.getFlags().isEmpty()) {
@@ -52,9 +65,9 @@ public class ArchetypeManager {
             Bits bitsAllAccept = flagsData.getAllAccept().isEmpty() ? null : transformFlags(flagsData.getAllAccept());
             Bits bitsAllExclude = flagsData.getAllExclude().isEmpty() ? null : transformFlags(flagsData.getAllExclude());
 
-            flagFilterData = new BitsCriteria(bitsOneAccept, bitsOneExclude, bitsAllAccept, bitsAllExclude);
+            flagCriteria = new BitsCriteria(bitsOneAccept, bitsOneExclude, bitsAllAccept, bitsAllExclude);
         }
-        return new Archetype(entityManager, componentFilterData, behaviorFilterData, flagFilterData);
+        return new Archetype(entityManager, componentCriteria, behaviorCriteria, aspectCriteria, flagCriteria);
     }
 
     private Bits transform(Array<Class<?>> classToMap, int type) {
@@ -97,6 +110,19 @@ public class ArchetypeManager {
                 bits.set(behaviorIndex);
             } else {
                 throw new GdxRuntimeException("Behavior class : " + aClass.getName() + " is not register");
+            }
+        }
+        return bits;
+    }
+
+    private Bits transformAspects(Array<Class<?>> classToMap) {
+        Bits bits = new Bits();
+        for (Class<?> aClass : classToMap) {
+            if (aspectManager.existMapper(aClass)) {
+                int indexAspect = aspectManager.getMapper(aClass).getIndex();
+                bits.set(indexAspect);
+            } else {
+                throw new GdxRuntimeException("Aspect class : " + aClass.getName() + " is not register");
             }
         }
         return bits;

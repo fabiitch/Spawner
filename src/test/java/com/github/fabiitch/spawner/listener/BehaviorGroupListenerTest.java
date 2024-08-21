@@ -6,7 +6,7 @@ import com.github.fabiitch.spawner.data.components.attack.PoisonAuraComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.listeners.BehaviorListener;
+import com.github.fabiitch.spawner.listeners.behavior.BehaviorListener;
 import lombok.Getter;
 import org.junit.jupiter.api.Test;
 

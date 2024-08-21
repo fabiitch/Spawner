@@ -2,7 +2,6 @@ package com.github.fabiitch.spawner.component;
 
 import com.github.fabiitch.spawner.data.DataChange;
 import com.github.fabiitch.spawner.operation.EcsOperation;
-import com.github.fabiitch.spawner.operation.Operation;
 import lombok.Getter;
 import lombok.Setter;
 

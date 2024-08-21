@@ -5,9 +5,12 @@ import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.Archetype;
 import com.github.fabiitch.spawner.archetype.criteria.*;
+import com.github.fabiitch.spawner.impact.BehaviorImpacted;
+import com.github.fabiitch.spawner.impact.ComponentImpacted;
+import com.github.fabiitch.spawner.impact.FlagImpacted;
 import com.github.fabiitch.spawner.listeners.FamilyListener;
 import com.github.fabiitch.spawner.query.EntityFilter;
-import com.github.fabiitch.spawner.sort.EntityComparator;
+import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 import com.github.fabiitch.spawner.utils.collections.IntList;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 
@@ -107,8 +110,8 @@ public class Family implements EntityFilter,
     }
 
     @Override
-    public boolean impactedByFlag(int flagIndex) {
-        return archetype.impactedByFlag(flagIndex);
+    public boolean impactedByFlag(int indexFlag) {
+        return archetype.impactedByFlag(indexFlag);
     }
 
     @Override
