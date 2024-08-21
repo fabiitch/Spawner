@@ -23,6 +23,13 @@ public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> im
         notifyAdd(entityId, component);
     }
 
+
+     void addReally(int entityId, T component) {
+        data.set(entityId, component);
+        notifyAdd(entityId, component);
+    }
+
+
     public void updated(int entityId) {
         T component = data.get(entityId);
         if (component != null)

@@ -36,7 +36,6 @@ public class ComponentGroup<C> implements ComponentListener<C>, ComponentImpacte
         return result;
     }
 
-
     public void init() {
         SafeTab<C> safeTab = mapper.getAll();
         for (int entityId = 0; entityId < safeTab.size(); entityId++) {

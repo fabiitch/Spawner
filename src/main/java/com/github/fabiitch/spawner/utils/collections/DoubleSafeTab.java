@@ -2,7 +2,7 @@ package com.github.fabiitch.spawner.utils.collections;
 
 import java.util.Iterator;
 
-public class DoubleSafeTab<T> implements Iterable<T>{
+public class DoubleSafeTab<T> implements Iterable<T> {
 
     private final DoubleTab<T> doubleTab;
     private final Tab<SafeTab<T>> safeTabs;
@@ -13,7 +13,6 @@ public class DoubleSafeTab<T> implements Iterable<T>{
     }
 
     public SafeTab<T> get(int indexPrimary) {
-        safeTabs.get()
         return null;
     }
 
@@ -39,10 +38,11 @@ public class DoubleSafeTab<T> implements Iterable<T>{
     }
 
     public boolean isEmpty() {
+        return doubleTab.isEmpty();
     }
 
     public boolean isEmpty(int index) {
-        return tab == null || tab.isEmpty();
+        return doubleTab.isEmpty(index);
     }
 
     @Override

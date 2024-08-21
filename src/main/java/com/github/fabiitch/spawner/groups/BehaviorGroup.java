@@ -3,7 +3,6 @@ package com.github.fabiitch.spawner.groups;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.archetype.criteria.BehaviorImpacted;
-import com.github.fabiitch.spawner.archetype.criteria.BehaviorsMatcher;
 import com.github.fabiitch.spawner.archetype.criteria.ComponentImpacted;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentMapper;
@@ -13,7 +12,7 @@ import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 import com.github.fabiitch.spawner.utils.collections.SafeTab;
 import com.github.fabiitch.spawner.utils.collections.Tab;
 
-public class BehaviorGroup<B> implements BehaviorListener<B>, BehaviorImpacted, ComponentImpacted, BehaviorsMatcher {
+public class BehaviorGroup<B> implements BehaviorListener<B>, BehaviorImpacted, ComponentImpacted {
 
     private BehaviorMapper<B> mapper;
     private BehaviorFilter<B> matcher;
@@ -32,6 +31,32 @@ public class BehaviorGroup<B> implements BehaviorListener<B>, BehaviorImpacted, 
         data.clear();
     }
 
+    public Array<B> get(int entityId, Array<B> result) {
+        IntArray array = data.get(entityId);
+        if (array != null) {
+            for (int componentIndex : array.items) {
+                result.add(mapper.getBehavior(entityId, componentIndex));
+            }
+        }
+        return result;
+    }
+
+    public B get(int entityId, int componentIndex) {
+        IntArray array = data.get(entityId);
+        if (array != null && array.contains(componentIndex)) {
+            return mapper.getBehavior(entityId, componentIndex);
+        }
+        return null;
+    }
+
+    public <C> C getComponent(int entityId, ComponentMapper<C> componentMapper) {
+        IntArray array = data.get(entityId);
+        if (array != null && array.contains(componentMapper.getIndex())) {
+            return componentMapper.getComponent(entityId);
+        }
+        return null;
+    }
+
     private void add(int entityId, int componentIndex) {
         IntArray array = data.get(entityId);
         if (array == null) {
@@ -39,7 +64,6 @@ public class BehaviorGroup<B> implements BehaviorListener<B>, BehaviorImpacted, 
             data.set(entityId, array);
         }
         array.add(componentIndex);
-
     }
 
     private void remove(int entityId, int componentIndex) {
@@ -49,39 +73,21 @@ public class BehaviorGroup<B> implements BehaviorListener<B>, BehaviorImpacted, 
         }
     }
 
-    public SafeTab<SafeIntArray> getAll() {
-        return null;
-    }
+
 
     public void init() {
         SafeTab<Tab<B>> all = mapper.getAll();
         for (int entityId = 0; entityId < all.size(); entityId++) {
-            for (int indexComponent = 0; indexComponent <)
-                if (matcher.accept(entityId)) {
-                }
         }
     }
 
     public boolean has(int entityId, int componentIndex) {
-        return data.get(entityId, componentIndex) != null;
+        return get(entityId, componentIndex) != null;
     }
 
-    public Array<B> get(int entityId, int array) {
-        IntArray entityArray = entities.get(entityId);
-        if (entityArray != null) {
-            for (int i = 0; i < array.size; i++) {
-                int componentIndex = entityArray.get(i);
-                array.add(mapper.getBehavior(entityId, componentIndex));
-            }
-        }
-        return array;
-    }
-
-    public <C> C getComponent(int entityId, ComponentMapper<C> componentMapper) {
-        if (has(entityId, componentMapper.getIndex())) {
-            return componentMapper.getComponent(entityId);
-        }
-        return null;
+    public boolean has(int entityId) {
+        IntArray array = data.get(entityId);
+        return !array.isEmpty();
     }
 
 

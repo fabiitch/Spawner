@@ -194,6 +194,11 @@ public class EntityListenerTest extends BaseTest {
         }
 
         @Override
+        public void onComponentUpdate(int componentIndex, Object component) {
+
+        }
+
+        @Override
         public void onBehaviorComponentAdd(int indexBehavior, Object componentBehavior, int componentIndex) {
             lastBehaviorAdd = componentBehavior;
         }
