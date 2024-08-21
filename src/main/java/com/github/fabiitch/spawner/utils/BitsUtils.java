@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Bits;
 
 public class BitsUtils {
+
+
     public static boolean equalsSafe(Bits bitsA, Bits bitsB) {
         if (bitsA != null) {
             bitsA.equals(bitsB);

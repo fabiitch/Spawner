@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BehaviorListenerTest extends BaseTest {
+public class BehaviorGroupListenerTest extends BaseTest {
 
     @Test
     public void addRemoveComponentTest() {

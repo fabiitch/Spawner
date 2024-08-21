@@ -17,6 +17,7 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
 
     private final Array<ComponentMapper<T>> mappers = new Array<>();
     private final IntIntMap componentRelativeIndex = new IntIntMap();
+    private Bits componentsMatch = new Bits();
 
     private int incrementRelative = 0;
 
@@ -119,7 +120,6 @@ public class BehaviorMapper<T> extends ObjectMapper<Tab<T>, BehaviorListener<T>>
     void registerComponentMapper(ComponentMapper<T> componentMapper) {
         mappers.add(componentMapper);
         componentsMatch.set(componentMapper.getIndex());
-        componentRelativeIndex.
     }
 
     private void notifyComponentAdd(int entityId, T component, int componentIndex) {
