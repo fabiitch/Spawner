@@ -3,7 +3,7 @@ package com.github.fabiitch.spawner.archetype.builder;
 import com.badlogic.gdx.utils.Array;
 import com.github.fabiitch.spawner.WorldConfig;
 import com.github.fabiitch.spawner.archetype.ArchetypeBuilderException;
-import com.github.fabiitch.spawner.archetype.EntityPart;
+import com.github.fabiitch.spawner.EntityPart;
 import com.github.fabiitch.spawner.archetype.IArchetype;
 import com.github.fabiitch.spawner.archetype.criteria.QueryCriteria;
 import lombok.Getter;
