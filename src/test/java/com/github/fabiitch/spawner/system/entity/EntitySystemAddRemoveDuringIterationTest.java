@@ -2,8 +2,8 @@ package com.github.fabiitch.spawner.system.entity;
 
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.World;
-import com.github.fabiitch.spawner.archetype.Archetype;
-import com.github.fabiitch.spawner.archetype.ArchetypeBuilder;
+import com.github.fabiitch.spawner.archetype.IArchetype;
+import com.github.fabiitch.spawner.archetype.builder.ArchetypeBuilder;
 import com.github.fabiitch.spawner.data.components.PositionComponent;
 import com.github.fabiitch.spawner.entity.Prototype;
 import com.github.fabiitch.spawner.systems.EntitySystem;
@@ -16,7 +16,7 @@ public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
     @Test
     public void removeComponentDuringIteration() {
         int entity1, entity2, entity3;
-        Archetype archetype = ArchetypeBuilder.get().hasComponent(PositionComponent.class).register(config);
+        IArchetype archetype = ArchetypeBuilder.get().hasComponent(PositionComponent.class).register(config);
 
         RemovePositionSystem removePositionSystem = new RemovePositionSystem(archetype);
         config.addSystem(removePositionSystem);
@@ -33,7 +33,7 @@ public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
 
     @Test
     public void addComponentDuringIteration() {
-        Archetype archetype = ArchetypeBuilder.get().hasComponent(PositionComponent.class).register(config);
+        IArchetype archetype = ArchetypeBuilder.get().hasComponent(PositionComponent.class).register(config);
 
         CreatePositionSystem createPositionSystem = new CreatePositionSystem(archetype, world);
         config.addSystem(createPositionSystem);
@@ -53,7 +53,7 @@ public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
 
     private static class RemovePositionSystem extends EntitySystem {
 
-        public RemovePositionSystem(Archetype archetype) {
+        public RemovePositionSystem(IArchetype archetype) {
             super(archetype, 0);
         }
 
@@ -66,8 +66,9 @@ public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
     private static class CreatePositionSystem extends EntitySystem {
 
         private World world;
+        int entityProcessCount =0;
 
-        public CreatePositionSystem(Archetype archetype, World world) {
+        public CreatePositionSystem(IArchetype archetype, World world) {
             super(archetype, 0);
             this.world = world;
         }
@@ -75,6 +76,13 @@ public class EntitySystemAddRemoveDuringIterationTest extends BaseTest {
         @Override
         protected void processEntity(int entityId, float dt) {
             world.createEntity(new Prototype().addComponent(new PositionComponent()));
+            entityProcessCount++;
+        }
+
+        @Override
+        public void update(float dt) {
+            entityProcessCount=0;
+            super.update(dt);
         }
     }
 }

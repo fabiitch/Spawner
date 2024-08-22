@@ -9,6 +9,7 @@ import com.github.fabiitch.spawner.listeners.behavior.BehaviorListener;
 import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import com.github.fabiitch.spawner.listeners.entity.EntityListener;
 import com.github.fabiitch.spawner.listeners.flag.FlagListener;
+import com.github.fabiitch.spawner.listeners.world.WorldListener;
 import com.github.fabiitch.spawner.wrapper.EntityWrapperManager;
 
 public class ListenerManager implements ComponentListener<Object>,

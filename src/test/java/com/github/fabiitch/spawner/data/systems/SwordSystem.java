@@ -1,6 +1,6 @@
 package com.github.fabiitch.spawner.data.systems;
 
-import com.github.fabiitch.spawner.archetype.Archetype;
+import com.github.fabiitch.spawner.archetype.IArchetype;
 import com.github.fabiitch.spawner.component.ComponentMapper;
 import com.github.fabiitch.spawner.systems.EntitySystem;
 import com.github.fabiitch.spawner.BaseTest;
@@ -13,7 +13,7 @@ public class SwordSystem extends EntitySystem {
     public int callCount;
     public int entityCallCount;
 
-    public SwordSystem(Archetype swordArchetype) {
+    public SwordSystem(IArchetype swordArchetype) {
         super(swordArchetype, 0);
         swordMapper = BaseTest.swordMapper;
     }

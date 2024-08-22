@@ -2,8 +2,8 @@ package com.github.fabiitch.spawner.family;
 
 import com.badlogic.gdx.utils.IntArray;
 import com.github.fabiitch.spawner.BaseTest;
-import com.github.fabiitch.spawner.archetype.Archetype;
-import com.github.fabiitch.spawner.archetype.ArchetypeBuilder;
+import com.github.fabiitch.spawner.archetype.IArchetype;
+import com.github.fabiitch.spawner.archetype.builder.ArchetypeBuilder;
 import com.github.fabiitch.spawner.data.behaviors.AttackBehavior;
 import com.github.fabiitch.spawner.data.components.attack.KnifeComponent;
 import com.github.fabiitch.spawner.data.components.attack.SwordComponent;
@@ -22,7 +22,7 @@ public class FamilyTest extends BaseTest {
     @Test
     public void componentTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().components(OneOf, SwordComponent.class, KnifeComponent.class);
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         Family family = new Family(archetype);
         config.registerFamily(family);
@@ -50,7 +50,7 @@ public class FamilyTest extends BaseTest {
     @Test
     public void flagTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().flags(AllOf, OutFlag.class, DeathFlag.class);
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         Family family = new Family(archetype);
 
@@ -86,7 +86,7 @@ public class FamilyTest extends BaseTest {
     @Test
     public void prototypeTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().components(AllOf, SwordComponent.class, KnifeComponent.class);
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
         Family family = new Family(archetype);
         config.registerFamily(family);
 
@@ -104,7 +104,7 @@ public class FamilyTest extends BaseTest {
     @Test
     public void orderedTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().behaviors(OneOf, AttackBehavior.class);
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         Family family = new Family(archetype);
         config.registerFamily(family);

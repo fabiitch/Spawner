@@ -1,5 +1,6 @@
 package com.github.fabiitch.spawner.archetype;
 
+import com.github.fabiitch.spawner.archetype.builder.ArchetypeBuilder;
 import com.github.fabiitch.spawner.entity.Prototype;
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.behaviors.AttackBehavior;
@@ -26,7 +27,7 @@ public class ArchetypeTest extends BaseTest {
     public void oneComponentAcceptTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().components(OneOf, SwordComponent.class, KnifeComponent.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         {
             Prototype prototype = new Prototype();
@@ -50,7 +51,7 @@ public class ArchetypeTest extends BaseTest {
     @Test
     public void allComponentAcceptTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().components(AllOf, SwordComponent.class, KnifeComponent.class);
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         Prototype prototype = new Prototype();
         prototype.addComponent(new SwordComponent(10));
@@ -77,7 +78,7 @@ public class ArchetypeTest extends BaseTest {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .components(NoneOf, SwordComponent.class, KnifeComponent.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
         {
             int entityId = world.createEntity();
             assertTrue(archetype.accept(entityId));
@@ -121,7 +122,7 @@ public class ArchetypeTest extends BaseTest {
     public void allComponentExcludeTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .components(NoneAll, SwordComponent.class, PositionComponent.class);
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         {
             int entityId = world.createEntity();
@@ -153,7 +154,7 @@ public class ArchetypeTest extends BaseTest {
     @Test
     public void oneBehaviorAcceptTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().behaviors(OneOf, AttackBehavior.class);
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         {
             Prototype prototype = new Prototype();
@@ -190,7 +191,7 @@ public class ArchetypeTest extends BaseTest {
     public void allBehaviorAcceptTest() {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get().behaviors(AllOf, AttackBehavior.class, DefenseBehavior.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
         {
             Prototype prototype = new Prototype();
             prototype.addComponent(new SwordComponent(10));
@@ -226,7 +227,7 @@ public class ArchetypeTest extends BaseTest {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .behaviors(NoneOf, AttackBehavior.class, DefenseBehavior.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
         {
             Prototype prototype = new Prototype();
             prototype.addComponent(new SwordComponent(10));
@@ -262,7 +263,7 @@ public class ArchetypeTest extends BaseTest {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .behaviors(NoneAll, AttackBehavior.class, DefenseBehavior.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
         {
             Prototype prototype = new Prototype();
             prototype.addComponent(new SwordComponent(10));
@@ -299,7 +300,7 @@ public class ArchetypeTest extends BaseTest {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .flags(OneOf, DeathFlag.class, OutFlag.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         int entityId = world.createEntity();
         assertFalse(archetype.accept(entityId)); //no flag
@@ -325,7 +326,7 @@ public class ArchetypeTest extends BaseTest {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .flags(AllOf, DeathFlag.class, OutFlag.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         int entityId = world.createEntity();
         assertFalse(archetype.accept(entityId));
@@ -348,7 +349,7 @@ public class ArchetypeTest extends BaseTest {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .flags(NoneOf, DeathFlag.class, OutFlag.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         int entityId = world.createEntity();
         assertTrue(archetype.accept(entityId));
@@ -374,7 +375,7 @@ public class ArchetypeTest extends BaseTest {
         ArchetypeBuilder archetypeBuilder = ArchetypeBuilder.get()
                 .flags(NoneAll, DeathFlag.class, OutFlag.class);
 
-        Archetype archetype = config.registerArchetype(archetypeBuilder);
+        IArchetype archetype = config.registerArchetype(archetypeBuilder);
 
         int entityId = world.createEntity();
         assertTrue(archetype.accept(entityId));

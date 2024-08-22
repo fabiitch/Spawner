@@ -19,7 +19,6 @@ public abstract class BaseMatcher implements EntityFilter {
         }
     }
 
-
     public BaseMatcher addMatcher(final EntityFilter matcher) {
         matchers.add(matcher);
         return this;

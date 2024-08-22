@@ -4,5 +4,5 @@ import com.badlogic.gdx.utils.Bits;
 
 public interface AspectsMatcher {
 
-    boolean aspectmatch(Bits aspectBits);
+    boolean aspectMatch(Bits aspectBits);
 }

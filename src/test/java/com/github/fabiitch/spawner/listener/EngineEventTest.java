@@ -2,7 +2,7 @@ package com.github.fabiitch.spawner.listener;
 
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
-import com.github.fabiitch.spawner.listeners.WorldListener;
+import com.github.fabiitch.spawner.listeners.world.WorldListener;
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.components.PositionComponent;
 import lombok.Getter;

@@ -25,8 +25,14 @@ public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> im
         notifyAdd(entityId, component);
     }
 
+    /**
+     * dont call your listeners
+     */
+    public void addComponentSilent(int entityId, T component) {
+        data.set(entityId, component);
+    }
 
-     void addReally(int entityId, T component) {
+     void addReallyComponent(int entityId, T component) {
         data.set(entityId, component);
         notifyAdd(entityId, component);
     }
@@ -38,14 +44,14 @@ public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> im
             notifyUpdate(entityId, component);
     }
 
-    /**
-     * dont call your listeners
-     */
-    public void addComponentSilent(int entityId, T component) {
-        data.set(entityId, component);
+    public T removeComponent(int entityId) {
+        T component = data.remove(entityId);
+        if (component != null)
+            notifyRemove(entityId, component);
+        return component;
     }
 
-    public T removeComponent(int entityId) {
+    public T removeReally(int entityId) {
         T component = data.remove(entityId);
         if (component != null)
             notifyRemove(entityId, component);

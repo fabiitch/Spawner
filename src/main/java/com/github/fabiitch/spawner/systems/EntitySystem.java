@@ -1,34 +1,31 @@
 package com.github.fabiitch.spawner.systems;
 
-import com.badlogic.gdx.utils.IntArray;
-import com.github.fabiitch.spawner.archetype.Archetype;
+import com.github.fabiitch.spawner.archetype.IArchetype;
+import com.github.fabiitch.spawner.family.Family;
+import com.github.fabiitch.spawner.impact.AspectImpacted;
 import com.github.fabiitch.spawner.impact.BehaviorImpacted;
 import com.github.fabiitch.spawner.impact.ComponentImpacted;
 import com.github.fabiitch.spawner.impact.FlagImpacted;
-import com.github.fabiitch.spawner.family.Family;
-import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
+import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 public abstract class EntitySystem extends EngineSystem
-        implements ComponentImpacted, BehaviorImpacted, FlagImpacted {
-
+        implements ComponentImpacted, BehaviorImpacted, AspectImpacted, FlagImpacted {
     private final Family family;
 
     @Getter
     @Setter
     private EntityComparator comparator;
 
-    private final IntArray loopArray = new IntArray();
-
     public EntitySystem(Family family, int priority) {
         super(priority);
         this.family = family;
     }
 
-    public EntitySystem(Archetype archetype, int priority) {
+    public EntitySystem(IArchetype archetype, int priority) {
         super(priority);
         this.family = new Family(archetype);
     }
@@ -59,6 +56,11 @@ public abstract class EntitySystem extends EngineSystem
     @Override
     public boolean impactedByBehavior(int behaviorIndex) {
         return family.impactedByBehavior(behaviorIndex);
+    }
+
+    @Override
+    public boolean impactedByAspect(int indexAspect) {
+        return family.impactedByFlag(indexAspect);
     }
 
     @Override

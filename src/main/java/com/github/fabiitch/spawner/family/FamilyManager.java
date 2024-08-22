@@ -1,6 +1,7 @@
 package com.github.fabiitch.spawner.family;
 
 import com.badlogic.gdx.utils.Array;
+import com.github.fabiitch.spawner.archetype.builder.Archetype;
 import com.github.fabiitch.spawner.entity.EntityManager;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
 
@@ -8,8 +9,13 @@ public class FamilyManager {
     private final Array<Family> families = new Array<>();
     private final EntityManager entityManager;
 
+
     public FamilyManager(EntityManager entityManager) {
         this.entityManager = entityManager;
+    }
+
+    public void createFamily(Archetype archetype) {
+
     }
 
     public void addFamily(Family family) {

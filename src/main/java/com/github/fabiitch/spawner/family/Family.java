@@ -3,30 +3,34 @@ package com.github.fabiitch.spawner.family;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.IntArray;
-import com.github.fabiitch.spawner.archetype.Archetype;
-import com.github.fabiitch.spawner.archetype.criteria.*;
+import com.github.fabiitch.spawner.archetype.IArchetype;
+import com.github.fabiitch.spawner.archetype.criteria.BehaviorsMatcher;
+import com.github.fabiitch.spawner.archetype.criteria.ComponentsMatcher;
+import com.github.fabiitch.spawner.archetype.criteria.FlagsMatcher;
 import com.github.fabiitch.spawner.impact.BehaviorImpacted;
 import com.github.fabiitch.spawner.impact.ComponentImpacted;
 import com.github.fabiitch.spawner.impact.FlagImpacted;
 import com.github.fabiitch.spawner.listeners.FamilyListener;
+import com.github.fabiitch.spawner.operation.locker.EcsDataTypeLock;
+import com.github.fabiitch.spawner.operation.locker.EcsDataTypeLocker;
 import com.github.fabiitch.spawner.query.EntityFilter;
-import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 import com.github.fabiitch.spawner.utils.collections.IntList;
 import com.github.fabiitch.spawner.utils.collections.SafeIntArray;
+import com.github.fabiitch.spawner.utils.sort.EntityComparator;
 
 public class Family implements EntityFilter,
         ComponentsMatcher, ComponentImpacted,
         BehaviorsMatcher, BehaviorImpacted,
-        FlagsMatcher, FlagImpacted {
+        FlagsMatcher, FlagImpacted, EcsDataTypeLocker {
 
-    private final Archetype archetype;
+    private final IArchetype archetype;
     private final Array<FamilyListener> listeners = new Array<>();
 
     private final IntArray entities = new IntArray();
     private SafeIntArray safeIntArray = new SafeIntArray(entities);
 
 
-    public Family(Archetype archetype) {
+    public Family(IArchetype archetype) {
         this.archetype = archetype;
     }
 
@@ -65,14 +69,14 @@ public class Family implements EntityFilter,
         return true;
     }
 
-    public void addEntity(int entityId) {
+    void addEntity(int entityId) {
         entities.add(entityId);
         for (FamilyListener listener : listeners) {
             listener.onEntityAdd(entityId);
         }
     }
 
-    public void removeEntity(int entityId) {
+    void removeEntity(int entityId) {
         if (hasEntity(entityId)) {
             entities.removeValue(entityId);
             for (FamilyListener listener : listeners) {
@@ -129,5 +133,10 @@ public class Family implements EntityFilter,
 
     public void sortByEntityId() {
         entities.sort();
+    }
+
+    @Override
+    public void applyLock(EcsDataTypeLock ecsDataTypeLock) {
+
     }
 }

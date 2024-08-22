@@ -59,7 +59,7 @@ public class BehaviorMapperTest extends BaseTest {
 
 
     @Test
-    public void removeBehaviorTest() {
+    public void removeBehaviorsTest() {
         Prototype prototype = new Prototype();
 
         prototype.addComponent(new PositionComponent());
@@ -69,7 +69,7 @@ public class BehaviorMapperTest extends BaseTest {
         int entityId = world.createEntity(prototype);
         assertTrue(attackBehaviorMapper.hasBehavior(entityId));
 
-        attackBehaviorMapper.removeBehavior(entityId);
+        attackBehaviorMapper.removeBehaviors(entityId);
         assertFalse(attackBehaviorMapper.hasBehavior(entityId));
         assertFalse(swordMapper.hasComponent(entityId));
         assertFalse(knifeMapper.hasComponent(entityId));
@@ -107,7 +107,7 @@ public class BehaviorMapperTest extends BaseTest {
 
         Assertions.assertTrue(attackBehaviorMapper.hasBehavior(entityIdA));
 
-        attackBehaviorMapper.removeBehavior(entityIdA);
+        attackBehaviorMapper.removeBehaviors(entityIdA);
         Assertions.assertFalse(attackBehaviorMapper.hasBehavior(entityIdA));
         Assertions.assertFalse(swordMapper.hasComponent(entityIdA));
         Assertions.assertFalse(knifeMapper.hasComponent(entityIdA));

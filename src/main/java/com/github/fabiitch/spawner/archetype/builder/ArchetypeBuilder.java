@@ -1,7 +1,10 @@
-package com.github.fabiitch.spawner.archetype;
+package com.github.fabiitch.spawner.archetype.builder;
 
 import com.badlogic.gdx.utils.Array;
 import com.github.fabiitch.spawner.WorldConfig;
+import com.github.fabiitch.spawner.archetype.ArchetypeBuilderException;
+import com.github.fabiitch.spawner.archetype.EntityPart;
+import com.github.fabiitch.spawner.archetype.IArchetype;
 import com.github.fabiitch.spawner.archetype.criteria.QueryCriteria;
 import lombok.Getter;
 
@@ -17,7 +20,7 @@ public class ArchetypeBuilder {
         return new ArchetypeBuilder();
     }
 
-    public ArchetypeBuilder hasComponent(Class<?> component){
+    public ArchetypeBuilder hasComponent(Class<?> component) {
         add(components, QueryCriteria.AllOf, component);
         return this;
     }
@@ -31,6 +34,7 @@ public class ArchetypeBuilder {
         add(behaviors, criteria, componentTypes);
         return this;
     }
+
     public ArchetypeBuilder aspect(QueryCriteria criteria, Class<?>... aspectType) {
         add(aspect, criteria, aspectType);
         return this;
@@ -58,7 +62,7 @@ public class ArchetypeBuilder {
         }
     }
 
-    public Archetype register(WorldConfig config) {
+    public IArchetype register(WorldConfig config) {
         return config.registerArchetype(this);
     }
 
@@ -91,6 +95,19 @@ public class ArchetypeBuilder {
 
         public boolean isEmpty() {
             return oneAccept.isEmpty() && oneExclude.isEmpty() && allAccept.isEmpty() && allExclude.isEmpty();
+        }
+
+        public void isValid(EntityPart part) {
+            for (Class<?> classOneAccepted : oneAccept) {
+                if (oneExclude.contains(classOneAccepted, true))
+                    throw new ArchetypeBuilderException(part + " : one accept intersect one exclude on " + classOneAccepted.getSimpleName());
+                if (allAccept.contains(classOneAccepted, true))
+                    throw new ArchetypeBuilderException(part + " : one accept intersect all accepted on " + classOneAccepted.getSimpleName());
+            }
+            for (Class<?> classOneExcluded : oneExclude) {
+                if (allExclude.contains(classOneExcluded, true))
+                    throw new ArchetypeBuilderException(part + " : one exclude intersect all excluded on " + classOneExcluded.getSimpleName());
+            }
         }
     }
 }

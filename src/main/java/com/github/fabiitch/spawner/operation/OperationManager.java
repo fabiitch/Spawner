@@ -24,10 +24,14 @@ public class OperationManager {
 
     private <C> void onComponent(int entityId, C component, DataChange dataChange, ComponentMapper<C> mapper)
     {
-        ComponentOperation operation = new ComponentOperation();
-        operation.setEntityId(entityId);
-        operation.setComponent(component);
-        operation.setMapper(mapper);
-        operation.setDataChange(dataChange);
+        if(isRunning()){
+            ComponentOperation operation = new ComponentOperation();
+            operation.setEntityId(entityId);
+            operation.setComponent(component);
+            operation.setMapper(mapper);
+            operation.setDataChange(dataChange);
+        }else{
+        }
+
     }
 }
