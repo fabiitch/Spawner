@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.fabiitch.spawner.archetype.IArchetype;
-import com.github.fabiitch.spawner.archetype.EntityPart;
+import com.github.fabiitch.spawner.EntityPart;
 import com.github.fabiitch.spawner.aspect.AspectManager;
 import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.component.ComponentManager;

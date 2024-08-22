@@ -9,8 +9,6 @@ public class EcsDataTypeLock {
     private final Bits aspects = new Bits();
     private final Bits flags = new Bits();
 
-
-
     public boolean isComponentLocked(int indexComponent) {
         return this.components.get(indexComponent);
     }
