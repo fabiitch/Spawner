@@ -17,9 +17,10 @@ import lombok.Setter;
     public void apply() {
         switch (dataChange){
             case Add:
-                mapper.addReally(entityId, component);
+                mapper.addReallyComponent(entityId, component);
                 break;
             case Remove:
+                mapper.removeReally(entityId);
                 break;
             case Update:
                 break;

@@ -11,6 +11,7 @@ public abstract class ComponentGroupSystem<C> extends EngineSystem {
         this.group = group;
     }
 
+
     public abstract void updateEntity(int entityId, C component);
 
     @Override

@@ -1,6 +1,6 @@
 package com.github.fabiitch.spawner.listener;
 
-import com.github.fabiitch.spawner.archetype.ArchetypeBuilder;
+import com.github.fabiitch.spawner.archetype.builder.ArchetypeBuilder;
 import com.github.fabiitch.spawner.archetype.criteria.QueryCriteria;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;

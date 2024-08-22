@@ -1,7 +1,7 @@
 package com.github.fabiitch.spawner;
 
-import com.github.fabiitch.spawner.archetype.Archetype;
-import com.github.fabiitch.spawner.archetype.ArchetypeBuilder;
+import com.github.fabiitch.spawner.archetype.IArchetype;
+import com.github.fabiitch.spawner.archetype.builder.ArchetypeBuilder;
 import com.github.fabiitch.spawner.archetype.ArchetypeManager;
 import com.github.fabiitch.spawner.aspect.AspectManager;
 import com.github.fabiitch.spawner.aspect.AspectMapper;
@@ -14,7 +14,7 @@ import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.flag.FlagManager;
 import com.github.fabiitch.spawner.flag.FlagMapper;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
-import com.github.fabiitch.spawner.listeners.WorldListener;
+import com.github.fabiitch.spawner.listeners.world.WorldListener;
 import com.github.fabiitch.spawner.listeners.entity.EntityListener;
 import com.github.fabiitch.spawner.systems.EcsSystem;
 import com.github.fabiitch.spawner.systems.EntitySystem;
@@ -100,12 +100,12 @@ public class WorldConfig {
         }
     }
 
-    public Archetype registerArchetype(ArchetypeBuilder archetypeBuilder) {
+    public IArchetype registerArchetype(ArchetypeBuilder archetypeBuilder) {
         return archetypeManager.build(archetypeBuilder);
     }
 
     public Family registerFamily(ArchetypeBuilder archetypeBuilder) {
-        Archetype archetype = archetypeManager.build(archetypeBuilder);
+        IArchetype archetype = archetypeManager.build(archetypeBuilder);
         Family family = new Family(archetype);
         familyManager.addFamily(family);
         return family;

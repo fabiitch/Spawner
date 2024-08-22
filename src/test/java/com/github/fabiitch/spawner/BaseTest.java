@@ -1,7 +1,7 @@
 package com.github.fabiitch.spawner;
 
-import com.github.fabiitch.spawner.archetype.Archetype;
-import com.github.fabiitch.spawner.archetype.ArchetypeBuilder;
+import com.github.fabiitch.spawner.archetype.IArchetype;
+import com.github.fabiitch.spawner.archetype.builder.ArchetypeBuilder;
 import com.github.fabiitch.spawner.archetype.criteria.QueryCriteria;
 import com.github.fabiitch.spawner.behavior.BehaviorMapper;
 import com.github.fabiitch.spawner.component.ComponentMapper;
@@ -50,10 +50,10 @@ public abstract class BaseTest {
     public static ComponentMapper<PositionComponent> positionMapper;
     public static ComponentMapper<VelocityComponent> velocityMapper;
 
-    public static Archetype swordArchetype;
-    public static Archetype attackArchetype;
-    public static Archetype moveAttackArchetype;
-    public static Archetype staticArchetype;
+    public static IArchetype swordArchetype;
+    public static IArchetype attackArchetype;
+    public static IArchetype moveAttackArchetype;
+    public static IArchetype staticArchetype;
 
 
     public static EntityMapper<Knight> knightMapper;

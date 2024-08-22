@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.archetype;
+package com.github.fabiitch.spawner.archetype.builder;
 
 import com.badlogic.gdx.utils.Bits;
 import com.github.fabiitch.spawner.utils.BitsUtils;
@@ -45,6 +45,16 @@ class BitsCriteria {
             return false;
 
         return true;
+    }
+
+
+    public boolean isParentOf(BitsCriteria other) {
+        return other.isChildOf(this);
+    }
+
+    public boolean isChildOf(BitsCriteria parent) {
+        return parent.oneAccept.containsAll(this.oneAccept) && parent.oneExclude.containsAll(this.oneExclude)
+                && parent.allAccept.containsAll(this.allAccept) && parent.allExclude.containsAll(this.allExclude);
     }
 
     public boolean equals(BitsCriteria other) {

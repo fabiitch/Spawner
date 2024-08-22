@@ -15,6 +15,7 @@ import com.github.fabiitch.spawner.family.FamilyManager;
 import com.github.fabiitch.spawner.flag.FlagManager;
 import com.github.fabiitch.spawner.flag.FlagMapper;
 import com.github.fabiitch.spawner.listeners.ListenerManager;
+import com.github.fabiitch.spawner.operation.WorldDataLock;
 import com.github.fabiitch.spawner.pools.SpawnerGdxPools;
 import com.github.fabiitch.spawner.pools.SpawnerPools;
 import com.github.fabiitch.spawner.query.EntityFilter;
@@ -43,6 +44,9 @@ public class World {
     private final FamilyManager familyManager;
     private final ListenerManager listenerManager;
     private final EntityWrapperManager entityWrapperManager;
+
+    @Getter
+    private final WorldDataLock dataLock = new WorldDataLock();
 
     @Getter
     private boolean updating;

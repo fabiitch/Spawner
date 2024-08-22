@@ -1,24 +1,12 @@
-package com.github.fabiitch.spawner.archetype;
+package com.github.fabiitch.spawner.archetype.builder;
 
 import com.badlogic.gdx.utils.Bits;
-import com.github.fabiitch.spawner.archetype.criteria.AspectsMatcher;
-import com.github.fabiitch.spawner.archetype.criteria.BehaviorsMatcher;
-import com.github.fabiitch.spawner.archetype.criteria.ComponentsMatcher;
-import com.github.fabiitch.spawner.archetype.criteria.FlagsMatcher;
+import com.github.fabiitch.spawner.archetype.IArchetype;
 import com.github.fabiitch.spawner.entity.EntityManager;
-import com.github.fabiitch.spawner.impact.AspectImpacted;
-import com.github.fabiitch.spawner.impact.BehaviorImpacted;
-import com.github.fabiitch.spawner.impact.ComponentImpacted;
-import com.github.fabiitch.spawner.impact.FlagImpacted;
-import com.github.fabiitch.spawner.query.EntityFilter;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Archetype implements EntityFilter,
-        ComponentImpacted, ComponentsMatcher,
-        BehaviorImpacted, BehaviorsMatcher,
-        AspectImpacted, AspectsMatcher,
-        FlagImpacted, FlagsMatcher {
+public class Archetype implements IArchetype {
 
     private final EntityManager entityManager;
 
@@ -38,7 +26,7 @@ public class Archetype implements EntityFilter,
     public boolean componentsMatch(Bits componentsBits) {
         if (componentFilterData != null)
             return componentFilterData.accept(componentsBits);
-        return false;
+        return true;
     }
 
     @Override
@@ -52,44 +40,46 @@ public class Archetype implements EntityFilter,
     public boolean behaviorsMatch(Bits behaviorBits) {
         if (behaviorFilterData != null)
             return behaviorFilterData.accept(behaviorBits);
-        return false;
+        return true;
     }
 
     @Override
     public boolean impactedByAspect(int indexAspect) {
         if (behaviorFilterData != null)
             return behaviorFilterData.impacted(indexAspect);
-        return false;
+        return true;
     }
 
     @Override
-    public boolean aspectmatch(Bits aspectBits) {
+    public boolean aspectMatch(Bits aspectBits) {
         if (aspectFilterData != null)
             return aspectFilterData.accept(aspectBits);
-        return false;
+        return true;
     }
 
     @Override
     public boolean impactedByFlag(int indexFlag) {
         if (flagFilterData != null)
             return flagFilterData.impacted(indexFlag);
-        return false;
+        return true;
     }
 
     @Override
     public boolean flagsMatch(Bits flagBits) {
         if (flagFilterData != null)
             return flagFilterData.accept(flagBits);
-        return false;
+        return true;
     }
+
 
     @Override
     public boolean accept(int entityId) {
         return flagsMatch(entityManager.getFlagBits(entityId))
                 && behaviorsMatch(entityManager.getBehaviorBits(entityId))
-                && aspectmatch(entityManager.getAspectBits(entityId))
+                && aspectMatch(entityManager.getAspectBits(entityId))
                 && componentsMatch(entityManager.getComponentBits(entityId));
     }
+
 
     public boolean equals(Archetype archetype) {
         boolean equal = true;
@@ -104,4 +94,3 @@ public class Archetype implements EntityFilter,
         return equal;
     }
 }
-

@@ -10,6 +10,12 @@ import com.github.fabiitch.spawner.wrapper.fillers.BehaviorFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.ComponentFiller;
 import com.github.fabiitch.spawner.wrapper.fillers.FlagFiller;
 
+/**
+ * Its use as a cache of your own type
+ * You cant query getAll, (use WrapperGroup for this)
+ * @param <W>
+ */
+
 public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W>
         implements ComponentImpacted, BehaviorImpacted, AspectImpacted, FlagImpacted {
 
@@ -57,7 +63,7 @@ public class EntityMapper<W extends EntityWrapper> extends BaseEntityMapper<W>
     }
 
     public void free(int entityId) {
-        W entityWrapper = entities.get(entityId);
+        W entityWrapper = entities.remove(entityId);
         if (entityWrapper != null)
             wrapperFactory.free(entityWrapper);
     }

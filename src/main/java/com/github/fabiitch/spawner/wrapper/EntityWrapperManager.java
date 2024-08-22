@@ -1,10 +1,6 @@
 package com.github.fabiitch.spawner.wrapper;
 
 import com.badlogic.gdx.utils.Array;
-import com.github.fabiitch.spawner.listeners.aspect.AspectListener;
-import com.github.fabiitch.spawner.listeners.behavior.BehaviorListener;
-import com.github.fabiitch.spawner.listeners.component.ComponentListener;
-import com.github.fabiitch.spawner.listeners.flag.FlagListener;
 
 public class EntityWrapperManager
         //implements ComponentListener, BehaviorListener, AspectListener, FlagListener //TODO mayber

@@ -89,7 +89,7 @@ public class BehaviorGroupListenerTest extends BaseTest {
         assertEquals(SwordComponent.class, listener.getClassCauseBehaviorGet());
         assertEquals(entityId, listener.getLastEntityIdGet());
 
-        attackBehaviorMapper.removeBehavior(entityId);
+        attackBehaviorMapper.removeBehaviors(entityId);
 
         assertEquals(entityId, listener.getLastEntityIdLoose());
         assertEquals(PoisonAuraComponent.class, listener.getClassCauseBehaviorLoose());

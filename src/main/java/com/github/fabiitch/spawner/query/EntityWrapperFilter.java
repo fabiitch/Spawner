@@ -1,6 +1,5 @@
-package com.github.fabiitch.spawner.query.matchers.wrapper;
+package com.github.fabiitch.spawner.query;
 
-import com.github.fabiitch.spawner.query.EntityFilter;
 import com.github.fabiitch.spawner.wrapper.EntityWrapper;
 import com.github.fabiitch.spawner.wrapper.EntityMapper;
 import lombok.AllArgsConstructor;

@@ -59,7 +59,7 @@ public class BehaviorGroup<B> implements BehaviorListener<B>, BehaviorImpacted, 
     private void add(int entityId, int componentIndex) {
         IntArray array = data.get(entityId);
         if (array == null) {
-            array = new IntArray(mapper.getMappers().size);
+            array = new IntArray();
             data.set(entityId, array);
         }
         array.add(componentIndex);

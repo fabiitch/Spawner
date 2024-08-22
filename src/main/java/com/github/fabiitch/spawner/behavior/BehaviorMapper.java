@@ -15,7 +15,6 @@ public class BehaviorMapper<B> extends ObjectMapper<Tab<B>, BehaviorListener<B>>
 
     private final Array<ComponentMapper<B>> mappers = new Array<>();
     private final IntIntMap componentRelativeIndex = new IntIntMap();
-
     private Bits componentsMatch = new Bits();
 
 
@@ -35,13 +34,6 @@ public class BehaviorMapper<B> extends ObjectMapper<Tab<B>, BehaviorListener<B>>
         if (components == null)
             return null;
         return components.get(componentIndex);
-    }
-
-    public <C extends B> C getComponent(int entityId, ComponentMapper<C> componentMapper) {
-        Tab<B> components = data.get(entityId);
-        if (components == null)
-            return null;
-        return componentMapper.getComponent(entityId);
     }
 
     void addComponent(int entityId, B component, int componentIndex) {
@@ -72,7 +64,7 @@ public class BehaviorMapper<B> extends ObjectMapper<Tab<B>, BehaviorListener<B>>
         }
     }
 
-    public Tab<B> removeBehavior(int entityId) {
+    public Tab<B> removeBehaviors(int entityId) {
         Tab<B> components = data.remove(entityId);
         if (components != null) {
             B lastRemoved = null;

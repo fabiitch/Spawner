@@ -9,7 +9,7 @@ public class SafeIntArray {
     private final IntArray array;
 
     public IntArray cpy(){
-        return new IntArray(array);
+        return new IntArray(array.toArray());
     }
 
     public int size(){
