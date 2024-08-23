@@ -1,5 +1,7 @@
 package com.github.fabiitch.spawner.component;
 
+import com.badlogic.gdx.utils.Array;
+import com.github.fabiitch.spawner.groups.EntityData;
 import com.github.fabiitch.spawner.impact.ComponentImpacted;
 import com.github.fabiitch.spawner.listeners.component.ComponentListener;
 import com.github.fabiitch.spawner.utils.mappers.ObjectMapper;
@@ -14,6 +16,14 @@ public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> im
 
     public T getComponent(int entityId) {
         return data.get(entityId);
+    }
+
+    public Array<T> getAll(Array<T> components) {
+        for (T component : data) {
+            if(component != null)
+                components.add(component);
+        }
+        return components;
     }
 
     public boolean hasComponent(int entityId) {
