@@ -135,8 +135,14 @@ public class Family implements EntityFilter,
         entities.sort();
     }
 
+
     @Override
-    public void applyLock(EcsDataTypeLock ecsDataTypeLock) {
+    public void lock(EcsDataTypeLock ecsDataTypeLock) {
+
+    }
+
+    @Override
+    public void unLock(EcsDataTypeLock ecsDataTypeLock) {
 
     }
 }
