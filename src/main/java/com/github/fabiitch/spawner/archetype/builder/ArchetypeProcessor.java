@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Bits;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.fabiitch.spawner.archetype.IArchetype;
-import com.github.fabiitch.spawner.EntityPart;
+import com.github.fabiitch.spawner.DataType;
 import com.github.fabiitch.spawner.aspect.AspectManager;
 import com.github.fabiitch.spawner.behavior.BehaviorManager;
 import com.github.fabiitch.spawner.component.ComponentManager;
@@ -29,7 +29,7 @@ public class ArchetypeProcessor {
 
         if (!archetypeBuilder.getComponents().isEmpty()) {
             ArchetypeBuilder.CriteriaData componentsData = archetypeBuilder.getComponents();
-            componentsData.isValid(EntityPart.Component);
+            componentsData.isValid(DataType.Component);
 
             Bits bitsOneAccept = componentsData.getOneAccept().isEmpty() ? null : transformComponents(componentsData.getOneAccept());
             Bits bitsOneExclude = componentsData.getOneExclude().isEmpty() ? null : transformComponents(componentsData.getOneExclude());
@@ -41,7 +41,7 @@ public class ArchetypeProcessor {
 
         if (!archetypeBuilder.getBehaviors().isEmpty()) {
             ArchetypeBuilder.CriteriaData behaviorsData = archetypeBuilder.getBehaviors();
-            behaviorsData.isValid(EntityPart.Behavior);
+            behaviorsData.isValid(DataType.Behavior);
 
             Bits bitsOneAccept = behaviorsData.getOneAccept().isEmpty() ? null : transformBehaviors(behaviorsData.getOneAccept());
             Bits bitsOneExclude = behaviorsData.getOneExclude().isEmpty() ? null : transformBehaviors(behaviorsData.getOneExclude());
@@ -52,7 +52,7 @@ public class ArchetypeProcessor {
         }
         if (!archetypeBuilder.getAspect().isEmpty()) {
             ArchetypeBuilder.CriteriaData aspectData = archetypeBuilder.getAspect();
-            aspectData.isValid(EntityPart.Aspect);
+            aspectData.isValid(DataType.Aspect);
 
             Bits bitsOneAccept = aspectData.getOneAccept().isEmpty() ? null : transformAspects(aspectData.getOneAccept());
             Bits bitsOneExclude = aspectData.getOneExclude().isEmpty() ? null : transformAspects(aspectData.getOneExclude());
@@ -64,7 +64,7 @@ public class ArchetypeProcessor {
 
         if (!archetypeBuilder.getFlags().isEmpty()) {
             ArchetypeBuilder.CriteriaData flagsData = archetypeBuilder.getFlags();
-            flagsData.isValid(EntityPart.Flag);
+            flagsData.isValid(DataType.Flag);
 
             Bits bitsOneAccept = flagsData.getOneAccept().isEmpty() ? null : transformFlags(flagsData.getOneAccept());
             Bits bitsOneExclude = flagsData.getOneExclude().isEmpty() ? null : transformFlags(flagsData.getOneExclude());

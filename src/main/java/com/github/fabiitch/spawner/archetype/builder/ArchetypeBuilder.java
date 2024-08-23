@@ -3,7 +3,7 @@ package com.github.fabiitch.spawner.archetype.builder;
 import com.badlogic.gdx.utils.Array;
 import com.github.fabiitch.spawner.WorldConfig;
 import com.github.fabiitch.spawner.archetype.ArchetypeBuilderException;
-import com.github.fabiitch.spawner.EntityPart;
+import com.github.fabiitch.spawner.DataType;
 import com.github.fabiitch.spawner.archetype.IArchetype;
 import com.github.fabiitch.spawner.archetype.criteria.QueryCriteria;
 import lombok.Getter;
@@ -97,7 +97,7 @@ public class ArchetypeBuilder {
             return oneAccept.isEmpty() && oneExclude.isEmpty() && allAccept.isEmpty() && allExclude.isEmpty();
         }
 
-        public void isValid(EntityPart part) {
+        public void isValid(DataType part) {
             for (Class<?> classOneAccepted : oneAccept) {
                 if (oneExclude.contains(classOneAccepted, true))
                     throw new ArchetypeBuilderException(part + " : one accept intersect one exclude on " + classOneAccepted.getSimpleName());

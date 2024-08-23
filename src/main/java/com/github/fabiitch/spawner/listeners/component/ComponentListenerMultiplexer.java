@@ -1,10 +1,6 @@
-package com.github.fabiitch.spawner.component;
+package com.github.fabiitch.spawner.listeners.component;
 
 import com.badlogic.gdx.utils.Array;
-import com.github.fabiitch.spawner.listeners.component.ComponentListener;
-import com.github.fabiitch.spawner.listeners.component.ComponentAddListener;
-import com.github.fabiitch.spawner.listeners.component.ComponentRemoveListener;
-import com.github.fabiitch.spawner.listeners.component.ComponentUpdateListener;
 
 public class ComponentListenerMultiplexer<C> implements ComponentListener<C> {
 

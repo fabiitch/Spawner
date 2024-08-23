@@ -1,6 +1,6 @@
 package com.github.fabiitch.spawner.component;
 
-import com.github.fabiitch.spawner.data.DataChange;
+import com.github.fabiitch.spawner.data.DataOperation;
 import com.github.fabiitch.spawner.operation.EcsOperation;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,11 +11,11 @@ import lombok.Setter;
     private int entityId;
     private Object component;
     private ComponentMapper mapper;
-    private DataChange dataChange;
+    private DataOperation dataOperation;
 
     @Override
     public void apply() {
-        switch (dataChange){
+        switch (dataOperation){
             case Add:
                 mapper.addReallyComponent(entityId, component);
                 break;
