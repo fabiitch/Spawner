@@ -1,11 +1,11 @@
 package com.github.fabiitch.spawner.aspect;
 
-import com.github.fabiitch.spawner.data.DataChange;
+import com.github.fabiitch.spawner.data.DataOperation;
 
 public class AspectOperation {
 
     private AspectMapper<?> mapper;
-    private DataChange operation;
+    private DataOperation operation;
 
 
 

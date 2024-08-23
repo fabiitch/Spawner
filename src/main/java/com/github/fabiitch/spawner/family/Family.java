@@ -10,7 +10,7 @@ import com.github.fabiitch.spawner.archetype.criteria.FlagsMatcher;
 import com.github.fabiitch.spawner.impact.BehaviorImpacted;
 import com.github.fabiitch.spawner.impact.ComponentImpacted;
 import com.github.fabiitch.spawner.impact.FlagImpacted;
-import com.github.fabiitch.spawner.listeners.FamilyListener;
+import com.github.fabiitch.spawner.listeners.family.FamilyListener;
 import com.github.fabiitch.spawner.operation.locker.EcsDataTypeLock;
 import com.github.fabiitch.spawner.operation.locker.EcsDataTypeLocker;
 import com.github.fabiitch.spawner.query.EntityFilter;

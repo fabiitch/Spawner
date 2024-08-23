@@ -5,7 +5,7 @@ import com.github.fabiitch.spawner.archetype.criteria.QueryCriteria;
 import com.github.fabiitch.spawner.entity.EntityReference;
 import com.github.fabiitch.spawner.entity.Prototype;
 import com.github.fabiitch.spawner.family.Family;
-import com.github.fabiitch.spawner.listeners.FamilyListener;
+import com.github.fabiitch.spawner.listeners.family.FamilyListener;
 import com.github.fabiitch.spawner.BaseTest;
 import com.github.fabiitch.spawner.data.components.PositionComponent;
 import com.github.fabiitch.spawner.data.components.attack.PoisonAuraComponent;

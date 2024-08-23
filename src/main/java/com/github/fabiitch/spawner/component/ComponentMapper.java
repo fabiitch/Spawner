@@ -1,9 +1,9 @@
 package com.github.fabiitch.spawner.component;
 
 import com.badlogic.gdx.utils.Array;
-import com.github.fabiitch.spawner.groups.EntityData;
 import com.github.fabiitch.spawner.impact.ComponentImpacted;
 import com.github.fabiitch.spawner.listeners.component.ComponentListener;
+import com.github.fabiitch.spawner.listeners.component.ComponentListenerMultiplexer;
 import com.github.fabiitch.spawner.utils.mappers.ObjectMapper;
 
 public class ComponentMapper<T> extends ObjectMapper<T, ComponentListener<T>> implements ComponentImpacted {

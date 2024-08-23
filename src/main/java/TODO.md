@@ -1,4 +1,4 @@
-DataLock - Operatio
+DataLock - Operation
 
 create new world
 
@@ -9,4 +9,4 @@ topics
 archetypeTree
 
 
-behavior , aspect ?? vraiement besoin
+behavior , aspect ?? vraiment besoin
