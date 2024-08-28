@@ -1,4 +1,4 @@
-package com.github.fabiitch.spawner.groups;
+package com.github.fabiitch.spawner.data;
 
 import com.badlogic.gdx.utils.Pool;
 import com.github.fabiitch.spawner.wrapper.EntityWrapper;
